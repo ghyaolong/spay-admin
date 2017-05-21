@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.PayApplyMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayApply">
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="BEFOREBALANCE" property="beforebalance" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="BALANCEAMOUNT" property="balanceamount" jdbcType="VARCHAR" />
+    <result column="BALANCEDATE" property="balancedate" jdbcType="DECIMAL" />
+    <result column="APPLYNAME" property="applyname" jdbcType="VARCHAR" />
+    <result column="ASSESSOR" property="assessor" jdbcType="VARCHAR" />
+    <result column="ASSESSORDATE" property="assessordate" jdbcType="DECIMAL" />
+    <result column="ADVICE" property="advice" jdbcType="VARCHAR" />
+    <result column="APPLYTYPE" property="applytype" jdbcType="VARCHAR" />
+     <result column="APPLYDATE" property="applydate" jdbcType="DECIMAL" />
+  </resultMap>
+  <!-- 添加调账申请 -->
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.PayApply" >
+     <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select lpad(T_PAY_APPLYBALANCE_sequence.nextval,32,0) from dual
+      </selectKey>
+    insert into T_PAY_APPLYBALANCE (ID, USER_ID, BEFOREBALANCE, 
+      STATE, BALANCEAMOUNT, BALANCEDATE, 
+      APPLYNAME, ASSESSOR, ASSESSORDATE, 
+      ADVICE,APPLYTYPE,APPLYDATE)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{beforebalance,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{balanceamount,jdbcType=VARCHAR}, #{balancedate,jdbcType=TIMESTAMP}, 
+      #{applyname,jdbcType=VARCHAR}, #{assessor,jdbcType=VARCHAR}, #{assessordate,jdbcType=DECIMAL}, 
+      #{advice,jdbcType=VARCHAR},
+      #{applytype,jdbcType=VARCHAR},
+       #{applydate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.PayApply" >
+    insert into T_PAY_APPLYBALANCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="beforebalance != null" >
+        BEFOREBALANCE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="balanceamount != null" >
+        BALANCEAMOUNT,
+      </if>
+      <if test="balancedate != null" >
+        BALANCEDATE,
+      </if>
+      <if test="applyname != null" >
+        APPLYNAME,
+      </if>
+      <if test="assessor != null" >
+        ASSESSOR,
+      </if>
+      <if test="assessordate != null" >
+        ASSESSORDATE,
+      </if>
+      <if test="advice != null" >
+        ADVICE,
+      </if>
+       <if test="applytype != null" >
+        APPLYTYPE,
+      </if>
+       <if test="applydate != null" >
+            APPLYDATE
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="beforebalance != null" >
+        #{beforebalance,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceamount != null" >
+        #{balanceamount,jdbcType=VARCHAR},
+      </if>
+      <if test="balancedate != null" >
+        #{balancedate,jdbcType=DECIMAL},
+      </if>
+      <if test="applyname != null" >
+        #{applyname,jdbcType=VARCHAR},
+      </if>
+      <if test="assessor != null" >
+        #{assessor,jdbcType=VARCHAR},
+      </if>
+      <if test="assessordate != null" >
+        #{assessordate,jdbcType=DECIMAL},
+      </if>
+      <if test="advice != null" >
+        #{advice,jdbcType=VARCHAR},
+      </if>
+      <if test="applytype != null" >
+        #{applytype,jdbcType=VARCHAR},
+      </if>
+       <if test="applydate != null" >
+        #{applydate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+   <!-- 查询所有调账 -->
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.PayApply" parameterType="com.syhbuy.spay.admin.entity.PayApply">
+       select
+		 a.ID as id,
+		 a.USER_ID as userId,
+		 a.BEFOREBALANCE as beforebalance,
+		 case 
+ 		 WHEN a.STATE='1' THEN '审核中' 
+ 		 WHEN a.STATE='2' THEN '审核通过' 
+	     ELSE '审核驳回'
+  	     end as state,
+		 a.BALANCEAMOUNT as balanceamount,
+		 a.BALANCEDATE as balancedate,
+		 a.APPLYNAME as applyname,
+		 a.APPLYDATE as applydate,
+		 a.ASSESSOR as assessor,
+		 a.ASSESSORDATE as assessordate,
+		 a.ADVICE as advice,
+         b.ACCOUNT_BALANCE as accountBalance,
+		 case 
+ 		 WHEN a.APPLYTYPE='0' THEN '增加金额' 
+ 		 WHEN a.APPLYTYPE='1' THEN '减少金额' 
+  	     end as applytype
+	 from
+	   T_PAY_APPLYBALANCE a 
+       left join T_PAY_BALANCE b on b.USER_ID = a.USER_ID
+	   where 1=1
+	    <if test="userId!=null and userId!=''">
+            and a.USER_ID like '%'||#{userId,jdbcType=VARCHAR}||'%'
+        </if>
+	    <if test="state!=null and state!=''">
+            and a.STATE like '%'||#{state,jdbcType=VARCHAR}||'%'
+        </if>
+	    <if test="balanceamount!=null and balanceamount!=''">
+            and a.BALANCEAMOUNT like '%'||#{balanceamount,jdbcType=VARCHAR}||'%'
+        </if>
+	    <if test="applytype!=null and applytype!=''">
+            and a.APPLYTYPE like '%'||#{applytype,jdbcType=VARCHAR}||'%' 
+        </if>
+           order by a.APPLYDATE desc
+  </select>
+  
+   <select id="ById" resultType="com.syhbuy.spay.admin.entity.PayApply" parameterType="java.lang.String">
+       select
+		 ID as id,
+		 USER_ID as userId,
+		 BEFOREBALANCE as beforebalance,
+		 case 
+ 		 WHEN STATE='1' THEN '审核中' 
+ 		 WHEN STATE='2' THEN '审核通过' 
+	     ELSE '审核驳回'
+  	     end as state,
+		 BALANCEAMOUNT as balanceamount,
+		 BALANCEDATE as balancedate,
+		 APPLYNAME as applyname,
+		 APPLYDATE as applydate,
+		 ASSESSOR as assessor,
+		 ASSESSORDATE as assessordate,
+		 ADVICE as advice,
+		 case 
+ 		 WHEN APPLYTYPE='0' THEN '增加金额' 
+	     ELSE '减少金额'
+  	     end as applytype
+	 from
+	   T_PAY_APPLYBALANCE  
+	   where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 改变审核状态 -->
+   <update id="changeType" parameterType="com.syhbuy.spay.admin.entity.PayApply">
+     update T_PAY_APPLYBALANCE
+    set 
+       STATE = #{state}
+       where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

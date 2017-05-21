@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.LoginInfoMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.LoginInfo">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="LOGIN_TYPE" jdbcType="VARCHAR" property="loginType" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="LOGIN_PASSWORD" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+    <result column="INFO" jdbcType="VARCHAR" property="info" />
+    <result column="CREATE_DATE" jdbcType="DECIMAL" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, LOGIN_TYPE, PHONE, LOGIN_PASSWORD, OPEN_ID, INFO,CREATE_DATE
+  </sql>
+  
+  <!-- LoginInfo列表页 -->
+  <select id="findAllLoginInfo" parameterType="com.syhbuy.spay.admin.entity.LoginInfo" resultType="com.syhbuy.spay.admin.entity.LoginInfo">
+    select 
+    ID as id, 
+    USER_ID as userId,
+    CASE 
+ 		WHEN LOGIN_TYPE='phone' THEN '手机登录' 
+ 		WHEN LOGIN_TYPE='weixin' THEN '微信登录' 
+ 		WHEN LOGIN_TYPE='qq' THEN 'QQ登录' 
+	ELSE '其他登录'
+  	end as loginType, 
+    PHONE as phone, 
+    LOGIN_PASSWORD as loginPassword, 
+    OPEN_ID as openId, 
+    INFO as info,
+    CREATE_DATE as createDate
+    from T_PAY_USER_LOGIN_INFO
+    where 1=1 
+    <if test="phone != null and phone != ''" >
+      and PHONE  LIKE '%'||#{phone}||'%'
+   	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_PAY_USER_LOGIN_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.LoginInfo">
+    insert into T_PAY_USER_LOGIN_INFO (ID, USER_ID, LOGIN_TYPE, 
+      PHONE, LOGIN_PASSWORD, OPEN_ID, 
+      INFO,CREATE_DATE)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{loginType,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR},#{createDate,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.LoginInfo">
+    update T_PAY_USER_LOGIN_INFO
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      LOGIN_TYPE = #{loginType,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
+      OPEN_ID = #{openId,jdbcType=VARCHAR},
+      INFO = #{info,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

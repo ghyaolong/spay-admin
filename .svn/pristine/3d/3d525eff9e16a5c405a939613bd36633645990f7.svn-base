@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.RuleManageMapper" >
+  <select id="findAllRuleManage" resultType="com.syhbuy.spay.admin.entityVo.RuleVo" parameterType="com.syhbuy.spay.admin.entityVo.RuleVo">
+        select 
+        a.ID as id,
+        a.rule_desc as ruleDesc,
+        a.create_time as createTime,
+		b.time_ref_type as timeRefType,
+		b.time_interval as timeInterval,
+		b.reward_name as rewardName,
+		c.reward_ref as rewardRef,
+		b.amount as amount,
+		b.price as price,
+		c.bonus as bonus,
+		c.is_indate as isIndate,
+		c.indate as indate, 
+		case 
+		when c.REWARD_OBJ_TYPE='0' then '买方'
+		when c.REWARD_OBJ_TYPE='1' then '卖方'
+		when c.REWARD_OBJ_TYPE='2' then '第三方'
+		end as rewardObjType,
+		case 
+		when c.REWARD_TYPE='0' then '现金'
+		when c.REWARD_TYPE='1' then '代金券'
+		end as rewardType,
+		case 
+		when b.TIME_REF_TYPE='0' then '订单支付成功后'
+		end as timeRefeTypes
+		from T_PAY_RULE a
+          left join T_PAY_REWARD b on a.id = b.RULE_ID
+	      left join T_PAY_BUSINESS c on c.REWARD_ID= b.ID
+		where 1=1 
+		
+	<if test="ruleDesc != null and ruleDesc != ''" >
+      and a.rule_desc  LIKE '%'||#{ruleDesc}||'%'
+   </if>  
+   <if test="rewardName != null and rewardName != ''" >
+      and b.reward_name  LIKE '%'||#{rewardName}||'%'
+   </if>
+  </select>
+  
+  <!-- 创建规则 -->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.Rule">
+    insert into T_PAY_RULE (
+    	ID, 
+    	BUSINESS_ID, 
+    	RULE_DESC, 
+        IS_DEL, 
+        DEL_TIME,
+        CREATE_TIME
+      )
+    values (
+      #{id,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=VARCHAR}, 
+      #{ruleDesc,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, 
+      #{delTime,jdbcType=DECIMAL},
+      #{createTime,jdbcType=DECIMAL}
+      )
+  </insert>
+  
+      
+</mapper>

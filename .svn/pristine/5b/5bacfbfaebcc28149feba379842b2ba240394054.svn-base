@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.ReturnTaskPoolMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.ReturnTaskPool" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="TASK_TYPE" property="taskType" jdbcType="VARCHAR" />
+    <result column="DENOMINATION" property="denomination" jdbcType="DECIMAL" />
+    <result column="GENERATE_TIME" property="generateTime" jdbcType="DECIMAL" />
+    <result column="ENABLE_TIME" property="enableTime" jdbcType="DECIMAL" />
+    <result column="DISABLE_TIME" property="disableTime" jdbcType="DECIMAL" />
+    <result column="DIRECT_OBJ_CATEGORY" property="directObjCategory" jdbcType="VARCHAR" />
+    <result column="DIRECT_OBJ_ID" property="directObjId" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+    <result column="RULE_ID" property="ruleId" jdbcType="VARCHAR" />
+    <result column="TIME_REFE_TYPES" property="timeRefeTypes" jdbcType="DECIMAL" />
+    <result column="TIME_INTERVAL" property="timeInterval" jdbcType="DECIMAL" />
+    <result column="PERIOD_TIME" property="periodTime" jdbcType="DECIMAL" />
+    <result column="REWARD_OBJ_TYPE" property="rewardObjType" jdbcType="VARCHAR" />
+    <result column="REWARD_TYPE" property="rewardType" jdbcType="VARCHAR" />
+    <result column="REWARD_REF" property="rewardRef" jdbcType="VARCHAR" />
+    <result column="TRTAN_ID" property="trtanId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="TRANS_TYPE" property="transType" jdbcType="VARCHAR" />
+    <result column="COUPON_TYPE" property="couponType" jdbcType="VARCHAR" />
+    <result column="TRAN_TIME" property="tranTime" jdbcType="DECIMAL" />
+    <result column="IS_RETURN" property="isReturn" jdbcType="VARCHAR" />
+    <result column="FANQUAN_ID" property="fanquanId" jdbcType="DECIMAL" />
+    <result column="COMMON_ID" property="commonId" jdbcType="DECIMAL" />
+    <result column="MEMBER_ID" property="memberId" jdbcType="DECIMAL" />
+    <result column="FANQUAN_TYPE" property="fanquanType" jdbcType="DECIMAL" />
+    <result column="FANQUAN_ORDER_NUM" property="fanquanOrderNum" jdbcType="VARCHAR" />
+    <result column="FREEZE_ALIVE" property="freezeAlive" jdbcType="VARCHAR" />
+    <result column="OVERDUE_ALIVE" property="overdueAlive" jdbcType="DECIMAL" />
+    <result column="COMPANY" property="company" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="IS_OVERDUE" property="isOverdue" jdbcType="DECIMAL" />
+    <result column="IS_BREAK" property="isBreak" jdbcType="DECIMAL" />
+    <result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+    <result column="FREEZE_DATE" property="freezeDate" jdbcType="VARCHAR" />
+    <result column="DIRECT_OBJ_ID2" property="directObjId2" jdbcType="VARCHAR" />
+    <result column="DIRECT_OBJ_ID3" property="directObjId3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TYPE, TITLE,TASK_TYPE, DENOMINATION, GENERATE_TIME, ENABLE_TIME, DISABLE_TIME, DIRECT_OBJ_CATEGORY, 
+    DIRECT_OBJ_ID, IS_DEL, DEL_TIME, RULE_ID, TIME_REFE_TYPES, TIME_INTERVAL, PERIOD_TIME, 
+    REWARD_OBJ_TYPE, REWARD_TYPE, REWARD_REF, TRTAN_ID, USER_ID, TRANS_TYPE, COUPON_TYPE, 
+    TRAN_TIME, IS_RETURN, FANQUAN_ID, COMMON_ID, MEMBER_ID, FANQUAN_TYPE, FANQUAN_ORDER_NUM, 
+    FREEZE_ALIVE, OVERDUE_ALIVE, COMPANY, DESCRIPTION, IS_OVERDUE, IS_BREAK, COUPON_MONEY, 
+    FREEZE_DATE,DIRECT_OBJ_ID2,DIRECT_OBJ_ID3
+  </sql>
+  
+  <!-- 待返任务池列表页 -->
+ <select id="findAll" resultType="com.syhbuy.spay.admin.entity.ReturnTaskPool" parameterType="com.syhbuy.spay.admin.entity.ReturnTaskPool">
+    select 
+   	tp.ID as id, 
+   	case
+         WHEN tp.TYPE='0' THEN '余额'
+         WHEN tp.TYPE='1' THEN '代金券'
+       end as  type ,    
+   	case
+         WHEN tp.TASK_TYPE='0' THEN '正常业务'
+         WHEN tp.TASK_TYPE='1' THEN '后台添加'
+       end as  taskType ,    
+   	tp.TITLE as title, 
+   	tp.DENOMINATION as denomination, 
+   	tp.GENERATE_TIME as generateTime, 
+   	tp.ENABLE_TIME as enableTime, 
+   	tp.DISABLE_TIME as disableTime, 
+   	tp.DIRECT_OBJ_CATEGORY as directObjCategory, 
+    tp.DIRECT_OBJ_ID as directObjId, 
+    tp.IS_DEL as isDel, 
+    tp.DEL_TIME as delTime, 
+    tp.RULE_ID as ruleId, 
+    tp.TIME_REFE_TYPES as timeRefeTypes, 
+    tp.TIME_INTERVAL as timeInterval, 
+    tp.PERIOD_TIME as periodTime, 
+    tp.REWARD_OBJ_TYPE as rewardObjType, 
+    tp.REWARD_TYPE as rewardType, 
+    tp.REWARD_REF as rewardRef, 
+    tp.TRTAN_ID as trtanId, 
+    tp.USER_ID as userId, 
+    tp.TRANS_TYPE as transType, 
+    tp.COUPON_TYPE as couponType, 
+    tp.TRAN_TIME as tranTime, 
+    tp.IS_RETURN as isReturn, 
+    tp.FANQUAN_ID as fanquanId, 
+    tp.COMMON_ID as commonId, 
+    tp.MEMBER_ID as memberId, 
+    tp.FANQUAN_TYPE as fanquanType, 
+    tp.FANQUAN_ORDER_NUM as fanquanOrderNum,
+    CASE 
+ 		WHEN tp.FREEZE_ALIVE='0' THEN '正常' 
+		ELSE '停用'
+  	end as freezeAlive , 
+    tp.OVERDUE_ALIVE as overdueAlive, 
+    tp.COMPANY as company, 
+    tp.DESCRIPTION as description, 
+    tp.IS_OVERDUE as isOverdue, 
+    tp.IS_BREAK as isBreak, 
+    tp.COUPON_MONEY as couponMoney, 
+    tp.DIRECT_OBJ_ID2 as directObjId2, 
+    tp.DIRECT_OBJ_ID3 as directObjId3, 
+    tp.FREEZE_DATE as freezeDate
+    from 
+    T_PAY_RETURN_TASK_POOL tp
+    where 1=1
+    <if test="title != null and title != ''">
+        and tp.TITLE  LIKE '%'||#{title}||'%'
+    </if>
+    <if test="denomination != null and denomination != ''">
+        and tp.DENOMINATION  LIKE '%'||#{denomination}||'%'
+    </if>
+    <if test="taskType != null and taskType != ''">
+        and tp.TASK_TYPE  LIKE '%'||#{taskType}||'%'
+    </if>
+    <if test="freezeAlive != null and freezeAlive != ''">
+        and tp.FREEZE_ALIVE  LIKE '%'||#{freezeAlive}||'%'
+    </if>
+  </select>
+  <!-- 添加待返任务池-->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.ReturnTaskPool" >
+      <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select lpad(T_PAY_TASK_POOL_sequence.nextval,32,0) from dual
+      </selectKey>
+    insert into
+     T_PAY_RETURN_TASK_POOL (ID, TYPE, TITLE, TASK_TYPE,
+      DENOMINATION, GENERATE_TIME, ENABLE_TIME, 
+      DISABLE_TIME, DIRECT_OBJ_CATEGORY, DIRECT_OBJ_ID, 
+      IS_DEL, DEL_TIME, RULE_ID, 
+      TIME_REFE_TYPES, TIME_INTERVAL, PERIOD_TIME, 
+      REWARD_OBJ_TYPE, REWARD_TYPE, REWARD_REF, 
+      TRTAN_ID, USER_ID, TRANS_TYPE, 
+      COUPON_TYPE, TRAN_TIME, IS_RETURN, 
+      FANQUAN_ID, COMMON_ID, MEMBER_ID, 
+      FANQUAN_TYPE, FANQUAN_ORDER_NUM, FREEZE_ALIVE, 
+      OVERDUE_ALIVE, COMPANY, DESCRIPTION, 
+      IS_OVERDUE, IS_BREAK, COUPON_MONEY,DIRECT_OBJ_ID2,DIRECT_OBJ_ID3, 
+      FREEZE_DATE)
+    values (
+      #{id,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR},
+      #{taskType,jdbcType=VARCHAR}, 
+      #{denomination,jdbcType=DECIMAL}, #{generateTime,jdbcType=DECIMAL}, #{enableTime,jdbcType=DECIMAL}, 
+      #{disableTime,jdbcType=DECIMAL}, #{directObjCategory,jdbcType=VARCHAR}, #{directObjId,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, #{delTime,jdbcType=DECIMAL}, #{ruleId,jdbcType=VARCHAR}, 
+      #{timeRefeTypes,jdbcType=DECIMAL}, #{timeInterval,jdbcType=DECIMAL}, #{periodTime,jdbcType=DECIMAL}, 
+      #{rewardObjType,jdbcType=VARCHAR}, #{rewardType,jdbcType=VARCHAR}, #{rewardRef,jdbcType=VARCHAR}, 
+      #{trtanId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{transType,jdbcType=VARCHAR}, 
+      #{couponType,jdbcType=VARCHAR}, #{tranTime,jdbcType=DECIMAL}, #{isReturn,jdbcType=VARCHAR}, 
+      #{fanquanId,jdbcType=DECIMAL}, #{commonId,jdbcType=DECIMAL}, #{memberId,jdbcType=DECIMAL}, 
+      #{fanquanType,jdbcType=DECIMAL}, #{fanquanOrderNum,jdbcType=VARCHAR}, #{freezeAlive,jdbcType=VARCHAR}, 
+      #{overdueAlive,jdbcType=DECIMAL}, #{company,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{isOverdue,jdbcType=DECIMAL}, #{isBreak,jdbcType=DECIMAL}, #{couponMoney,jdbcType=DECIMAL}, 
+      #{directObjId2,jdbcType=DECIMAL},#{directObjId3,jdbcType=DECIMAL},#{freezeDate,jdbcType=VARCHAR})
+  </insert>
+  <!-- 根据ID查询 -->
+  <select id="ById" resultType="com.syhbuy.spay.admin.entity.ReturnTaskPool" parameterType="com.syhbuy.spay.admin.entity.ReturnTaskPool">
+    select 
+   	tp.ID as id,
+   	tp.TYPE as type, 
+   	tp.TASK_TYPE as taskType, 
+   	tp.TITLE as title, 
+   	tp.DENOMINATION as denomination, 
+   	tp.GENERATE_TIME as generateTime, 
+   	tp.ENABLE_TIME as enableTime, 
+   	tp.DISABLE_TIME as disableTime, 
+   	tp.DIRECT_OBJ_CATEGORY as directObjCategory, 
+    tp.DIRECT_OBJ_ID as directObjId, 
+    tp.IS_DEL as isDel, 
+    tp.DEL_TIME as delTime, 
+    tp.RULE_ID as ruleId, 
+    tp.TIME_REFE_TYPES as timeRefeTypes, 
+    tp.TIME_INTERVAL as timeInterval, 
+    tp.PERIOD_TIME as periodTime, 
+    tp.REWARD_OBJ_TYPE as rewardObjType, 
+    tp.REWARD_TYPE as rewardType, 
+    tp.REWARD_REF as rewardRef, 
+    tp.TRTAN_ID as trtanId, 
+    tp.USER_ID as userId, 
+    tp.TRANS_TYPE as transType, 
+    tp.COUPON_TYPE as couponType, 
+    tp.TRAN_TIME as tranTime, 
+    tp.IS_RETURN as isReturn, 
+    tp.FANQUAN_ID as fanquanId, 
+    tp.COMMON_ID as commonId, 
+    tp.MEMBER_ID as memberId, 
+    tp.FANQUAN_TYPE as fanquanType, 
+    tp.FANQUAN_ORDER_NUM as fanquanOrderNum,
+    tp.FREEZE_ALIVE as freezeAlive,
+    tp.OVERDUE_ALIVE as overdueAlive, 
+    tp.COMPANY as company, 
+    tp.DESCRIPTION as description, 
+    tp.IS_OVERDUE as isOverdue, 
+    tp.IS_BREAK as isBreak, 
+    tp.COUPON_MONEY as couponMoney,
+    tp.DIRECT_OBJ_ID2 as directObjId2, 
+    tp.DIRECT_OBJ_ID3 as directObjId3,  
+    tp.FREEZE_DATE as freezeDate
+    from 
+    T_PAY_RETURN_TASK_POOL tp
+    where ID=#{id}
+  </select>
+  
+ <!-- 修改待返任务池状态 -->
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.ReturnTaskPool" >
+    update T_PAY_RETURN_TASK_POOL
+    set 
+      FREEZE_ALIVE = #{freezeAlive,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 导出Excel表格 -->
+  <select id="Excel" resultType="com.syhbuy.spay.admin.entity.ReturnTaskPool" parameterType="com.syhbuy.spay.admin.entity.ReturnTaskPool">
+    select 
+   	tp.ID as id, 
+   	case
+         WHEN tp.TYPE='0' THEN '余额'
+         WHEN tp.TYPE='1' THEN '代金券'
+       end as  type ,    
+   	case
+         WHEN tp.TASK_TYPE='0' THEN '正常业务'
+         WHEN tp.TASK_TYPE='1' THEN '后台添加'
+       end as  taskType ,    
+   	tp.TITLE as title, 
+   	tp.DENOMINATION as denomination, 
+   	tp.GENERATE_TIME as generateTime, 
+   	tp.ENABLE_TIME as enableTime, 
+   	tp.DISABLE_TIME as disableTime, 
+   	tp.DIRECT_OBJ_CATEGORY as directObjCategory, 
+    tp.DIRECT_OBJ_ID as directObjId, 
+    tp.IS_DEL as isDel, 
+    tp.DEL_TIME as delTime, 
+    tp.RULE_ID as ruleId, 
+    tp.TIME_REFE_TYPES as timeRefeTypes, 
+    tp.TIME_INTERVAL as timeInterval, 
+    tp.PERIOD_TIME as periodTime, 
+    tp.REWARD_OBJ_TYPE as rewardObjType, 
+    tp.REWARD_TYPE as rewardType, 
+    tp.REWARD_REF as rewardRef, 
+    tp.TRTAN_ID as trtanId, 
+    tp.USER_ID as userId, 
+    tp.TRANS_TYPE as transType, 
+    tp.COUPON_TYPE as couponType, 
+    tp.TRAN_TIME as tranTime, 
+    tp.IS_RETURN as isReturn, 
+    tp.FANQUAN_ID as fanquanId, 
+    tp.COMMON_ID as commonId, 
+    tp.MEMBER_ID as memberId, 
+    tp.FANQUAN_TYPE as fanquanType, 
+    tp.FANQUAN_ORDER_NUM as fanquanOrderNum,
+    CASE 
+ 		WHEN tp.FREEZE_ALIVE='0' THEN '正常' 
+		ELSE '停用'
+  	end as freezeAlive , 
+    tp.OVERDUE_ALIVE as overdueAlive, 
+    tp.COMPANY as company, 
+    tp.DESCRIPTION as description, 
+    tp.IS_OVERDUE as isOverdue, 
+    tp.IS_BREAK as isBreak, 
+    tp.COUPON_MONEY as couponMoney,
+    tp.DIRECT_OBJ_ID2 as directObjId2, 
+    tp.DIRECT_OBJ_ID3 as directObjId3,  
+    tp.FREEZE_DATE as freezeDate
+    from 
+    T_PAY_RETURN_TASK_POOL tp
+    where 1=1
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.ReturnTaskPool" >
+    update T_PAY_RETURN_TASK_POOL
+    set 
+      TYPE = #{type,jdbcType=VARCHAR},
+      TASK_TYPE = #{taskType,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      DENOMINATION = #{denomination,jdbcType=DECIMAL},
+      GENERATE_TIME = #{generateTime,jdbcType=DECIMAL},
+      ENABLE_TIME = #{enableTime,jdbcType=DECIMAL},
+      DISABLE_TIME = #{disableTime,jdbcType=DECIMAL},
+      DIRECT_OBJ_CATEGORY = #{directObjCategory,jdbcType=VARCHAR},
+      DIRECT_OBJ_ID = #{directObjId,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=VARCHAR},
+      DEL_TIME = #{delTime,jdbcType=DECIMAL},
+      RULE_ID = #{ruleId,jdbcType=VARCHAR},
+      TIME_REFE_TYPES = #{timeRefeTypes,jdbcType=DECIMAL},
+      TIME_INTERVAL = #{timeInterval,jdbcType=DECIMAL},
+      PERIOD_TIME = #{periodTime,jdbcType=DECIMAL},
+      REWARD_OBJ_TYPE = #{rewardObjType,jdbcType=VARCHAR},
+      REWARD_TYPE = #{rewardType,jdbcType=VARCHAR},
+      REWARD_REF = #{rewardRef,jdbcType=VARCHAR},
+      TRTAN_ID = #{trtanId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      TRANS_TYPE = #{transType,jdbcType=VARCHAR},
+      COUPON_TYPE = #{couponType,jdbcType=VARCHAR},
+      TRAN_TIME = #{tranTime,jdbcType=DECIMAL},
+      IS_RETURN = #{isReturn,jdbcType=VARCHAR},
+      FANQUAN_ID = #{fanquanId,jdbcType=DECIMAL},
+      COMMON_ID = #{commonId,jdbcType=DECIMAL},
+      MEMBER_ID = #{memberId,jdbcType=DECIMAL},
+      FANQUAN_TYPE = #{fanquanType,jdbcType=DECIMAL},
+      FANQUAN_ORDER_NUM = #{fanquanOrderNum,jdbcType=VARCHAR},
+      FREEZE_ALIVE = #{freezeAlive,jdbcType=VARCHAR},
+      OVERDUE_ALIVE = #{overdueAlive,jdbcType=DECIMAL},
+      COMPANY = #{company,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      IS_OVERDUE = #{isOverdue,jdbcType=DECIMAL},
+      IS_BREAK = #{isBreak,jdbcType=DECIMAL},
+      COUPON_MONEY = #{couponMoney,jdbcType=DECIMAL},
+      FREEZE_DATE = #{freezeDate,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.TerraceActiveMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.TerraceActive" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="ACTIVE_INSTRUCTION" property="activeInstruction" jdbcType="VARCHAR" />
+    <result column="BEGIN_TIME" property="beginTime" jdbcType="DECIMAL" />
+    <result column="END_TIME" property="endTime" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TITLE, ACTIVE_INSTRUCTION, BEGIN_TIME, END_TIME, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PAY_TERRACE_ACTIVE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_PAY_TERRACE_ACTIVE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.TerraceActive" >
+    insert into T_PAY_TERRACE_ACTIVE (ID, TITLE, ACTIVE_INSTRUCTION, 
+      BEGIN_TIME, END_TIME, STATUS
+      )
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{activeInstruction,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=DECIMAL}, #{endTime,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.TerraceActive" >
+    insert into T_PAY_TERRACE_ACTIVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="activeInstruction != null" >
+        ACTIVE_INSTRUCTION,
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="activeInstruction != null" >
+        #{activeInstruction,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=DECIMAL},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.syhbuy.spay.admin.entity.TerraceActive" >
+    update T_PAY_TERRACE_ACTIVE
+    <set >
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="activeInstruction != null" >
+        ACTIVE_INSTRUCTION = #{activeInstruction,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME = #{beginTime,jdbcType=DECIMAL},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.TerraceActive" >
+    update T_PAY_TERRACE_ACTIVE
+    set TITLE = #{title,jdbcType=VARCHAR},
+      ACTIVE_INSTRUCTION = #{activeInstruction,jdbcType=VARCHAR},
+      BEGIN_TIME = #{beginTime,jdbcType=DECIMAL},
+      END_TIME = #{endTime,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  	
+   <!-- 平台活动列表页 -->
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.TerraceActive" parameterType="com.syhbuy.spay.admin.entity.TerraceActive">
+   select 
+  	ID as id,
+	TITLE as title,
+	ACTIVE_INSTRUCTION as activeInstruction,
+	BEGIN_TIME as beginTime,
+	END_TIME as endTime,
+	<!-- 	STATUS as status, -->
+	case 
+ 		 WHEN STATUS='0' THEN '有效'
+ 		ELSE '无效'
+  	end as status
+	from T_PAY_TERRACE_ACTIVE
+	where 1=1
+	<if test="title!=null and title!=''">
+         and TITLE like '%'||#{title,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="status!=null and status!=''">
+         and STATUS like '%'||#{status,jdbcType=VARCHAR}||'%'
+    </if>
+  </select>
+   <!-- 添加平台活动 -->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.TerraceActive">
+      <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select lpad(T_PAY_TERRACE_ACTIVE_sequence.nextval,32,0) from dual
+      </selectKey>
+    insert into T_PAY_TERRACE_ACTIVE (
+    	ID,
+		TITLE,
+		ACTIVE_INSTRUCTION,
+		BEGIN_TIME,
+		END_TIME,
+		STATUS
+      )
+    values (
+      #{id,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, 
+      #{activeInstruction,jdbcType=VARCHAR},
+      #{beginTime,jdbcType=DECIMAL}, 
+      #{endTime,jdbcType=DECIMAL},
+      #{status,jdbcType=VARCHAR})
+  </insert>
+   <!-- 删除平台活动 -->
+  <delete id="deleteTerraceActive" parameterType="java.lang.String">
+    delete from T_PAY_TERRACE_ACTIVE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+    <!-- 根据ID查询 -->
+  <select id="terraceActiveById" resultType="com.syhbuy.spay.admin.entity.TerraceActive">
+    select 
+    ID as id, 
+    TITLE as title, 
+    ACTIVE_INSTRUCTION as activeInstruction,
+    BEGIN_TIME as beginTime, 
+    END_TIME as endTime,
+    STATUS as status
+    from T_PAY_TERRACE_ACTIVE
+     where ID=#{id}
+  </select>
+  <!-- 修改平台活动 -->
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.TerraceActive">
+    update T_PAY_TERRACE_ACTIVE
+    set 
+      TITLE = #{title,jdbcType=VARCHAR},
+      ACTIVE_INSTRUCTION = #{activeInstruction,jdbcType=VARCHAR},
+      BEGIN_TIME = #{beginTime,jdbcType=DECIMAL},
+      END_TIME = #{endTime,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

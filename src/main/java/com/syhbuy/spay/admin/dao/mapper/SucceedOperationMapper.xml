@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.SucceedOperationMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.SucceedOperation" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DESCRIPITION" property="descripition" jdbcType="VARCHAR" />
+    <result column="METHOD" property="method" jdbcType="VARCHAR" />
+    <result column="LOG_TYPE" property="logType" jdbcType="VARCHAR" />
+    <result column="REQUEST_IP" property="requestIp" jdbcType="VARCHAR" />
+    <result column="PARAMS" property="params" jdbcType="VARCHAR" />
+    <result column="CAREATE_BY" property="careateBy" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DECIMAL" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DESCRIPITION, METHOD, LOG_TYPE, REQUEST_IP, PARAMS, CAREATE_BY, CREATE_DATE, 
+    IS_DEL, DEL_TIME, CATEGORY
+  </sql>
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.SucceedOperation" parameterType="com.syhbuy.spay.admin.entity.SucceedOperation" >
+    select 
+     so.ID as id, 
+     so.DESCRIPITION as descripition, 
+     so.METHOD as method, 
+     so.LOG_TYPE as logType, 
+     so.REQUEST_IP as requestIp, 
+     so.PARAMS as params, 
+     so.CAREATE_BY as careateBy, 
+     so.CREATE_DATE as createDate, 
+     so.IS_DEL as isDel, 
+     so.DEL_TIME as delTime, 
+     so.CATEGORY as category,
+     pu.USER_NAME as userName
+    from T_PAY_USER_SUCCEED_OPERATION so
+    left join T_PAY_USER pu on pu.ID = so.CAREATE_BY
+    WHERE 1=1
+    <if test="careateBy != null and careateBy != ''">
+      and so.CAREATE_BY  LIKE '%'||#{careateBy}||'%'
+    </if>   
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_PAY_USER_SUCCEED_OPERATION
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.SucceedOperation" >
+    insert into T_PAY_USER_SUCCEED_OPERATION (ID, DESCRIPITION, METHOD, 
+      LOG_TYPE, REQUEST_IP, PARAMS, 
+      CAREATE_BY, CREATE_DATE, IS_DEL, 
+      DEL_TIME, CATEGORY)
+    values (#{id,jdbcType=VARCHAR}, #{descripition,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
+      #{logType,jdbcType=VARCHAR}, #{requestIp,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, 
+      #{careateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DECIMAL}, #{isDel,jdbcType=VARCHAR}, 
+      #{delTime,jdbcType=DECIMAL}, #{category,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.SucceedOperation" >
+    update T_PAY_USER_SUCCEED_OPERATION
+    set DESCRIPITION = #{descripition,jdbcType=VARCHAR},
+      METHOD = #{method,jdbcType=VARCHAR},
+      LOG_TYPE = #{logType,jdbcType=VARCHAR},
+      REQUEST_IP = #{requestIp,jdbcType=VARCHAR},
+      PARAMS = #{params,jdbcType=VARCHAR},
+      CAREATE_BY = #{careateBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=DECIMAL},
+      IS_DEL = #{isDel,jdbcType=VARCHAR},
+      DEL_TIME = #{delTime,jdbcType=DECIMAL},
+      CATEGORY = #{category,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

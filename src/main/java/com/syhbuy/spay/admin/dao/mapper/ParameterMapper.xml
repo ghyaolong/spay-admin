@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.ParameterMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.Parameter">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="RES_KEY" jdbcType="VARCHAR" property="reskey" />
+     <result column="RES_NAME" jdbcType="VARCHAR" property="resName" />
+    <result column="INDEX_KEY" jdbcType="VARCHAR" property="indexKey" />
+    <result column="INDEX_NAME" jdbcType="VARCHAR" property="indexName" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="PARAM_TYPE" jdbcType="VARCHAR" property="paramType" />
+    <result column="VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, RES_KEY, RES_NAME, INDEX_KEY,INDEX_NAME,CODE,DESCRIPTION,PARAM_TYPE,VALUE,IS_DEL
+  </sql>
+  
+  <select id="findAll" parameterType="com.syhbuy.spay.admin.entity.Parameter" resultType="com.syhbuy.spay.admin.entity.Parameter">
+    select 
+    	ID as id, 
+    	RES_KEY as reskey,
+    	RES_NAME as resName,
+    	INDEX_KEY as indexKey, 
+    	INDEX_NAME as indexName, 
+    	CODE as code, 
+    	DESCRIPTION as description,
+    	PARAM_TYPE as paramType,
+    	IS_DEL as isDel,
+    	VALUE as value
+    from T_PAY_PARAMETER where 1=1 
+    <if test="indexName!=null and indexName!=''">
+         and INDEX_NAME like '%'||#{indexName,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="code!=null and code!=''">
+         and CODE like '%'||#{code,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="reskey!=null and reskey!=''">
+         and RES_KEY like '%'||#{reskey,jdbcType=VARCHAR}||'%'
+    </if>
+    and IS_DEL='0'
+  </select>
+  
+  <!-- <delete id="deleteParameter" parameterType="com.syhbuy.spay.admin.entity.Parameter">
+    delete from T_PAY_PARAMETER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete> -->
+   <update id="deleteParameter" parameterType="java.lang.String">
+		update T_PAY_PARAMETER
+		<set>
+				IS_DEL = '1'
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+  
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.Parameter">
+      <selectKey keyProperty="id" resultType="String" order="BEFORE">
+         	select lpad(T_PAY_PARAMETER_sequence.nextval,32,0) from dual
+	  </selectKey>
+    insert into T_PAY_PARAMETER (
+   ID, RES_KEY, RES_NAME, INDEX_KEY,INDEX_NAME,CODE,DESCRIPTION,PARAM_TYPE,IS_DEL,VALUE)
+    values (
+      #{id,jdbcType=VARCHAR}, 
+      #{reskey,jdbcType=VARCHAR}, 
+      #{resName,jdbcType=VARCHAR},
+      #{indexKey,jdbcType=VARCHAR}, 
+      #{indexName,jdbcType=VARCHAR},
+      #{code,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR},
+      #{paramType,jdbcType=VARCHAR},
+      #{isDel,jdbcType=VARCHAR},
+      #{value,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+   <!-- 添加规则 -->
+   <update id="ruleAdd" parameterType="com.syhbuy.spay.admin.entity.Parameter">
+    update T_PAY_PARAMETER
+    set 
+    VALUE = #{value,jdbcType=VARCHAR}
+    where INDEX_NAME = '12'
+  </update>
+ 
+   <select id="findById" resultType="com.syhbuy.spay.admin.entity.Parameter" parameterType="com.syhbuy.spay.admin.entity.Parameter">
+  	 select 
+    	ID as id, 
+    	RES_KEY as reskey,
+    	RES_NAME as resName,
+    	INDEX_KEY as indexKey, 
+    	INDEX_NAME as indexName, 
+    	CODE as code, 
+    	DESCRIPTION as description,
+    	PARAM_TYPE as paramType,
+    	VALUE as value
+    from T_PAY_PARAMETER
+    	where id = #{id}
+	</select>
+	
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.Parameter">
+    update T_PAY_PARAMETER
+    set 
+    RES_KEY = #{reskey,jdbcType=VARCHAR}, 
+    RES_NAME = #{resName,jdbcType=VARCHAR}, 
+    INDEX_KEY = #{indexKey,jdbcType=VARCHAR},
+    INDEX_NAME = #{indexName,jdbcType=VARCHAR},
+    CODE = #{code,jdbcType=VARCHAR},
+    DESCRIPTION = #{description,jdbcType=VARCHAR},
+    PARAM_TYPE = #{paramType,jdbcType=VARCHAR},
+    VALUE = #{value,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

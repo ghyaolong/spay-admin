@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<!-- 启用注解注入 -->
+	<context:annotation-config />
+
+	<!-- 引入jdbc配置文件 -->
+	<context:property-placeholder location="classpath:conf/jdbc.properties" />
+
+	<!-- c3p0连接池 -->
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> 指定连接数据库的驱动 <property name="driverClass" value="${jdbc_driverClassName}" /> 指定连接数据库的URL <property name="jdbcUrl" value="${jdbc_url}" /> 指定连接数据库的用户名 <property name="user" value="${jdbc_username}" /> 指定连接数据库的密码 <property name="password" 
+		value="${jdbc_password}" /> 指定连接池中保留的最大连接数. Default:15 <property name="maxPoolSize" value="${jdbc.maxPoolSize}" /> 指定连接池中保留的最小连接数 <property name="minPoolSize" value="${jdbc.minPoolSize}" /> 指定连接池的初始化连接数 取值应在minPoolSize 与 maxPoolSize 之间.Default:3 <property name="initialPoolSize" value="${jdbc.initialPoolSize}" 
+		/> 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。 Default:0 <property name="maxIdleTime" value="${jdbc.maxIdleTime}" /> 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数. Default:3 <property name="acquireIncrement" value="${jdbc.acquireIncrement}" /> JDBC的标准,用以控制数据源内加载的PreparedStatements数量。 但由于预缓存的statements属于单个connection而不是整个连接池所以设置这个参数需要考虑到多方面的因数.如果maxStatements与maxStatementsPerConnection均为0,则缓存被关闭。Default:0 
+		<property name="maxStatements" value="${jdbc.maxStatements}" /> 每60秒检查所有连接池中的空闲连接.Default:0 <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" /> </bean> -->
+
+	<!-- 阿里巴巴(druid)连接池 -->
+	<bean id="dataSource" name="mapperLocations" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName">
+			<value>${jdbc_driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc_url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc_username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc_password}</value>
+		</property>
+		<!-- 连接池最大使用连接数 -->
+		<property name="maxActive">
+			<value>20</value>
+		</property>
+		<!-- 初始化连接大小 -->
+		<property name="initialSize">
+			<value>1</value>
+		</property>
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait">
+			<value>60000</value>
+		</property>
+		<!-- 连接池最大空闲 -->
+		<property name="maxIdle">
+			<value>20</value>
+		</property>
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle">
+			<value>3</value>
+		</property>
+		<!-- 自动清除无用连接 -->
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<!-- 清除无用连接的等待时间 -->
+		<property name="removeAbandonedTimeout">
+			<value>180</value>
+		</property>
+		<!-- 连接属性 -->
+		<property name="connectionProperties">
+			<value>clientEncoding=UTF-8</value>
+		</property>
+	</bean>
+
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<value>classpath:com/syhbuy/spay/admin/dao/mapper/*.xml</value>
+		</property>
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- spring与mybatis整合配置，扫描所有dao -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.syhbuy.spay.admin.dao" p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+
+	<!-- 对数据源进行事务管理 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 开启注解方式声明事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 拦截器方式配置事物 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 配置切面 -->
+	<aop:config>
+		<aop:pointcut id="transactionPointcut" expression="execution(* com.syhbuy.spay.admin.controller.*.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
+	</aop:config>
+</beans>

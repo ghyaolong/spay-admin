@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.dispenseBuyRecordMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.dispenseBuyRecord">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ACTIVITY_ID" jdbcType="VARCHAR" property="activityId" />
+    <result column="BUY_AMOUNT" jdbcType="DECIMAL" property="buyAmount" />
+    <result column="FACE_VALUE" jdbcType="DECIMAL" property="faceValue" />
+    <result column="BUY_TIME" jdbcType="DECIMAL" property="buyTime" />
+    <result column="PURCHASER" jdbcType="VARCHAR" property="purchaser" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+    <result column="DEL_TIME" jdbcType="DECIMAL" property="delTime" />
+    <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ACTIVITY_ID, BUY_AMOUNT, FACE_VALUE, BUY_TIME, PURCHASER, STATUS, IS_DEL, DEL_TIME, 
+    ORDER_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PAY_DISPENSE_BUY_RECORD
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_PAY_DISPENSE_BUY_RECORD
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.dispenseBuyRecord">
+    insert into T_PAY_DISPENSE_BUY_RECORD (ID, ACTIVITY_ID, BUY_AMOUNT, 
+      FACE_VALUE, BUY_TIME, PURCHASER, 
+      STATUS, IS_DEL, DEL_TIME, 
+      ORDER_ID)
+    values (#{id,jdbcType=VARCHAR}, #{activityId,jdbcType=VARCHAR}, #{buyAmount,jdbcType=DECIMAL}, 
+      #{faceValue,jdbcType=DECIMAL}, #{buyTime,jdbcType=DECIMAL}, #{purchaser,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR}, #{delTime,jdbcType=DECIMAL}, 
+      #{orderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.dispenseBuyRecord">
+    insert into T_PAY_DISPENSE_BUY_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="activityId != null">
+        ACTIVITY_ID,
+      </if>
+      <if test="buyAmount != null">
+        BUY_AMOUNT,
+      </if>
+      <if test="faceValue != null">
+        FACE_VALUE,
+      </if>
+      <if test="buyTime != null">
+        BUY_TIME,
+      </if>
+      <if test="purchaser != null">
+        PURCHASER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+      <if test="delTime != null">
+        DEL_TIME,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyAmount != null">
+        #{buyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="faceValue != null">
+        #{faceValue,jdbcType=DECIMAL},
+      </if>
+      <if test="buyTime != null">
+        #{buyTime,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaser != null">
+        #{purchaser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="delTime != null">
+        #{delTime,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.syhbuy.spay.admin.entity.dispenseBuyRecord">
+    update T_PAY_DISPENSE_BUY_RECORD
+    <set>
+      <if test="activityId != null">
+        ACTIVITY_ID = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="buyAmount != null">
+        BUY_AMOUNT = #{buyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="faceValue != null">
+        FACE_VALUE = #{faceValue,jdbcType=DECIMAL},
+      </if>
+      <if test="buyTime != null">
+        BUY_TIME = #{buyTime,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaser != null">
+        PURCHASER = #{purchaser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="delTime != null">
+        DEL_TIME = #{delTime,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.dispenseBuyRecord">
+    update T_PAY_DISPENSE_BUY_RECORD
+    set ACTIVITY_ID = #{activityId,jdbcType=VARCHAR},
+      BUY_AMOUNT = #{buyAmount,jdbcType=DECIMAL},
+      FACE_VALUE = #{faceValue,jdbcType=DECIMAL},
+      BUY_TIME = #{buyTime,jdbcType=DECIMAL},
+      PURCHASER = #{purchaser,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=VARCHAR},
+      DEL_TIME = #{delTime,jdbcType=DECIMAL},
+      ORDER_ID = #{orderId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

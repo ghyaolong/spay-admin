@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.DispenseRuleMapper" >
+  <select id="getAllDispenseRule" resultType="com.syhbuy.spay.admin.entity.DispenseRule">
+      select 
+      ID as id,
+      USER_ID as userId,
+      DISPENSE_ID as dispenseId,
+      FULL as full ,
+      GIVE as give,
+      CREATE_TIME as createTime,
+      EBABLE_STATUS as ebableStatus
+ 	from T_PAY_DISPENSE_RULE
+  </select>
+  <!--修改规则状态-->
+  <update id="updateDispenseRule" parameterType="com.syhbuy.spay.admin.entity.DispenseRule">
+      update T_PAY_DISPENSE_RULE set full = #{full}, give = #{give}, EBABLE_STATUS = #{ebableStatus} where id = #{id}
+  </update>
+  <!--删除规则-->
+  <update id="deleteDispenseRule" parameterType="com.syhbuy.spay.admin.entity.DispenseRule">
+      delete from T_PAY_DISPENSE_RULE r where r.DISPENSE_ID = #{id}
+  </update>
+</mapper>

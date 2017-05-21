@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.AuditSettlementMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.AuditSettlement" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="APPLICATION_NAME" property="applicationName" jdbcType="VARCHAR" />
+    <result column="APPROVAL_ID" property="approvalId" jdbcType="VARCHAR" />
+    <result column="AUDIT_NAME" property="auditName" jdbcType="VARCHAR" />
+    <result column="AUDIT_OPINION" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="AUDIT_RESULT" property="auditResult" jdbcType="CHAR" />
+    <result column="APPLICATION_TIME" property="applicationTime" jdbcType="TIMESTAMP" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, APPLICATION_NAME, APPROVAL_ID, AUDIT_NAME, AUDIT_OPINION, AUDIT_RESULT, APPLICATION_TIME, 
+    AUDIT_TIME
+  </sql>
+  
+  <!-- 审核结算列表页 -->
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.AuditSettlement" parameterType="com.syhbuy.spay.admin.entity.AuditSettlement" >
+       select 
+    as1.ID as id, 
+    as1.APPLICATION_NAME as applicationName, 
+    as1.APPROVAL_ID as approvalId, 
+    as1.AUDIT_NAME as auditName, 
+    as1.AUDIT_OPINION as auditOpinion, 
+    CASE 
+       WHEN as1.AUDIT_RESULT = '0' THEN '成功'
+       WHEN as1.AUDIT_RESULT = '1' THEN '失败'
+    end as auditResult,
+    as1.APPLICATION_TIME as applicationTime, 
+    as1.AUDIT_TIME as auditTime
+    from T_PAY_AUDIT_SETTLEMENT as1
+    where 1=1
+    <if test="applicationName != null and applicationName != ''" >
+      and as1.APPLICATION_NAME  LIKE '%'||#{applicationName}||'%'
+   	</if>
+   	<if test="auditResult != null and auditResult != ''" >
+      and as1.AUDIT_RESULT  LIKE '%'||#{auditResult}||'%'
+   	</if>
+    <!-- <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+      and as1.APPLICATION_TIME between #{startTime} and #{endTime}
+    </if> -->
+      order by as1.APPLICATION_TIME desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_PAY_AUDIT_SETTLEMENT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.AuditSettlement" >
+    insert into T_PAY_AUDIT_SETTLEMENT (ID, APPLICATION_NAME, APPROVAL_ID, 
+      AUDIT_NAME, AUDIT_OPINION, AUDIT_RESULT, 
+      APPLICATION_TIME, AUDIT_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{applicationName,jdbcType=VARCHAR}, #{approvalId,jdbcType=VARCHAR}, 
+      #{auditName,jdbcType=VARCHAR}, #{auditOpinion,jdbcType=VARCHAR}, #{auditResult,jdbcType=CHAR}, 
+      #{applicationTime,jdbcType=TIMESTAMP}, #{auditTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.AuditSettlement" >
+    update T_PAY_AUDIT_SETTLEMENT
+    set APPLICATION_NAME = #{applicationName,jdbcType=VARCHAR},
+      APPROVAL_ID = #{approvalId,jdbcType=VARCHAR},
+      AUDIT_NAME = #{auditName,jdbcType=VARCHAR},
+      AUDIT_OPINION = #{auditOpinion,jdbcType=VARCHAR},
+      AUDIT_RESULT = #{auditResult,jdbcType=CHAR},
+      APPLICATION_TIME = #{applicationTime,jdbcType=TIMESTAMP},
+      AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.PayDirectCouponMapper">
+	<resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayDirectCoupon">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CASH_COUPON_ID" property="cashCouponId" jdbcType="VARCHAR" />
+		<result column="ORIGIN" property="origin" jdbcType="VARCHAR" />
+		<result column="ORIGIN_ID" property="originId" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="DENOMINATION" property="denomination" jdbcType="VARCHAR" />
+		<result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+		<result column="GENERATE_TIME" property="generateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_TIME" property="enableTime" jdbcType="DECIMAL" />
+		<result column="DISABLE_TIME" property="disableTime" jdbcType="DECIMAL" />
+		<result column="DIRECT_CATEGORY" property="directCategory" jdbcType="VARCHAR" />
+		<result column="DIRECT_OBJ_ID" property="directObjId" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="COUPON_SATUS" property="couponSatus" jdbcType="VARCHAR" />
+		<result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+		<result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+		<!-- 郭涛 2016-10-9 增加品类和店铺名称 -->
+		<!-- 店铺名称 -->
+		<result column="DIRECT_OBJ_ID_NAME" property="directObjIdName"
+			jdbcType="VARCHAR" />
+		<!-- 品类名称 -->
+		<result column="CATEGORY_NAME" property="categoryName"
+			jdbcType="VARCHAR" />
+			
+		<!-- 新增字段 10.24 12个字段 -->
+		<result column="COMMON_ID" property="commonId" jdbcType="DECIMAL" />
+		<result column="MEMBER_ID" property="memberId" jdbcType="DECIMAL" />
+		<!-- 返券类型 -->
+		<result column="FANQUAN_TYPE" property="fanquanType" jdbcType="DECIMAL" />
+		<result column="FANQUAN_DATE" property="fanquanDate" jdbcType="DECIMAL" />
+		<result column="FANQUAN_ORDER_NUM" property="fanquanOrderNum"
+			jdbcType="VARCHAR" />
+		<result column="FREEZE_ALIVE" property="freezeAlive" jdbcType="DECIMAL" />
+		<result column="COMPANY" property="company" jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
+		<!-- 是否违约 -->
+		<result column="IS_BREAK" property="isBeeak" jdbcType="DECIMAL" />
+		<result column="FANQUAN_FLAG" property="fanquanFlag" jdbcType="DECIMAL" />
+		<result column="FREEZE_DATE" property="freezeDate" jdbcType="VARCHAR" />
+
+		<!-- 2016-10-25 新增字段 郭涛-->
+		<result column="OVERDUE_DATE" property="overdueDate" jdbcType="VARCHAR" />
+		<result column="OVERDUE_ALIVE" property="overdueAlive" jdbcType="DECIMAL" />
+		<result column="IS_RETURN" property="isReturn" jdbcType="DECIMAL" />
+		<result column="IS_OVERDUE" property="isOverdue" jdbcType="DECIMAL" />
+
+		
+		<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43start-->
+		<result column="DIRECT_OBJ_ID2" property="directObjId2" jdbcType="VARCHAR" />
+		<result column="DIRECT_OBJ_ID3" property="directObjId3" jdbcType="VARCHAR" />
+		<result column="FANQUAN_ID" property="fanquanId" jdbcType="DECIMAL" />
+		<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43end-->
+		
+		<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43start-->
+		<result column="DIRECT_OBJ_ID1_NAME" property="directObjId1Name" jdbcType="VARCHAR" />
+		<result column="DIRECT_OBJ_ID2_NAME" property="directObjId2Name" jdbcType="VARCHAR" />
+		<result column="DIRECT_OBJ_ID3_NAME" property="directObjId3Name" jdbcType="VARCHAR" />
+		<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43end-->
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CASH_COUPON_ID, ORIGIN, ORIGIN_ID, TITLE,
+		DENOMINATION,
+		COUPON_MONEY, GENERATE_TIME,
+		ENABLE_TIME, DISABLE_TIME,
+		DIRECT_CATEGORY, DIRECT_OBJ_ID, USER_ID, COUPON_SATUS,
+		IS_DEL,                                
+		DEL_TIME,DIRECT_OBJ_ID_NAME,CATEGORY_NAME,
+		COMMON_ID,MEMBER_ID,FANQUAN_TYPE,FANQUAN_DATE,FANQUAN_ORDER_NUM,
+		FREEZE_ALIVE,COMPANY,DESCRIPTION,ADD_TIME,IS_BREAK,
+
+		FANQUAN_FLAG,FREEZE_DATE,OVERDUE_DATE,OVERDUE_ALIVE,IS_RETURN,IS_OVERDUE,
+
+		FANQUAN_FLAG,FREEZE_DATE,
+		DIRECT_OBJ_ID2,DIRECT_OBJ_ID3,FANQUAN_ID,DIRECT_OBJ_ID1_NAME,DIRECT_OBJ_ID2_NAME,
+		DIRECT_OBJ_ID3_NAME
+
+	</sql>
+	<select id="findAll" resultType="com.syhbuy.spay.admin.entity.PayDirectCoupon" parameterType="com.syhbuy.spay.admin.entity.PayDirectCoupon">
+			select
+		ID as id,
+		DENOMINATION as denomination,
+		CASH_COUPON_ID	as cashCouponId,
+		COUPON_SATUS	as couponSatus,
+		DIRECT_OBJ_ID	as directObjId,
+		DIRECT_OBJ_ID2	as directObjId2,
+		DIRECT_OBJ_ID3	as directObjId3,
+		ORIGIN as origin,
+		ORIGIN_ID as originId,
+		TITLE as title,
+		COUPON_MONEY as couponMoney,
+		GENERATE_TIME as generateTime,
+		DISABLE_TIME as disableTime,
+		USER_ID	as userId,
+		ENABLE_TIME as enableTime,
+		DIRECT_OBJ_ID1_NAME as directObjId1Name,
+		DIRECT_OBJ_ID2_NAME as directObjId2Name,
+		DIRECT_OBJ_ID3_NAME as directObjId3Name,
+		case 
+        when COUPON_SATUS='0' then '使用中'
+        when COUPON_SATUS='1' then '已使用'
+        when COUPON_SATUS='2' then '已冻结'
+        when COUPON_SATUS='3' then '过期'
+        end as couponSatusShow,
+        case 
+        when FREEZE_ALIVE='0' then '否'
+        when FREEZE_ALIVE='1' then '是'
+        end as freezeAliveShow
+		from 
+		T_PAY_DIRECT_COUPON
+		where 1=1
+		<if test="title!= null and title!=''">
+		and	TITLE like '%'||#{title}||'%'
+		</if>
+		<if test="couponSatus != null  and couponSatus !=''">
+		and	COUPON_SATUS like '%'||#{couponSatus}||'%'
+		</if>
+		and IS_DEL='0'
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		T_PAY_DIRECT_COUPON
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.syhbuy.spay.admin.entity.PayDirectCoupon">
+	   <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+     	 select lpad(T_PAY_DIRECT_COUPON_sequence.nextval,32,0) from dual
+       </selectKey>
+		insert into
+		T_PAY_DIRECT_COUPON (
+		ID,
+		COUPON_MONEY, 
+		CASH_COUPON_ID,
+		ORIGIN,
+		USER_ID,
+		ORIGIN_ID,
+		TITLE,
+		DENOMINATION,
+		GENERATE_TIME,
+		ENABLE_TIME,
+		DISABLE_TIME,
+		IS_DEL,DIRECT_OBJ_ID1_NAME,DIRECT_OBJ_ID2_NAME,DIRECT_OBJ_ID3_NAME,
+		DIRECT_OBJ_ID,DIRECT_OBJ_ID2,DIRECT_OBJ_ID3,COUPON_SATUS)
+		values 
+		(
+		#{id,jdbcType=VARCHAR},
+		#{couponMoney,jdbcType=DECIMAL},
+		#{cashCouponId,jdbcType=VARCHAR},
+		#{origin,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{originId,jdbcType=VARCHAR}, 
+		#{title,jdbcType=VARCHAR},
+		#{denomination,jdbcType=VARCHAR},
+		#{generateTime,jdbcType=DECIMAL},
+		#{enableTime,jdbcType=DECIMAL},
+		#{disableTime,jdbcType=DECIMAL},
+		#{isDel,jdbcType=VARCHAR},#{directObjId1Name,jdbcType=VARCHAR},#{directObjId2Name,jdbcType=VARCHAR},
+		#{directObjId3Name,jdbcType=VARCHAR},#{directObjId,jdbcType=VARCHAR},#{directObjId2,jdbcType=VARCHAR},
+		#{directObjId3,jdbcType=VARCHAR},#{couponSatus,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.PayDirectCoupon">
+		insert into T_PAY_DIRECT_COUPON
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="cashCouponId != null">
+				CASH_COUPON_ID,
+			</if>
+			<if test="origin != null">
+				ORIGIN,
+			</if>
+			<if test="originId != null">
+				ORIGIN_ID,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="denomination != null">
+				DENOMINATION,
+			</if>
+			<if test="couponMoney != null">
+				COUPON_MONEY,
+			</if>
+			<if test="generateTime != null">
+				GENERATE_TIME,
+			</if>
+			<if test="enableTime != null">
+				ENABLE_TIME,
+			</if>
+			<if test="disableTime != null">
+				DISABLE_TIME,
+			</if>
+			<if test="directCategory != null">
+				DIRECT_CATEGORY,
+			</if>
+			<if test="directObjId != null">
+				DIRECT_OBJ_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="couponSatus != null">
+				COUPON_SATUS,
+			</if>
+			<if test="isDel != null">
+				IS_DEL,
+			</if>
+			<if test="delTime != null">
+				DEL_TIME,
+			</if>
+			<if test="directObjIdName != null">
+				DIRECT_OBJ_ID_NAME,
+			</if>
+			<if test="categoryName != null">
+				CATEGORY_NAME,
+			</if>
+			<if test="commonId != null">
+				 COMMON_ID,
+			</if>
+			<if test="memberId != null">
+				 MEMBER_ID,
+			</if>
+			<if test="fanquanType != null">
+				FANQUAN_TYPE,
+			</if>
+			<if test="fanquanDate != null">
+				FANQUAN_DATE,
+			</if>
+			<if test="fanquanOrderNum != null">
+				FANQUAN_ORDER_NUM,
+			</if>
+			<if test="freezeAlive != null">
+				FREEZE_ALIVE,
+			</if>
+			<if test="company != null">
+				COMPANY,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="addTime != null">
+				ADD_TIME,
+			</if>
+			<if test="isBeeak != null">
+				IS_BREAK,
+			</if>
+			<if test="fanquanFlag != null">
+				FANQUAN_FLAG,
+			</if>
+			<if test="freezeDate != null">
+				FREEZE_DATE,
+			</if>
+
+			<if test="overdueDate != null">
+				OVERDUE_DATE,
+			</if>
+			<if test="overdueAlive != null">
+				OVERDUE_ALIVE,
+			</if>
+			<if test="isReturn != null">
+				IS_RETURN,
+			</if>
+			<if test="isOverdue != null">
+				IS_OVERDUE,
+			</if>
+
+			<!-- add direct1,2,3 by yaochenglong 2016-10-25 start-->
+			<if test="directObjId2 != null">
+				DIRECT_OBJ_ID2,
+			</if>
+			
+			<if test="directObjId3 != null">
+				DIRECT_OBJ_ID3,
+			</if>
+			<if test="fanquanId != null">
+				FANQUAN_ID,
+			</if>
+			<if test="directObjId1Name != null">
+				DIRECT_OBJ_ID1_NAME,
+			</if>
+			<if test="directObjId2Name != null">
+				DIRECT_OBJ_ID2_NAME,
+			</if>
+			<if test="directObjId3Name != null">
+				DIRECT_OBJ_ID3_NAME,
+			</if>
+			<!-- add direct1,2,3 by yaochenglong 2016-10-25 end-->
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="cashCouponId != null">
+				#{cashCouponId,jdbcType=VARCHAR},
+			</if>
+			<if test="origin != null">
+				#{origin,jdbcType=VARCHAR},
+			</if>
+			<if test="originId != null">
+				#{originId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="denomination != null">
+				#{denomination,jdbcType=VARCHAR},
+			</if>
+			<if test="couponMoney != null">
+				#{couponMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="generateTime != null">
+				#{generateTime,jdbcType=DECIMAL},
+			</if>
+			<if test="enableTime != null">
+				#{enableTime,jdbcType=DECIMAL},
+			</if>
+			<if test="disableTime != null">
+				#{disableTime,jdbcType=DECIMAL},
+			</if>
+			<if test="directCategory != null">
+				#{directCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="directObjId != null">
+				#{directObjId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="couponSatus != null">
+				#{couponSatus,jdbcType=VARCHAR},
+			</if>
+			<if test="isDel != null">
+				#{isDel,jdbcType=VARCHAR},
+			</if>
+			<if test="delTime != null">
+				#{delTime,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjIdName != null">
+				#{directObjIdName,jdbcType=VARCHAR},
+			</if>
+			<if test="categoryName != null">
+				#{categoryName,jdbcType=VARCHAR},
+			</if>
+		
+			<if test="commonId != null">
+				#{commonId,jdbcType=DECIMAL},
+			</if>
+			<if test="memberId != null">
+				#{memberId,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanType != null">
+				#{fanquanType,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanDate != null">
+				#{fanquanDate,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanOrderNum != null">
+				#{fanquanOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="freezeAlive != null">
+				#{freezeAlive,jdbcType=DECIMAL},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isBeeak != null">
+				#{isBeeak,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanFlag != null">
+				#{fanquanFlag,jdbcType=DECIMAL},
+			</if>
+			<if test="freezeDate != null">
+				#{freezeDate,jdbcType=VARCHAR},
+			</if>
+
+				<if test="overdueDate != null">
+				#{overdueDate,jdbcType=VARCHAR},
+			</if>
+				<if test="overdueAlive != null">
+				#{overdueAlive,jdbcType=DECIMAL},
+			</if>
+				<if test="isReturn != null">
+				#{isReturn,jdbcType=DECIMAL},
+			</if>
+				<if test="isOverdue != null">
+				#{isOverdue,jdbcType=DECIMAL},
+			</if>
+
+			<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43start-->
+			<if test="directObjId2 != null">
+				#{directObjId2,jdbcType=VARCHAR},
+			</if>
+			<if test="directObjId3 != null">
+				#{directObjId3,jdbcType=VARCHAR},
+			</if>
+			<if test="fanquanId != null">
+				#{fanquanId,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjId1Name != null">
+				#{directObjId1Name,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjId2Name != null">
+				#{directObjId2Name,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjId3Name != null">
+				#{directObjId3Name,jdbcType=DECIMAL},
+			</if>
+			
+			<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43end-->
+
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.syhbuy.spay.admin.entity.PayDirectCoupon">
+		update T_PAY_DIRECT_COUPON
+		<set>
+			<if test="cashCouponId != null">
+				CASH_COUPON_ID = #{cashCouponId,jdbcType=VARCHAR},
+			</if>
+			<if test="origin != null">
+				ORIGIN = #{origin,jdbcType=VARCHAR},
+			</if>
+			<if test="originId != null">
+				ORIGIN_ID = #{originId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="denomination != null">
+				DENOMINATION = #{denomination,jdbcType=VARCHAR},
+			</if>
+			<if test="couponMoney != null">
+				COUPON_MONEY = #{couponMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="generateTime != null">
+				GENERATE_TIME = #{generateTime,jdbcType=DECIMAL},
+			</if>
+			<if test="enableTime != null">
+				ENABLE_TIME = #{enableTime,jdbcType=DECIMAL},
+			</if>
+			<if test="disableTime != null">
+				DISABLE_TIME = #{disableTime,jdbcType=DECIMAL},
+			</if>
+			<if test="directCategory != null">
+				DIRECT_CATEGORY = #{directCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="directObjId != null">
+				DIRECT_OBJ_ID = #{directObjId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="couponSatus != null">
+				COUPON_SATUS = #{couponSatus,jdbcType=VARCHAR},
+			</if>
+			<if test="isDel != null">
+				IS_DEL = #{isDel,jdbcType=VARCHAR},
+			</if>
+			<if test="delTime != null">
+				DEL_TIME = #{delTime,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjIdName != null">
+				DIRECT_OBJ_ID_NAME = #{directObjIdName,jdbcType=VARCHAR},
+			</if>
+			<if test="categoryName != null">
+				CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+			</if>
+			
+			<if test="commonId !=null">
+				COMMON_ID = #{commonId,jdbcType=DECIMAL},
+			</if>
+			<if test="memberId !=null">
+				MEMBER_ID = #{memberId,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanType !=null">
+				FANQUAN_TYPE = #{fanquanType,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanDate !=null">
+				FANQUAN_DATE = #{fanquanDate,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanOrderNum !=null">
+				FANQUAN_ORDER_NUM= #{fanquanOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="freezeAlive !=null">
+				FREEZE_ALIVE = #{freezeAlive,jdbcType=DECIMAL},
+			</if>
+			<if test="company !=null">
+				COMPANY = #{company,jdbcType=VARCHAR},
+			</if>
+			<if test="description !=null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime !=null">
+				ADD_TIME = #{addTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isBeeak !=null">
+				IS_BREAK = #{isBeeak,jdbcType=DECIMAL},
+			</if>
+			<if test="fanquanFlag !=null">
+				FANQUAN_FLAG = #{fanquanFlag,jdbcType=DECIMAL},
+			</if>
+			<if test="freezeDate !=null">
+				FREEZE_DATE = #{freezeDate,jdbcType=VARCHAR},
+			</if>
+
+			<if test="overdueDate !=null">
+				OVERDUE_DATE = #{overdueDate,jdbcType=VARCHAR},
+			</if>
+			<if test="overdueAlive !=null">
+				OVERDUE_ALIVE = #{overdueAlive,jdbcType=DECIMAL},
+			</if>
+			<if test="isReturn !=null">
+				IS_RETURN = #{isReturn,jdbcType=DECIMAL},
+			</if>
+			<if test="isOverdue !=null">
+				IS_OVERDUE = #{isOverdue,jdbcType=DECIMAL},
+			</if>
+
+			<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43start-->
+			<if test="directObjId2 != null">
+				DIRECT_OBJ_ID2 = #{directObjId2,jdbcType=VARCHAR},
+			</if>
+			<if test="directObjId3 != null">
+				DIRECT_OBJ_ID3 = #{directObjId3,jdbcType=VARCHAR},
+			</if>
+			<if test="fanquanId != null">
+				FANQUAN_ID = #{fanquanId,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjId1Name != null">
+				DIRECT_OBJ_ID1_NAME = #{directObjId1Name,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjId2Name != null">
+				DIRECT_OBJ_ID2_NAME = #{directObjId2Name,jdbcType=DECIMAL},
+			</if>
+			<if test="directObjId3Name != null">
+				DIRECT_OBJ_ID3_NAME = #{directObjId3Name,jdbcType=DECIMAL},
+			</if>
+			
+			<!-- add direct1,2,3 by yaochenglong 2016-10-25 16:43end-->
+
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findDirectCouponById" resultType="com.syhbuy.spay.admin.entity.PayDirectCoupon" parameterType="com.syhbuy.spay.admin.entity.PayDirectCoupon">
+		select
+		ID as id,
+		DENOMINATION as denomination,
+		CASH_COUPON_ID	as cashCouponId,
+		COUPON_SATUS	as couponSatus,
+		DIRECT_OBJ_ID	as directObjId,
+		DIRECT_OBJ_ID2	as directObjId2,
+		DIRECT_OBJ_ID3	as directObjId3,
+		ORIGIN as origin,
+		ORIGIN_ID as originId,
+		TITLE as title,
+		COUPON_MONEY as couponMoney,
+		GENERATE_TIME as generateTime,
+		DISABLE_TIME as disableTime,
+		USER_ID	as userId,
+		ENABLE_TIME as enableTime,
+		DIRECT_OBJ_ID1_NAME as directObjId1Name,
+		DIRECT_OBJ_ID2_NAME as directObjId2Name,
+		DIRECT_OBJ_ID3_NAME as directObjId3Name,
+		case 
+        when COUPON_SATUS='0' then '使用中'
+        when COUPON_SATUS='1' then '已使用'
+        when COUPON_SATUS='2' then '已冻结'
+        when COUPON_SATUS='3' then '过期'
+        end as couponSatusShow,
+        case 
+        when FREEZE_ALIVE='0' then '否'
+        when FREEZE_ALIVE='1' then '是'
+        end as freezeAliveShow
+		from 
+		T_PAY_DIRECT_COUPON
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<update id="update" parameterType="java.lang.String">
+		update T_PAY_DIRECT_COUPON
+		<set>
+        	IS_DEL = '1'
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<!-- 过期修改状态 -->
+	<update id="updatestate" parameterType="java.lang.String">
+		update T_PAY_DIRECT_COUPON
+		  set COUPON_SATUS='3'
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

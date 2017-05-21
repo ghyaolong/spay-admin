@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.RewardMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.Reward">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="RULE_ID" jdbcType="VARCHAR" property="ruleId" />
+    <result column="TIME_REF_TYPE" jdbcType="DECIMAL" property="timeRefType" />
+    <result column="TIME_INTERVAL" jdbcType="DECIMAL" property="timeInterval" />
+    <result column="PERIOD_COUNT" jdbcType="DECIMAL" property="periodCount" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+    <result column="DEL_TIME" jdbcType="DECIMAL" property="delTime" />
+    <!-- 2016-10-20添加奖励名 -->
+    <result column="REWARD_NAME" jdbcType="VARCHAR" property="rewardName" />
+    <result column="AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="DISABLE" jdbcType="CHAR" property="disable" />
+    <result column="EXTEND_TYPE" jdbcType="VARCHAR" property="extendType" />
+    
+    
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, RULE_ID, TIME_REF_TYPE, TIME_INTERVAL, PERIOD_COUNT, IS_DEL, DEL_TIME,REWARD_NAME,AMOUNT,PRICE,DISABLE,EXTEND_TYPE
+  </sql>
+  <!-- 规则列表页 -->
+  <select id="QueryAll" parameterType="com.syhbuy.spay.admin.entity.Reward" resultType="com.syhbuy.spay.admin.entity.Reward">
+    select 
+   	ID as id, 
+   	RULE_ID as ruleId, 
+   	TIME_REF_TYPE as timeRefType, 
+   	TIME_INTERVAL as timeInterval, 
+   	PERIOD_COUNT as periodCount, 
+   	IS_DEL as isDel, 
+   	DEL_TIME as delTime,
+   	REWARD_NAME as rewardName
+    from T_PAY_REWARD
+     where 1=1
+	<if test="ruleId!=null and ruleId!=''">
+         and RULE_ID like '%'||#{ruleId,jdbcType=VARCHAR}||'%'
+    </if>
+  </select>
+  <!-- 删除奖励 -->
+  <delete id="deleteReward" parameterType="java.lang.String">
+    delete from T_PAY_REWARD
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <!-- 新增奖励 -->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.Reward">
+    insert into T_PAY_REWARD (
+      ID, 
+      RULE_ID, 
+      TIME_REF_TYPE, 
+      TIME_INTERVAL, 
+      PERIOD_COUNT, 
+      IS_DEL, 
+      DEL_TIME,
+      REWARD_NAME)
+    values (
+      #{id,jdbcType=VARCHAR}, 
+      #{ruleId,jdbcType=VARCHAR}, 
+      #{timeRefType,jdbcType=DECIMAL}, 
+      #{timeInterval,jdbcType=DECIMAL}, 
+      #{periodCount,jdbcType=DECIMAL}, 
+      #{isDel,jdbcType=VARCHAR}, 
+      #{delTime,jdbcType=DECIMAL},
+      #{rewardName,jdbcType=VARCHAR})
+  </insert>
+	<!-- 跳转修改奖励页面 -->
+  <select id="FindById" resultType="com.syhbuy.spay.admin.entity.Reward">
+    select 
+   	ID as id, 
+   	RULE_ID as ruleId, 
+   	TIME_REF_TYPE as timeRefType, 
+   	TIME_INTERVAL as timeInterval, 
+   	PERIOD_COUNT as periodCount, 
+   	IS_DEL as isDel, 
+   	DEL_TIME as delTime,
+   	REWARD_NAME as rewardName
+    from T_PAY_REWARD
+     where ID=#{id}
+  </select>
+  <!-- 修改奖励 -->
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.Reward">
+    update T_PAY_REWARD
+    set 
+      RULE_ID = #{ruleId,jdbcType=VARCHAR},
+      TIME_REF_TYPE = #{timeRefType,jdbcType=DECIMAL},
+      TIME_INTERVAL = #{timeInterval,jdbcType=DECIMAL},
+      PERIOD_COUNT = #{periodCount,jdbcType=DECIMAL},
+      IS_DEL = #{isDel,jdbcType=VARCHAR},
+      DEL_TIME = #{delTime,jdbcType=DECIMAL},
+      REWARD_NAME = #{rewardName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 规则创建的奖励 -->
+   <insert id="saveReward" parameterType="java.util.List" useGeneratedKeys="false">
+     INSERT INTO T_PAY_REWARD (ID,TIME_REF_TYPE,TIME_INTERVAL,RULE_ID,PERIOD_COUNT,REWARD_NAME,AMOUNT,PRICE,DISABLE,EXTEND_TYPE,IS_DEL,DEL_TIME)
+    	SELECT A.*
+     		FROM(
+      <foreach collection="list" item="item" index="index" separator="union all"> 			
+      (select #{item.id,jdbcType=VARCHAR} ID, 
+      #{item.timeRefType,jdbcType=DECIMAL} TIME_REF_TYPE,
+      #{item.timeInterval,jdbcType=DECIMAL} TIME_INTERVAL, 
+      #{item.ruleId,jdbcType=VARCHAR} RULE_ID,
+      #{item.periodCount,jdbcType=VARCHAR} PERIOD_COUNT,
+      #{item.rewardName,jdbcType=VARCHAR} REWARD_NAME,
+      #{item.amount,jdbcType=DECIMAL} AMOUNT,
+      #{item.price,jdbcType=DECIMAL} PRICE,
+      '0',
+      #{item.extendType,jdbcType=VARCHAR} EXTEND_TYPE,
+      0 IS_DEL，0 DEL_TIME
+     from dual )
+    </foreach>
+    ) A
+  </insert>
+</mapper>

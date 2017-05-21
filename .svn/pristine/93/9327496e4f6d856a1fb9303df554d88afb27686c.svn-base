@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.RuleMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.Rule">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="BUSINESS_ID" jdbcType="VARCHAR" property="businessId" />
+    <result column="RULE_DESC" jdbcType="VARCHAR" property="ruleDesc" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+    <result column="DEL_TIME" jdbcType="DECIMAL" property="delTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BUSINESS_ID, RULE_DESC, IS_DEL, DEL_TIME
+  </sql>
+  <!-- 规则列表 -->
+  <select id="queryAll" parameterType="com.syhbuy.spay.admin.entity.Rule" resultType="com.syhbuy.spay.admin.entity.Rule">
+    select 
+    ID as id, 
+    BUSINESS_ID as businessId, 
+    RULE_DESC as ruleDesc,
+    IS_DEL as isDel, 
+    DEL_TIME as delTime
+    from T_PAY_RULE
+     where 1=1
+	<if test="businessId!=null and businessId!=''">
+         and BUSINESS_ID like '%'||#{businessId,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="ruleDesc!=null and ruleDesc!=''">
+         and RULE_DESC like '%'||#{ruleDesc,jdbcType=VARCHAR}||'%'
+    </if>
+  </select>
+  <!-- 删除规则 -->
+  <delete id="deleteRule" parameterType="java.lang.String">
+    delete from T_PAY_RULE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <!-- 规则添加 -->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.Rule">
+    insert into T_PAY_RULE (
+    	ID, 
+    	BUSINESS_ID, 
+    	RULE_DESC, 
+        IS_DEL, 
+        DEL_TIME,
+        CREATE_TIME
+      )
+    values (
+      #{id,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=VARCHAR}, 
+      #{ruleDesc,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, 
+      #{delTime,jdbcType=DECIMAL},
+      #{createTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <!-- 根据ID查询 -->
+  <select id="FindAll" resultType="com.syhbuy.spay.admin.entity.Rule">
+    select 
+    ID as id, 
+    BUSINESS_ID as businessId, 
+    RULE_DESC as ruleDesc,
+    IS_DEL as isDel, 
+    DEL_TIME as delTime
+    from T_PAY_RULE
+     where ID=#{id}
+  </select>
+  <!-- 修改规则 -->
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.Rule">
+    update T_PAY_RULE
+    set 
+      BUSINESS_ID = #{businessId,jdbcType=VARCHAR},
+      RULE_DESC = #{ruleDesc,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <!--  -->
+  <insert id="saveRule" parameterType="java.util.List" useGeneratedKeys="false">
+     INSERT INTO T_PAY_RULE (ID, BUSINESS_ID, RULE_DESC,DEL_TIME,IS_DEL)
+    	SELECT A.*
+     		FROM(
+      <foreach collection="list" item="item" index="index" separator="union all"> 			
+      (select #{item.id,jdbcType=VARCHAR} ID, #{item.businessId,jdbcType=VARCHAR} BUSINESS_ID, #{item.ruleDesc,jdbcType=VARCHAR} RULE_DESC, 0 DEL_TIME, 0 IS_DEL from dual )
+    </foreach>
+    ) A
+      
+  </insert>
+</mapper>

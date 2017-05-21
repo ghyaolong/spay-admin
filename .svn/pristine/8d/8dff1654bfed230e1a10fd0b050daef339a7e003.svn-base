@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.AddressMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.Address">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CONSIGNEE" jdbcType="VARCHAR" property="consignee" />
+    <result column="CONTACT_TEL" jdbcType="VARCHAR" property="contactTel" />
+    <result column="CONTACT_MACHINE" jdbcType="VARCHAR" property="contactMachine" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="AREA" jdbcType="VARCHAR" property="area" />
+    <result column="STREET" jdbcType="VARCHAR" property="street" />
+    <result column="DETAIL_ADDRESS" jdbcType="VARCHAR" property="detailAddress" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CONSIGNEE, CONTACT_TEL, CONTACT_MACHINE, PROVINCE, CITY, AREA, STREET, DETAIL_ADDRESS, ADDRESS,
+    USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PAY_ADDRESS
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_PAY_ADDRESS
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.Address">
+    insert into T_PAY_ADDRESS (
+    ID, 
+    ADDRESS, 
+    USER_ID
+      )
+    values (
+    #{id,jdbcType=VARCHAR}, 
+    #{address,jdbcType=VARCHAR}, 
+    #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.Address">
+    insert into T_PAY_ADDRESS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="consignee != null">
+        CONSIGNEE,
+      </if>
+      <if test="contactTel != null">
+        CONTACT_TEL,
+      </if>
+      <if test="contactMachine != null">
+        CONTACT_MACHINE,
+      </if>
+      <if test="province != null">
+        PROVINCE,
+      </if>
+      <if test="city != null">
+        CITY,
+      </if>
+      <if test="area != null">
+        AREA,
+      </if>
+      <if test="street != null">
+        STREET,
+      </if>
+      <if test="detailAddress != null">
+        DETAIL_ADDRESS,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTel != null">
+        #{contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMachine != null">
+        #{contactMachine,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null">
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null">
+        #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateAddress" parameterType="com.syhbuy.spay.admin.entityVo.UserMessageVo">
+    update T_PAY_ADDRESS
+    set
+    ADDRESS = #{address}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.Address">
+    update T_PAY_ADDRESS
+    set CONSIGNEE = #{consignee,jdbcType=VARCHAR},
+      CONTACT_TEL = #{contactTel,jdbcType=VARCHAR},
+      CONTACT_MACHINE = #{contactMachine,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      AREA = #{area,jdbcType=VARCHAR},
+      STREET = #{street,jdbcType=VARCHAR},
+      DETAIL_ADDRESS = #{detailAddress,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

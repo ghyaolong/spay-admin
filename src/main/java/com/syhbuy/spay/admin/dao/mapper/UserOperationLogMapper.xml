@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.UserOperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.UserOperationLog">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DESCRIPITION" jdbcType="VARCHAR" property="descripition" />
+    <result column="METHOD" jdbcType="VARCHAR" property="method" />
+    <result column="LOG_TYPE" jdbcType="VARCHAR" property="logType" />
+    <result column="REQUEST_IP" jdbcType="VARCHAR" property="requestIp" />
+    <result column="EXCEPTION_CODE" jdbcType="VARCHAR" property="exceptionCode" />
+    <result column="EXCEPTION_DETAIL" jdbcType="VARCHAR" property="exceptionDetail" />
+    <result column="PARAMS" jdbcType="VARCHAR" property="params" />
+    <result column="CAREATE_BY" jdbcType="VARCHAR" property="careateBy" />
+    <result column="CREATE_DATE" jdbcType="DECIMAL" property="createDate" />
+    <result column="CATEGORY" jdbcType="VARCHAR" property="category" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+    <result column="DEL_TIME" jdbcType="DECIMAL" property="delTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DESCRIPITION, METHOD, LOG_TYPE, REQUEST_IP, EXCEPTION_CODE, EXCEPTION_DETAIL,CATEGORY, 
+    PARAMS, CAREATE_BY, CREATE_DATE, IS_DEL, DEL_TIME
+  </sql>
+  <select id="findAll" parameterType="com.syhbuy.spay.admin.entity.UserOperationLog" resultType="com.syhbuy.spay.admin.entity.UserOperationLog">
+     select 
+    	l.ID as id, 
+    	l.DESCRIPITION as descripition, 
+    	l.METHOD as method, 
+    	l.LOG_TYPE as logType, 
+    	l.REQUEST_IP as requestIp, 
+    	l.EXCEPTION_CODE as exceptionCode, 
+    	l.EXCEPTION_DETAIL as exceptionDetail, 
+        l.PARAMS as params, 
+    	l.CAREATE_BY as careateBy,
+    	l.CATEGORY as category, 
+     	l.CREATE_DATE as createDate,
+     	pu.USER_NAME as userName
+    from T_PAY_USER_OPERATION_LOG l
+    left join T_PAY_USER pu on pu.ID = l.CAREATE_BY
+    where 1=1
+    <if test="careateBy != null and careateBy != ''">
+      and l.CAREATE_BY  LIKE '%'||#{careateBy}||'%'
+    </if>   
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_PAY_USER_OPERATION_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.UserOperationLog">
+    update T_PAY_USER_OPERATION_LOG
+    set DESCRIPITION = #{descripition,jdbcType=VARCHAR},
+      METHOD = #{method,jdbcType=VARCHAR},
+      LOG_TYPE = #{logType,jdbcType=VARCHAR},
+      REQUEST_IP = #{requestIp,jdbcType=VARCHAR},
+      EXCEPTION_CODE = #{exceptionCode,jdbcType=VARCHAR},
+      EXCEPTION_DETAIL = #{exceptionDetail,jdbcType=VARCHAR},
+      PARAMS = #{params,jdbcType=VARCHAR},
+      CAREATE_BY = #{careateBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=DECIMAL},
+      IS_DEL = #{isDel,jdbcType=VARCHAR},
+      DEL_TIME = #{delTime,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

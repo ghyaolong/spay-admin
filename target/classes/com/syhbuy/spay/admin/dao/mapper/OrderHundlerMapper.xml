@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.OrderHundlerMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.OrderHundler" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <!-- 业务规则列表页 -->
+  <select id="FindAll" resultType="com.syhbuy.spay.admin.entity.OrderHundler" parameterType="com.syhbuy.spay.admin.entity.OrderHundler">
+    select 
+  	h.ID as id,
+  	h.USER_ID as userId,
+	h.ORDER_ID as orderId,
+	h.CREATE_TIME as createTime,
+	case 
+ 		 WHEN h.ORDER_STATUS='0' THEN '待支付'  
+  		 WHEN h.ORDER_STATUS='1' THEN '待更新' 
+  		 WHEN h.ORDER_STATUS='2' THEN '成功' 
+  	end as orderStatus,
+  	pu.USER_NAME as userName,
+  	pu.REAL_NAME as realName
+	from T_PAY_ORDER_HUNDLER h
+	left join T_PAY_USER pu on pu.ID = h.USER_ID  
+	where 1=1
+	<if test="userId!=null and userId!=''">
+     and h.USER_ID like '%'||#{userId,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="realName!=null and realName!=''">
+     and pu.REAL_NAME like '%'||#{realName,jdbcType=VARCHAR}||'%'
+    </if>
+    <if test="orderId!=null and orderId!=''">
+     and h.ORDER_ID like '%'||#{orderId,jdbcType=VARCHAR}||'%'
+    </if>
+    <if test="orderStatus!=null and orderStatus!=''">
+     and h.ORDER_STATUS like '%'||#{orderStatus,jdbcType=VARCHAR}||'%'
+    </if>
+     order by h.CREATE_TIME desc
+  </select>
+</mapper>

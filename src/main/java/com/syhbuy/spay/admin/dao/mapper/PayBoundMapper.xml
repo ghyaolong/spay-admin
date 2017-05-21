@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.PayBoundMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayBound" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="INDEX_VALUE" property="ndexValue" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.PayBound" parameterType="com.syhbuy.spay.admin.entity.PayBound">
+   	 select 
+   	 id as id,
+    INDEX_VALUE as indexValue 
+  	from t_pay_bound 
+  </select>
+   <!-- 规则列表页 -->
+  <select id="findBound" resultType="com.syhbuy.spay.admin.entity.PayBound" parameterType="com.syhbuy.spay.admin.entity.PayBound">
+   	 select 
+   	 id as id,
+    INDEX_VALUE as indexValue 
+  	from t_pay_bound 
+  	where 1=1 
+  	<if test="indexValue != null and indexValue != ''" >T_PAY_PARAMETER
+      and INDEX_VALUE  LIKE '%'||#{indexValue}||'%'
+   </if>
+  </select>
+  <!-- 添加规则 -->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.PayBound">
+      <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select lpad(t_pay_bound_sequence.nextval,32,0) from dual
+      </selectKey>
+    insert into t_pay_bound (
+    	ID,
+		INDEX_VALUE
+      )
+    values (
+      #{id,jdbcType=VARCHAR}, 
+      #{indexValue,jdbcType=VARCHAR})
+  </insert>
+   <!-- 删除规则 -->
+  <delete id="delete" parameterType="java.lang.String">
+    delete from T_PAY_BOUND
+  </delete>
+  
+</mapper>

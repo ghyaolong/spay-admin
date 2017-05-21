@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.User">
+    
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="WXOPEN_ID" jdbcType="VARCHAR" property="wxopenId" />
+		<result column="QQOPEN_ID" jdbcType="VARCHAR" property="qqopenId" />
+		<result column="MEMBER_LEVEL" jdbcType="DECIMAL" property="memberLevel" />
+		<result column="HEAD_IMAGE" jdbcType="VARCHAR" property="headImage" />
+		<result column="ATTESTATION" jdbcType="VARCHAR" property="attestation" />
+		<result column="PHONE" jdbcType="VARCHAR" property="phone" />
+		<result column="MAIL" jdbcType="VARCHAR" property="mail" />
+		<result column="LOGIN_PASSWORD" jdbcType="VARCHAR" property="loginPassword" />
+
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="BIRTHDAY" jdbcType="DECIMAL" property="birthday" />
+		<result column="CONSTELLATION" jdbcType="VARCHAR" property="constellation" />
+		<result column="INTEREST" jdbcType="VARCHAR" property="interest" />
+		<result column="REG_DATE" jdbcType="DECIMAL" property="regDate" />
+		<result column="BIND_PHONE_DATE" jdbcType="DECIMAL" property="bindPhoneDate" />
+		<result column="BIND_MAIL_DATE" jdbcType="DECIMAL" property="bindMailDate" />
+		<result column="UPDATE_PWD_DATE" jdbcType="DECIMAL" property="updatePwdDate" />
+
+		<result column="REGISTER_IP" jdbcType="VARCHAR" property="registerIp" />
+		<result column="ACCOUNT_STATE" jdbcType="VARCHAR" property="accountState" />
+		<result column="IS_VENDOR" jdbcType="VARCHAR" property="isVendor" />
+		<result column="UPDATE_TIME" jdbcType="DECIMAL" property="updateTime" />
+		<result column="AREA" jdbcType="VARCHAR" property="area" />
+		<!-- 新增属性 2016-10-4 姚成龙增加 -->
+		<!-- <result column="MEMBER_ID" jdbcType="DECIMAL" property="memberId" /> -->
+		<result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="POINTS" jdbcType="DECIMAL" property="points" />
+		<result column="AVAILABLE_PREDEPOSIT" jdbcType="DECIMAL" property="availablePredeposit" />
+		<result column="FREEZE_PREDEPOSIT" jdbcType="DECIMAL" property="freezePredeposit" />
+		<result column="AVALIABLE_RC_BALANCE" jdbcType="DECIMAL" property="avaliableRcBalance" />
+		<result column="FREEZE_RC_BALANCE" jdbcType="DECIMAL" property="freezeRcBalance" />
+		<result column="IS_REPORT" jdbcType="VARCHAR" property="isReport" />
+		<result column="IS_BUY" jdbcType="VARCHAR" property="isBuy" />
+		<result column="IS_ALLOW_TALK" jdbcType="VARCHAR" property="isAllowTalk" />
+		<result column="SNS_VISIT_COUNT" jdbcType="DECIMAL" property="snsVisitCount" />
+		<result column="AREA_ID" jdbcType="DECIMAL" property="areaId" />
+		<result column="AGE" jdbcType="DECIMAL" property="age" />
+		<result column="HEIGHT" jdbcType="VARCHAR" property="height" />
+		<result column="WEIGHT" jdbcType="VARCHAR" property="weight" />
+		<result column="PROFESSION" jdbcType="VARCHAR" property="profession" />
+		<!-- 新增属性 2016-10-4 姚成龙增加 -->
+		<!-- 新增属性 2016-10-9 郭涛增加 -->
+		<result column="REALNAME" jdbcType="VARCHAR" property="realName" />
+		<result column="MAILBIND" jdbcType="VARCHAR" property="mailBind" />
+		<result column="PHONEBIND" jdbcType="VARCHAR" property="phoneBind" />
+		<result column="QQ" jdbcType="VARCHAR" property="qq" />
+		<result column="WS" jdbcType="VARCHAR" property="ws" />
+		<result column="INFORMALLOW" jdbcType="VARCHAR" property="informAllow" />
+		<!-- 新增属性 2016-10-9 郭涛增加 -->
+		<!-- 新增属性 2016-10-10 郭涛增加 -->
+		<result column="CITY_ID" jdbcType="DECIMAL" property="cityId" />
+		<result column="PROVINCE_ID" jdbcType="DECIMAL" property="provinceId" />
+		<result column="AREA_INFO" jdbcType="VARCHAR" property="areaInfo" />
+		<result column="PRIVACY" jdbcType="VARCHAR" property="privacy" />
+		<result column="QUICK_LINK" jdbcType="VARCHAR" property="quickLink" />
+		<result column="EXPPOINTS" jdbcType="DECIMAL" property="exppoints" />
+		<result column="INVITER_ID" jdbcType="DECIMAL" property="inviterId" />
+		<result column="MY_COMMISSIONS" jdbcType="DECIMAL" property="myCommissions" />
+		<result column="SALES_LEVEL" jdbcType="VARCHAR" property="salesLevel" />
+		<result column="WX_IMG" jdbcType="VARCHAR" property="wxImg" />
+		<result column="WX_NICK_NAME" jdbcType="VARCHAR" property="wxNickName" />
+		<result column="HOUSE_FIRST" jdbcType="VARCHAR" property="houseFirst" />
+		<result column="WEI_XIN" jdbcType="VARCHAR" property="weiXin" />
+		<!-- 新增属性 2016-10-10 郭涛增加 -->
+	</resultMap>
+  <sql id="Base_Column_List">
+		ID, USER_NAME, WXOPEN_ID, QQOPEN_ID, MEMBER_LEVEL,
+		HEAD_IMAGE,
+		ATTESTATION,
+		PHONE,
+		MAIL, LOGIN_PASSWORD, SEX,
+		BIRTHDAY, CONSTELLATION,
+		INTEREST,
+		REG_DATE,
+		BIND_PHONE_DATE,
+		BIND_MAIL_DATE,
+		UPDATE_PWD_DATE,REGISTER_IP,
+		ACCOUNT_STATE, IS_VENDOR,
+		UPDATE_TIME,AREA,
+		USER_ID,
+		POINTS,
+		AVAILABLE_PREDEPOSIT, FREEZE_PREDEPOSIT,
+		AVALIABLE_RC_BALANCE,
+		FREEZE_RC_BALANCE, IS_REPORT,
+		IS_BUY, IS_ALLOW_TALK, SNS_VISIT_COUNT,
+		AREA_ID, AGE, HEIGHT,
+		WEIGHT, PROFESSION,
+		REALNAME,MAILBIND,PHONEBIND,QQ,
+		WS,INFORMALLOW,
+		CITY_ID,PROVINCE_ID,AREA_INFO,PRIVACY,
+		QUICK_LINK,EXPPOINTS,INVITER_ID,MY_COMMISSIONS,
+		SALES_LEVEL,WX_IMG,WX_NICK_NAME,HOUSE_FIRST,WEI_XIN
+	</sql>
+  
+  <select id="ById" parameterType="com.syhbuy.spay.admin.entityVo.MemberRecordVo" resultType="com.syhbuy.spay.admin.entity.User">
+      select user_id as userId from t_pay_user where user_name=#{draweeAccountName}
+  </select>
+  
+  
+  <select id="detailsById" resultType="com.syhbuy.spay.admin.entityVo.UserMessageVo">
+       select 
+     pu.ID as id,
+     pu.USER_ID as userId,
+     pu.USER_NAME as userName, 
+     pu.WXOPEN_ID as wxopenId, 
+     pu.QQOPEN_ID as qqopenId,
+	 pu.MEMBER_LEVEL as memberLevel, 
+	 pu.HEAD_IMAGE as headImage, 
+	 pu.ATTESTATION as attestation, 
+	 pu.PHONE as phone, 
+	 pu.MAIL as mail, 
+	 pu.REG_DATE as regDate, 
+     CASE 
+       WHEN pu.SEX = 'true' THEN '男'
+     ELSE '女'
+     end as sex,
+     pu.BIRTHDAY as birthday, 
+     pu.CONSTELLATION as constellation, 
+     pu.INTEREST as interest, 
+     pu.BIND_PHONE_DATE as bindPhoneDate, 
+     pu.BIND_MAIL_DATE as bindMailDate, 
+     pu.REGISTER_IP as registerIp, 
+     pu.IS_VENDOR as isVendor,
+     pu.UPDATE_TIME as updateTime,
+     pu.REAL_NAME as realName ,
+     pa.ID_CARD as idCard,
+     pb.ACCOUNT_BALANCE as accountBalance,
+     a.SCOPE_ADDRESS as scopeAddress,
+     a.ADDRESS as address,
+     CASE 
+ 		WHEN pu.ACCOUNT_STATE='0' THEN '正常' 
+	ELSE '冻结'
+  	end as accountState
+     	from T_PAY_USER pu
+       	left join T_PAY_CERTIFICATION pa on pa.USER_ID = pu.ID
+      	left join T_PAY_BALANCE pb on pb.USER_ID = pu.ID
+      	left join T_PAY_ADDRESS a on a.USER_ID = pu.ID
+    where pu.id = #{id} 
+  </select>
+  
+  <select id="findAllUser" resultType="com.syhbuy.spay.admin.entityVo.UserMessageVo">
+           select 
+     pu.ID as id,
+     a.USER_ID as userId,
+     pu.USER_NAME as userName, 
+     pu.WXOPEN_ID as wxopenId, 
+     pu.QQOPEN_ID as qqopenId,
+	 pu.MEMBER_LEVEL as memberLevel, 
+	 pu.HEAD_IMAGE as headImage, 
+	 pu.ATTESTATION as attestation, 
+	 pu.PHONE as phone, 
+	 pu.MAIL as mail, 
+	 pu.REG_DATE as regDate, 
+     CASE 
+       WHEN pu.SEX = 'true' THEN '男'
+     ELSE '女'
+     end as sex,
+     pu.BIRTHDAY as birthday, 
+     pu.CONSTELLATION as constellation, 
+     pu.INTEREST as interest, 
+     pu.BIND_PHONE_DATE as bindPhoneDate, 
+     pu.BIND_MAIL_DATE as bindMailDate, 
+     pu.REGISTER_IP as registerIp, 
+     pu.IS_VENDOR as isVendor,
+     pu.UPDATE_TIME as updateTime,
+     pu.REAL_NAME as realName ,
+     pa.ID_CARD as idCard,
+     pb.ACCOUNT_BALANCE as accountBalance,
+     a.DETAIL_ADDRESS as detailAddress,
+     a.ADDRESS as address,
+     drr.COUPON_BALANCE as couponBalance,
+     CASE 
+ 		WHEN pu.ACCOUNT_STATE='0' THEN '正常' 
+	ELSE '冻结'
+  	end as accountState
+     	from T_PAY_USER pu
+       	left join T_PAY_CERTIFICATION pa on pu.ID = pa.USER_ID
+      	left join T_PAY_BALANCE pb on pb.USER_ID = pu.ID
+      	left join T_PAY_DISPENSE_RECHARGE_RECORD drr on drr.USER_ID = pu.ID
+      	left join T_PAY_ADDRESS a on a.USER_ID = pu.ID
+      	 where pu.ID = #{id} 
+  </select>
+  
+  <!-- 用户列表页查询 -->
+  <select id="QueryAllUser" parameterType="com.syhbuy.spay.admin.entityVo.UserMessageVo" resultType="com.syhbuy.spay.admin.entityVo.UserMessageVo">
+           select 
+     pu.ID as id,
+     pu.USER_ID as userId,
+     pu.USER_NAME as userName, 
+     pu.WXOPEN_ID as wxopenId, 
+     pu.QQOPEN_ID as qqopenId,
+	 pu.MEMBER_LEVEL as memberLevel, 
+	 pu.HEAD_IMAGE as headImage, 
+	 pu.ATTESTATION as attestation, 
+	 pu.PHONE as phone, 
+	 pu.MAIL as mail, 
+	 pu.REG_DATE as regDate,
+     CASE 
+       WHEN pu.SEX = 'true' THEN '男'
+     ELSE '女'
+     end as sex,
+     pu.BIRTHDAY as birthday, 
+     pu.CONSTELLATION as constellation, 
+     pu.INTEREST as interest, 
+     pu.BIND_PHONE_DATE as bindPhoneDate, 
+     pu.BIND_MAIL_DATE as bindMailDate, 
+     pu.REGISTER_IP as registerIp, 
+     pu.IS_VENDOR as isVendor,
+     pu.UPDATE_TIME as updateTime,
+     pu.REAL_NAME as realName ,
+     pa.ID_CARD as idCard,
+     pb.ACCOUNT_BALANCE as accountBalance,
+     a.SCOPE_ADDRESS as scopeAddress,
+     a.ADDRESS as address,
+     CASE 
+ 		WHEN pu.ACCOUNT_STATE='0' THEN '正常' 
+	ELSE '冻结'
+  	end as accountState
+     	from T_PAY_USER pu
+       	left join T_PAY_CERTIFICATION pa on pa.USER_ID = pu.ID
+      	left join T_PAY_BALANCE pb on pb.USER_ID = pu.ID
+      	left join T_PAY_ADDRESS a on a.USER_ID = pu.ID
+      	where 1=1
+      <if test="userName != null and userName != ''" >
+      and pu.USER_NAME  LIKE '%'||#{userName}||'%'
+   	  </if>
+      <if test="phone != null and phone != ''" >
+      and pu.PHONE  LIKE '%'||#{phone}||'%'
+   	  </if>
+      <if test="accountState != null and accountState != ''" >
+      and pu.ACCOUNT_STATE = #{accountState}
+   	  </if>
+      <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+      and pu.REG_DATE between #{startTime} and #{endTime}
+      </if>
+      order by pu.REG_DATE desc
+  </select>
+  
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.User">
+    insert into T_PAY_USER(
+    	ID,
+    	REAL_NAME,
+    	USER_NAME,
+    	MAIL,
+    	PHONE,
+    	SEX,
+    	ACCOUNT_STATE,
+    	REG_DATE
+        )values(
+        #{id}, 
+        #{realName}, 
+        #{userName}, 
+        #{mail}, 
+        #{phone}, 
+        #{sex},
+        #{accountState},
+        #{regDate})
+  </insert>
+  
+<!-- 修改会员信息 --> 
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.User" >
+   update T_PAY_USER
+			set
+			PHONE = #{phone,jdbcType=VARCHAR},
+			MAIL = #{mail,jdbcType=VARCHAR},
+			SEX = #{sex,jdbcType=VARCHAR}
+			where ID = #{id,jdbcType=DECIMAL}
+  </update>
+<!-- 修改会员状态 --> 
+  <update id="state" parameterType="com.syhbuy.spay.admin.entity.User">
+   update T_PAY_USER
+			set
+			ACCOUNT_STATE = #{accountState,jdbcType=VARCHAR}
+			where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 导出Excel表格 -->
+  <select id="deriveExcel" parameterType="com.syhbuy.spay.admin.entityVo.UserMessageVo" resultType="com.syhbuy.spay.admin.entityVo.UserMessageVo">
+       select 
+     pu.ID as id,
+     pu.USER_ID as userId,
+     pu.USER_NAME as userName, 
+     pu.WXOPEN_ID as wxopenId, 
+     pu.QQOPEN_ID as qqopenId,
+	 pu.MEMBER_LEVEL as memberLevel, 
+	 pu.HEAD_IMAGE as headImage, 
+	 pu.ATTESTATION as attestation, 
+	 pu.PHONE as phone, 
+	 pu.MAIL as mail, 
+	 pu.REG_DATE as regDate, 
+     CASE 
+       WHEN pu.SEX = 'true' THEN '男'
+     ELSE '女'
+     end as sex,
+     pu.BIRTHDAY as birthday, 
+     pu.CONSTELLATION as constellation, 
+     pu.INTEREST as interest, 
+     pu.BIND_PHONE_DATE as bindPhoneDate, 
+     pu.BIND_MAIL_DATE as bindMailDate, 
+     pu.REGISTER_IP as registerIp, 
+     pu.IS_VENDOR as isVendor,
+     pu.UPDATE_TIME as updateTime,
+     pu.REAL_NAME as realName ,
+     pa.ID_CARD as idCard,
+     pb.ACCOUNT_BALANCE as accountBalance,
+     a.SCOPE_ADDRESS as scopeAddress,
+     a.ADDRESS as address,
+     CASE 
+ 		WHEN pu.ACCOUNT_STATE='0' THEN '正常' 
+	ELSE '冻结'
+  	end as accountState
+     	from T_PAY_USER pu
+       	left join T_PAY_CERTIFICATION pa on pa.USER_ID = pu.ID
+      	left join T_PAY_BALANCE pb on pb.USER_ID = pu.ID
+      	left join T_PAY_ADDRESS a on a.USER_ID = pu.ID
+      	where 1=1
+  </select>
+</mapper>

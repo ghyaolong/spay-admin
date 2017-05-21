@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.DispenseReturnRecordMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entityVo.DispenseReturnRecordVO">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="VENDOR_ID" jdbcType="VARCHAR" property="vendorId" />
+    <result column="DISPENSE_ID" jdbcType="VARCHAR" property="dispenseId" />
+    <result column="RETURN_ID" jdbcType="VARCHAR" property="returnId" />
+    <result column="TICKET_MONEY" jdbcType="VARCHAR" property="ticketMoney" />
+    <result column="RULE_ID" jdbcType="VARCHAR" property="ruleId" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+    <result column="DEL_TIME" jdbcType="DECIMAL" property="delTime" />
+    <result column="MONTH" jdbcType="VARCHAR" property="month" />
+    <result column="RULE_DESC" jdbcType="VARCHAR" property="ruleDesc" />
+    
+  </resultMap>
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entityVo.DispenseReturnRecordVO">
+    insert into T_PAY_DISPENSE_RETURN_RECORD (ID, ORDER_ID, USER_ID, 
+      VENDOR_ID, DISPENSE_ID, RETURN_ID, 
+      TICKET_MONEY, RULE_ID, STATE, 
+      IS_DEL, DEL_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{vendorId,jdbcType=VARCHAR}, #{dispenseId,jdbcType=VARCHAR}, #{returnId,jdbcType=VARCHAR}, 
+      #{ticketMoney,jdbcType=VARCHAR}, #{ruleId,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, #{delTime,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.DispenseReturnRecord">
+    insert into T_PAY_DISPENSE_RETURN_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="vendorId != null">
+        VENDOR_ID,
+      </if>
+      <if test="dispenseId != null">
+        DISPENSE_ID,
+      </if>
+      <if test="returnId != null">
+        RETURN_ID,
+      </if>
+      <if test="ticketMoney != null">
+        TICKET_MONEY,
+      </if>
+      <if test="ruleId != null">
+        RULE_ID,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+      <if test="delTime != null">
+        DEL_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorId != null">
+        #{vendorId,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseId != null">
+        #{dispenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnId != null">
+        #{returnId,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketMoney != null">
+        #{ticketMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null">
+        #{ruleId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="delTime != null">
+        #{delTime,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="getAllRecord" parameterType="com.syhbuy.spay.admin.entityVo.DispenseReturnRecordVO" resultType="com.syhbuy.spay.admin.entityVo.DispenseReturnRecordVO">
+  select 
+      r.ID as id, 
+      r.ORDER_ID as orderId, 
+      r.VENDOR_ID as vendorId, 
+      r.DISPENSE_ID as dispenseId, 
+      r.RETURN_ID as returnId, 
+      r.RULE_ID as ruleId, 
+      r.DEL_TIME as delTime,
+      r.USER_ID as userId,
+      r.is_del as isDel,
+      b.rule_desc as ruleDesc,
+      r.month as month,
+      case 
+      when r.state ='1' then '失败' 
+      when r.state ='0' then '成功'
+      end as state
+      from 
+      T_PAY_DISPENSE_RETURN_RECORD r  
+      left join t_pay_rule b on r.rule_id = b.id
+      where 1=1
+   	   <if test="month != null and month != ''" >
+      and r.month =#{month}
+   	  </if>
+   	  <if test="state != null and state != ''" >
+      and r.STATE  LIKE '%'||#{state}||'%'
+   	  </if>
+   	  and r.is_del = '0' and r.state = '0'
+  </select>
+</mapper>

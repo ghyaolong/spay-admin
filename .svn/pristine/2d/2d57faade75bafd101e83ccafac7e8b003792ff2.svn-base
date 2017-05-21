@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.PayActiveMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayActive" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="COUPON_SCALE" property="couponScale" jdbcType="VARCHAR" />
+    <result column="RELEASE_STATUS" property="releaseStatus" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_BEGIN_TIME" property="activityBeginTime" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="VARCHAR" />
+    <result column="COUPON_BEGIN_TIME" property="beginTime" jdbcType="VARCHAR" />
+    <result column="COUPON_END_TIME" property="endTime" jdbcType="VARCHAR" />
+    <result column="DIRECT_CATEGORY" property="orientationCategory" jdbcType="VARCHAR" />
+    <result column="DIRECT_OBJ_ID" property="orientationId" jdbcType="VARCHAR" />
+    <result column="RULE_DESC" property="ruleDesc" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="BUY_TYPE_DESC" property="ruleDesc" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TITLE, COUPON_SCALE, RELEASE_STATUS, ACTIVITY_BEGIN_TIME, ACTIVITY_END_TIME, COUPON_BEGIN_TIME, 
+    COUPON_END_TIME, DIRECT_CATEGORY, DIRECT_OBJ_ID, RULE_DESC,ICON,BUY_TYPE_DESC,IS_DEL,DEL_TIME,CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    ID as id, 
+    TITLE as title, 
+    COUPON_SCALE as couponScale, 
+    RELEASE_STATUS as releaseStatus, 
+    ACTIVITY_BEGIN_TIME activityBeginTime, 
+    ACTIVITY_END_TIME as activityEndTime, 
+    COUPON_BEGIN_TIME as couponBeginTime, 
+    COUPON_END_TIME as couponEndTime,
+     DIRECT_CATEGORY as directCategory,
+      DIRECT_OBJ_ID as directObjId, 
+      RULE_DESC as ruleDesc,
+      ICON as icon ,
+      BUY_TYPE_DESC as buyTypeDesc,
+      IS_DEL as isDel,
+      DEL_TIME as delTime,
+      CREATE_TIME as createTime
+    from T_PAY_ACTIVITY
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_PAY_ACTIVITY where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.PayActive" >
+    insert into T_PAY_ACTIVITY (
+    ID, TITLE, COUPON_SCALE,RULE_DESC,CREATE_TIME,RELEASE_STATUS)
+    values (
+    #{id,jdbcType=VARCHAR}, 
+    #{title,jdbcType=VARCHAR}, 
+    #{couponScale,jdbcType=VARCHAR},
+    #{ruleDesc,jdbcType=VARCHAR},
+    #{createTime,jdbcType=VARCHAR},
+    #{releaseStatus,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimary" parameterType="com.syhbuy.spay.admin.entity.PayActive" >
+    update T_PAY_ACTIVITY
+    <set >
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="couponScale != null" >
+        COUPON_SCALE = #{couponScale,jdbcType=VARCHAR},
+      </if>
+      <if test="publishStatus != null" >
+        PUBLISH_STATUS = #{publishStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="activityBeginTime != null" >
+        ACTIVITY_BEGIN_TIME = #{activityBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="activityEndTime != null" >
+        ACTIVITY_END_TIME = #{activityEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orientationCategory != null" >
+        ORIENTATION_CATEGORY = #{orientationCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="orientationId != null" >
+        ORIENTATION_ID = #{orientationId,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleDesc != null" >
+        RULE_DESC = #{ruleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        IMG = #{img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.syhbuy.spay.admin.entity.PayActive" >
+    update T_PAY_ACTIVITY
+    set 
+      TITLE = #{title,jdbcType=VARCHAR},
+      COUPON_SCALE = #{couponScale,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getAllPayActive" resultType="com.syhbuy.spay.admin.entity.PayActive" parameterType="com.syhbuy.spay.admin.entity.PayActive">
+      select          
+    ID as id,        
+    Title as title,         
+    COUPON_SCALE as couponScale,        
+    ACTIVITY_BEGIN_TIME as activityBeginTime,       
+    ACTIVITY_END_TIME as activityEndTime,         
+    RULE_DESC as ruleDesc,
+    CREATE_TIME as createTime,
+    case           
+    when RELEASE_STATUS='0' then '保存'          
+    when RELEASE_STATUS='1' then '已发布'          
+    when RELEASE_STATUS='2' then '停用'          
+    when RELEASE_STATUS='3' then '已过期'          
+    else '其他'          
+    end as releaseStatus,
+    case 
+    when DIRECT_CATEGORY='0' then '品类'
+    when DIRECT_CATEGORY='1' then '商铺'  
+    end as orientationCategory
+    from T_PAY_ACTIVITY where 1=1
+ 		<if test="title!=null and title!=''">
+            and Title like '%'||#{title,jdbcType=VARCHAR}||'%' 
+        </if>
+    order by CREATE_TIME desc
+  </select>
+  <select id = "getSum" resultType="com.syhbuy.spay.admin.entity.PayDispenseBuyRecord" parameterType="com.syhbuy.spay.admin.entity.PayDispenseBuyRecord">
+	      select 
+		  ID as id,
+		  ACTIVITY_ID as activityId,
+		  BUY_AMOUNT as buyAmount,
+		  FACE_VALUE as faceValue,
+		  BUY_TIME as buyTime
+		from T_PAY_DISPENSE_BUY_RECORD where ACTIVITY_ID =#{activityId}
+  </select>
+</mapper>

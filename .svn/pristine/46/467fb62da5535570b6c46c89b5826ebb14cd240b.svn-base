@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.syhbuy.spay.admin.dao.PayBankcardMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayBankcard">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="BANKCARD" jdbcType="VARCHAR" property="bankcard" />
+    <result column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
+    <result column="OPENING_BANK" jdbcType="VARCHAR" property="openingBank" />
+    <result column="TEL" jdbcType="VARCHAR" property="tel" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BANKCARD, ID_CARD, OPENING_BANK, TEL, USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_PAY_BANKCARD
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_PAY_BANKCARD
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.PayBankcard">
+    insert into T_PAY_BANKCARD (ID, BANKCARD, ID_CARD, 
+      OPENING_BANK, TEL, USER_ID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{bankcard,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{openingBank,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.PayBankcard">
+    insert into T_PAY_BANKCARD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bankcard != null">
+        BANKCARD,
+      </if>
+      <if test="idCard != null">
+        ID_CARD,
+      </if>
+      <if test="openingBank != null">
+        OPENING_BANK,
+      </if>
+      <if test="tel != null">
+        TEL,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcard != null">
+        #{bankcard,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBank != null">
+        #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.syhbuy.spay.admin.entity.PayBankcard">
+    update T_PAY_BANKCARD
+    <set>
+      <if test="bankcard != null">
+        BANKCARD = #{bankcard,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        ID_CARD = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBank != null">
+        OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.PayBankcard">
+    update T_PAY_BANKCARD
+    set BANKCARD = #{bankcard,jdbcType=VARCHAR},
+      ID_CARD = #{idCard,jdbcType=VARCHAR},
+      OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049) -->
+<html lang="en"
+	class="app-fluid js no-touch no-android chrome no-firefox no-iemobile no-ie no-ie10 no-ie11 no-ios no-ios7 ipad">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Notebook | Web Application</title>
+<meta name="description"
+	content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="./layout-fluid_files/font.css"
+	type="text/css">
+<link rel="stylesheet" href="./layout-fluid_files/datatables.css"
+	type="text/css">
+<link rel="stylesheet" href="./layout-fluid_files/app.v1.css"
+	type="text/css">
+<!--[if lt IE 9]> <script src="js/ie/html5shiv.js"></script> <script src="js/ie/respond.min.js"></script> <script src="js/ie/excanvas.js"></script> <![endif]-->
+</head>
+<body class="" style="">
+	<section class="vbox">
+		<header
+			class="bg-black navbar-fixed-top header navbar navbar-fixed-top-xs">
+			<div class="navbar-header aside-md">
+				<a class="btn btn-link visible-xs"
+					data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+					<i class="fa fa-bars"></i>
+				</a> <a href="#" class="navbar-brand"
+					data-toggle="fullscreen"><img
+					src="./layout-fluid_files/logo.png" class="m-r-sm">Notebook</a> <a
+					class="btn btn-link visible-xs" data-toggle="dropdown"
+					data-target=".nav-user"> <i class="fa fa-cog"></i>
+				</a>
+			</div>
+			<ul class="nav navbar-nav hidden-xs">
+				<li class="dropdown"><a href="#"
+					class="dropdown-toggle dker" data-toggle="dropdown"> <i
+						class="fa fa-building-o"></i> <span class="font-bold">Activity</span>
+				</a>
+					<section
+						class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
+						<div class="wrapper lter m-t-n-xs">
+							<a href="#" class="thumb pull-left m-r"> <img
+								src="./layout-fluid_files/avatar.jpg" class="img-circle">
+							</a>
+							<div class="clear">
+								<a href="#"><span
+									class="text-white font-bold">@Mike Mcalidek</span></a> <small
+									class="block">Art Director</small> <a href="#"
+									class="btn btn-xs btn-success m-t-xs">Upgrade</a>
+							</div>
+						</div>
+						<div class="row m-l-none m-r-none m-b-n-xs text-center">
+							<div class="col-xs-4">
+								<div class="padder-v">
+									<span class="m-b-xs h4 block text-white">245</span> <small
+										class="text-muted">Followers</small>
+								</div>
+							</div>
+							<div class="col-xs-4 dk">
+								<div class="padder-v">
+									<span class="m-b-xs h4 block text-white">55</span> <small
+										class="text-muted">Likes</small>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="padder-v">
+									<span class="m-b-xs h4 block text-white">2,035</span> <small
+										class="text-muted">Photos</small>
+								</div>
+							</div>
+						</div>
+					</section></li>
+				<li>
+					<div class="m-t m-l">
+						<a href="price.html"
+							class="dropdown-toggle btn btn-xs btn-primary" title="Upgrade"><i
+							class="fa fa-long-arrow-up"></i></a>
+					</div>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user">
+				<li class="hidden-xs"><a href="#"
+					class="dropdown-toggle dk" data-toggle="dropdown"> <i
+						class="fa fa-bell"></i> <span
+						class="badge badge-sm up bg-danger m-l-n-sm count"
+						style="display: inline-block;">3</span>
+				</a>
+					<section class="dropdown-menu aside-xl">
+						<section class="panel bg-white">
+							<header class="panel-heading b-light bg-light">
+								<strong>You have <span class="count"
+									style="display: inline;">3</span> notifications
+								</strong>
+							</header>
+							<div class="list-group list-group-alt animated fadeInRight">
+								<a href="#" class="media list-group-item"
+									style="display: block;"><span
+									class="pull-left thumb-sm text-center"><i
+										class="fa fa-envelope-o fa-2x text-success"></i></span><span
+									class="media-body block m-b-none">Sophi sent you a email<br>
+									<small class="text-muted">1 minutes ago</small></span></a> <a
+									href="#" class="media list-group-item"> <span
+									class="pull-left thumb-sm"> <img
+										src="./layout-fluid_files/avatar.jpg" alt="John said"
+										class="img-circle">
+								</span> <span class="media-body block m-b-none"> Use awesome
+										animate.css<br> <small class="text-muted">10
+											minutes ago</small>
+								</span>
+								</a> <a href="#" class="media list-group-item">
+									<span class="media-body block m-b-none"> 1.0 initial
+										released<br> <small class="text-muted">1 hour ago</small>
+								</span>
+								</a>
+							</div>
+							<footer class="panel-footer text-sm">
+								<a href="#" class="pull-right"><i
+									class="fa fa-cog"></i></a> <a href="#notes"
+									data-toggle="class:show animated fadeInRight">See all the
+									notifications</a>
+							</footer>
+						</section>
+					</section></li>
+				<li class="dropdown hidden-xs"><a href="#"
+					class="dropdown-toggle dker" data-toggle="dropdown"><i
+						class="fa fa-fw fa-search"></i></a>
+					<section class="dropdown-menu aside-xl animated fadeInUp">
+						<section class="panel bg-white">
+							<form role="search">
+								<div class="form-group wrapper m-b-none">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Search">
+										<span class="input-group-btn">
+											<button type="submit" class="btn btn-info btn-icon">
+												<i class="fa fa-search"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</form>
+						</section>
+					</section></li>
+				<li class="dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown"> <span
+						class="thumb-sm avatar pull-left"> <img
+							src="./layout-fluid_files/avatar.jpg">
+					</span> John.Smith <b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu animated fadeInRight">
+						<span class="arrow top"></span>
+						<li><a href="#">Settings</a></li>
+						<li><a href="profile.html">Profile</a></li>
+						<li><a href="#"> <span
+								class="badge bg-danger pull-right">3</span> Notifications
+						</a></li>
+						<li><a href="docs.html">Help</a></li>
+						<li class="divider"></li>
+						<li><a href="modal.lockme.html" data-toggle="ajaxModal">Logout</a>
+						</li>
+					</ul></li>
+			</ul>
+		</header>
+		<section>
+			<section class="hbox stretch">
+				<!-- .aside -->
+				<aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+					<section class="vbox" style="min-height: 437px;">
+						<header class="header bg-primary lter text-center clearfix">
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-dark btn-icon"
+									title="New project">
+									<i class="fa fa-plus"></i>
+								</button>
+								<div class="btn-group hidden-nav-xs">
+									<button type="button"
+										class="btn btn-sm btn-primary dropdown-toggle"
+										data-toggle="dropdown">
+										Switch Project <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu text-left">
+										<li><a href="#">Project</a></li>
+										<li><a href="#">Another Project</a></li>
+										<li><a href="#">More Projects</a></li>
+									</ul>
+								</div>
+							</div>
+						</header>
+						<section class="w-f scrollable">
+							<div class="slim-scroll" data-height="auto"
+								data-disable-fade-out="true" data-distance="0" data-size="5px"
+								data-color="#333333">
+									<!-- nav -->
+										<!-- nav -->
+								<nav class="nav-primary hidden-xs">
+									<ul class="nav">
+										<li class="active"><a href="index.jsp" class="active">
+												<i class="fa fa-dashboard icon"> <b class="bg-danger"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>Workset</span>
+										</a>
+											<ul class="nav lt">
+												<li class="active"><a href="index.jsp" class="active">
+														<i class="fa fa-angle-right"></i> <span>Dashboard
+															v1</span>
+												</a></li>
+												<li><a href="dashboard.html"> <i
+														class="fa fa-angle-right"></i> <span>Dashboard v2</span>
+												</a></li>
+											</ul></li>
+										<li><a href="#layout"> <i
+												class="fa fa-columns icon"> <b class="bg-warning"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>Layouts</span>
+										</a>
+											<ul class="nav lt">
+												<li><a href="layout-c.html"> <i
+														class="fa fa-angle-right"></i> <span>Color option</span>
+												</a></li>
+												<li><a href="layout-r.html"> <i
+														class="fa fa-angle-right"></i> <span>Right nav</span>
+												</a></li>
+												<li><a href="layout-h.html"> <i
+														class="fa fa-angle-right"></i> <span>Hbox Layout</span>
+												</a></li>
+												<li><a href="layout-boxed.html"> <i
+														class="fa fa-angle-right"></i> <span>Boxed Layout</span>
+												</a></li>
+												<li><a href=""> <i
+														class="fa fa-angle-right"></i> <span>Fluid Layout</span>
+												</a></li>
+											</ul></li>
+										<li><a href="#uikit"> <i class="fa fa-flask icon">
+													<b class="bg-success"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>UI kit</span>
+										</a>
+											<ul class="nav lt">
+												<li><a href="buttons.html"> <i
+														class="fa fa-angle-right"></i> <span>Buttons</span>
+												</a></li>
+												<li><a href="icons.html"> <b
+														class="badge bg-info pull-right">369</b> <i
+														class="fa fa-angle-right"></i> <span>Icons</span>
+												</a></li>
+												<li><a href="grid.html"> <i
+														class="fa fa-angle-right"></i> <span>Grid</span>
+												</a></li>
+												<li><a href="widgets.html"> <b
+														class="badge pull-right">8</b> <i
+														class="fa fa-angle-right"></i> <span>Widgets</span>
+												</a></li>
+												<li><a href="components.html"> <i
+														class="fa fa-angle-right"></i> <span>Components</span>
+												</a></li>
+												<li><a href="list.html"> <i
+														class="fa fa-angle-right"></i> <span>List group</span>
+												</a></li>
+												<li><a href="#table"> <i
+														class="fa fa-angle-down text"></i> <i
+														class="fa fa-angle-up text-active"></i> <span>Table</span>
+												</a>
+													<ul class="nav bg">
+														<li><a href="table-static.html"> <i
+																class="fa fa-angle-right"></i> <span>Table static</span>
+														</a></li>
+														<li><a href="table-datatable.html"> <i
+																class="fa fa-angle-right"></i> <span>Datatable</span>
+														</a></li>
+														<li><a href="table-datagrid.html"> <i
+																class="fa fa-angle-right"></i> <span>Datagrid</span>
+														</a></li>
+													</ul></li>
+												<li><a href="#form"> <i
+														class="fa fa-angle-down text"></i> <i
+														class="fa fa-angle-up text-active"></i> <span>Form</span>
+												</a>
+													<ul class="nav bg">
+														<li><a href="form-elements.html"> <i
+																class="fa fa-angle-right"></i> <span>Form
+																	elements</span>
+														</a></li>
+														<li><a href="form-validation.html"> <i
+																class="fa fa-angle-right"></i> <span>Form
+																	validation</span>
+														</a></li>
+														<li><a href="form-wizard.html"> <i
+																class="fa fa-angle-right"></i> <span>Form wizard</span>
+														</a></li>
+													</ul></li>
+												<li><a href="chart.html"> <i
+														class="fa fa-angle-right"></i> <span>Chart</span>
+												</a></li>
+												<li><a href="fullcalendar.html"> <i
+														class="fa fa-angle-right"></i> <span>Fullcalendar</span>
+												</a></li>
+												<li><a href="portlet.html"> <i
+														class="fa fa-angle-right"></i> <span>Portlet</span>
+												</a></li>
+												<li><a href="timeline.html"> <i
+														class="fa fa-angle-right"></i> <span>Timeline</span>
+												</a></li>
+											</ul></li>
+										<li><a href="#pages"> <i
+												class="fa fa-file-text icon"> <b class="bg-primary"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>Pages</span>
+										</a>
+											<ul class="nav lt">
+												<li><a href="gallery.html"> <i
+														class="fa fa-angle-right"></i> <span>Gallery</span>
+												</a></li>
+												<li><a href="profile.html"> <i
+														class="fa fa-angle-right"></i> <span>Profile</span>
+												</a></li>
+												<li><a href="invoice.html"> <i
+														class="fa fa-angle-right"></i> <span>Invoice</span>
+												</a></li>
+												<li><a href="intro.html"> <i
+														class="fa fa-angle-right"></i> <span>Intro</span>
+												</a></li>
+												<li><a href="master.html"> <i
+														class="fa fa-angle-right"></i> <span>Master</span>
+												</a></li>
+												<li><a href="gmap.html"> <i
+														class="fa fa-angle-right"></i> <span>Google Map</span>
+												</a></li>
+												<li><a href="jvectormap.html"> <i
+														class="fa fa-angle-right"></i> <span>Vector Map</span>
+												</a></li>
+												<li><a href="login.jsp"> <i
+														class="fa fa-angle-right"></i> <span>Signin</span>
+												</a></li>
+												<li><a href="signup.html"> <i
+														class="fa fa-angle-right"></i> <span>Signup</span>
+												</a></li>
+												<li><a href="404.html"> <i
+														class="fa fa-angle-right"></i> <span>404</span>
+												</a></li>
+											</ul></li>
+										<li><a href="mail.html"> <b
+												class="badge bg-danger pull-right">3</b> <i
+												class="fa fa-envelope-o icon"> <b
+													class="bg-primary dker"></b>
+											</i> <span>Message</span>
+										</a></li>
+										<li><a href="notebook.html"> <i
+												class="fa fa-pencil icon"> <b class="bg-info"></b>
+											</i> <span>Notes</span>
+										</a></li>
+									</ul>
+								</nav>
+									<!-- / nav -->
+								</div>
+						</section>
+						<footer class="footer lt hidden-xs b-t b-black">
+							<div id="chat" class="dropup">
+								<section class="dropdown-menu on aside-md m-l-n">
+									<section class="panel bg-white">
+										<header class="panel-heading b-b b-light">Active
+											chats</header>
+										<div class="panel-body animated fadeInRight">
+											<p class="text-sm">No active chats.</p>
+											<p>
+												<a href="#" class="btn btn-sm btn-default">Start
+													a chat</a>
+											</p>
+										</div>
+									</section>
+								</section>
+							</div>
+							<div id="invite" class="dropup">
+								<section class="dropdown-menu on aside-md m-l-n">
+									<section class="panel bg-white">
+										<header class="panel-heading b-b b-light">
+											John <i class="fa fa-circle text-success"></i>
+										</header>
+										<div class="panel-body animated fadeInRight">
+											<p class="text-sm">No contacts in your lists.</p>
+											<p>
+												<a href="#" class="btn btn-sm btn-facebook"><i
+													class="fa fa-fw fa-facebook"></i> Invite from Facebook</a>
+											</p>
+										</div>
+									</section>
+								</section>
+							</div>
+							<a href="#nav" data-toggle="class:nav-xs"
+								class="pull-right btn btn-sm btn-black btn-icon"> <i
+								class="fa fa-angle-left text"></i> <i
+								class="fa fa-angle-right text-active"></i>
+							</a>
+							<div class="btn-group hidden-nav-xs">
+								<button type="button" title="Chats"
+									class="btn btn-icon btn-sm btn-black" data-toggle="dropdown"
+									data-target="#chat">
+									<i class="fa fa-comment-o"></i>
+								</button>
+								<button type="button" title="Contacts"
+									class="btn btn-icon btn-sm btn-black" data-toggle="dropdown"
+									data-target="#invite">
+									<i class="fa fa-facebook"></i>
+								</button>
+							</div>
+						</footer>
+					</section>
+				</aside>
+				<!-- /.aside -->
+				<section id="content">
+					<section class="wrapper">
+						<div class="m-b">
+							<span class="h3 font-thin"><i class="i i-arrow-left3"></i>
+								Fluid Layout</span>
+						</div>
+						<section class="panel panel-default">
+							<header class="panel-heading"> GDP per capita average
+								annual growth rate </header>
+							<div class="table-responsive" id="growthrate">
+								<div id="example_wrapper" class="dataTables_wrapper no-footer">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="dataTables_length" id="example_length">
+												<label>Show <select name="example_length"
+													aria-controls="example" class=""><option
+															value="10">10</option>
+														<option value="25">25</option>
+														<option value="50">50</option>
+														<option value="100">100</option></select> entries
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div id="example_filter" class="dataTables_filter">
+												<label>Search:<input type="search" class=""
+													aria-controls="example"></label>
+											</div>
+										</div>
+										<div id="example_processing" class="dataTables_processing"
+											style="display: none;">Processing...</div>
+									</div>
+									<table cellpadding="0" cellspacing="0" border="0"
+										class="table table-striped m-b-none dataTable no-footer"
+										id="example" role="grid" aria-describedby="example_info"
+										style="width: 1066px;">
+										<thead>
+											<tr role="row">
+												<th class="sorting_asc" tabindex="0" aria-controls="example"
+													rowspan="1" colspan="1" aria-sort="ascending"
+													aria-label="Country or Area: activate to sort column ascending"
+													style="width: 470px;">Country or Area</th>
+												<th class="sorting" tabindex="0" aria-controls="example"
+													rowspan="1" colspan="1"
+													aria-label="Year: activate to sort column ascending"
+													style="width: 124px;">Year</th>
+												<th class="center sorting" tabindex="0"
+													aria-controls="example" rowspan="1" colspan="1"
+													aria-label="source: activate to sort column ascending"
+													style="width: 184px;">source</th>
+												<th class="center sorting" tabindex="0"
+													aria-controls="example" rowspan="1" colspan="1"
+													aria-label="Value: activate to sort column ascending"
+													style="width: 99px;">Value</th>
+												<th class="center sorting_disabled" rowspan="1" colspan="1"
+													aria-label="" style="width: 35px;"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Albania</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">5.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Albania</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-0.7 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Algeria</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.5 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Algeria</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Andorra</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.5 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Andorra</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-1.4 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Angola</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">4.1 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Antigua and Barbuda</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">0.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Antigua and Barbuda</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">7.8 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Argentina</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Argentina</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-0.8 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Armenia</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">6.1 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Australia</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.2 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Australia</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Austria</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.8 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Austria</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.5 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Azerbaijan</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">5.9 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Bahamas</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">0.7 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Bahamas</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.9 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Bahrain</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Bahrain</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-1.0 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Bangladesh</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">3.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Bangladesh</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">0.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Barbados</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.1 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Barbados</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.7 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Belarus</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">4.7 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Belgium</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Belgium</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.2 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Belize</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.8 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Belize</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.9 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Benin</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Benin</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">0.5 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Bhutan</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">5.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Bolivia (Plurinational State of)</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Bolivia (Plurinational State of)</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-1.1 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Bosnia and Herzegovina</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">8.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Botswana</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">3.4 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Botswana</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">8.1 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Brazil</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.6 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Brazil</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Brunei Darussalam</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-0.4 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Brunei Darussalam</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-2.2 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Bulgaria</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">3.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Bulgaria</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">3.4 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Burkina Faso</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">2.8 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Burkina Faso</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.3 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Burundi</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">-1.4 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-down text-danger"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Burundi</td>
+												<td>1970-1990</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">1.2 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="odd">
+												<td class="sorting_1">Cambodia</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">6.5 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+											<tr role="row" class="even">
+												<td class="sorting_1">Cameroon</td>
+												<td>1990-2011</td>
+												<td class=" center">UN_World Bank</td>
+												<td class=" center">0.8 %</td>
+												<td class=" center"><i
+													class="fa fa-sort-up text-success"></i></td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="dataTables_info" id="example_info" role="status"
+												aria-live="polite">Showing 1 to 50 of 343 entries</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="dataTables_paginate paging_full_numbers"
+												id="example_paginate">
+												<a class="paginate_button first disabled"
+													aria-controls="example" data-dt-idx="0" tabindex="0"
+													id="example_first">First</a><a
+													class="paginate_button previous disabled"
+													aria-controls="example" data-dt-idx="1" tabindex="0"
+													id="example_previous">Previous</a><span><a
+													class="paginate_button current" aria-controls="example"
+													data-dt-idx="2" tabindex="0">1</a><a
+													class="paginate_button " aria-controls="example"
+													data-dt-idx="3" tabindex="0">2</a><a
+													class="paginate_button " aria-controls="example"
+													data-dt-idx="4" tabindex="0">3</a><a
+													class="paginate_button " aria-controls="example"
+													data-dt-idx="5" tabindex="0">4</a><a
+													class="paginate_button " aria-controls="example"
+													data-dt-idx="6" tabindex="0">5</a><a
+													class="paginate_button " aria-controls="example"
+													data-dt-idx="7" tabindex="0">6</a><a
+													class="paginate_button " aria-controls="example"
+													data-dt-idx="8" tabindex="0">7</a></span><a
+													class="paginate_button next" aria-controls="example"
+													data-dt-idx="9" tabindex="0" id="example_next">Next</a><a
+													class="paginate_button last" aria-controls="example"
+													data-dt-idx="10" tabindex="0" id="example_last">Last</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</section>
+					<a href="#" class="hide nav-off-screen-block"
+						data-toggle="class:nav-off-screen, open" data-target="#nav,html"></a>
+				</section>
+				<aside class="bg-light lter b-l aside-md hide" id="notes">
+					<div class="wrapper">Notification</div>
+				</aside>
+			</section>
+		</section>
+	</section>
+	<!-- Bootstrap -->
+	<!-- App -->
+	<script src="./layout-fluid_files/app.v1.js"></script>
+	<script src="./layout-fluid_files/jquery.dataTables.min.js"></script>
+	<script src="./layout-fluid_files/jquery.csv-0.71.min.js"></script>
+	<script src="./layout-fluid_files/demo.js"></script>
+	<script src="./layout-fluid_files/app.plugin.js"></script>
+</body>
+</html>

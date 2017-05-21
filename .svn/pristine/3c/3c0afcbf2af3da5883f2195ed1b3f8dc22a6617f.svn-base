@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.PayCouponAccounttransRecMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayCouponAccounttransRec" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TRTAN_ID" property="trtanId" jdbcType="VARCHAR" />
+    <result column="COUPON_ID" property="couponId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+    <result column="TRAN_TIME" property="tranTime" jdbcType="DECIMAL" />
+    <result column="TRAN_TYPE" property="tranType" jdbcType="VARCHAR" />
+    <result column="TRAN_STATUS" property="tranStatus" jdbcType="VARCHAR" />
+    <result column="DESCRIBE" property="describe" jdbcType="VARCHAR" />
+    <result column="COUPON_TYPE" property="couponType" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TRTAN_ID, COUPON_ID, USER_ID, TRANS_AMOUNT, TRAN_TIME, TRAN_TYPE, TRAN_STATUS, 
+    DESCRIBE, IS_DEL, DEL_TIME
+  </sql>
+  <!-- 平台活动列表页 -->
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.PayCouponAccounttransRec" parameterType="com.syhbuy.spay.admin.entity.PayCouponAccounttransRec">
+   select 
+  	ID as id,
+	TRTAN_ID as trtanId,
+	COUPON_ID as couponId,
+	USER_ID as userId,
+	TRANS_AMOUNT as transAmount,
+	TRAN_TIME as tranTime,
+	case 
+ 		 WHEN TRAN_TYPE='1' THEN '平台充值' 
+ 		 WHEN TRAN_TYPE='2' THEN '消费' 
+ 		 WHEN TRAN_TYPE='3' THEN '返券'
+ 		 WHEN TRAN_TYPE='4' THEN '过期'
+ 		 WHEN TRAN_TYPE='5' THEN '冻结'
+ 		 WHEN TRAN_TYPE='6' THEN '退款'
+  	end as tranType,
+  	case
+  		 WHEN TRAN_STATUS='0' THEN '成功'
+  		 ELSE '失败'
+  	end as tranStatus, 
+  	case
+  	    WHEN COUPON_TYPE='0' THEN '通用'
+  	    WHEN COUPON_TYPE='1' THEN '定向'
+  	end as couponType,
+	DESCRIBE as describe
+	from T_PAY_COUPON_ACCOUNT_TRANS_REC pm
+	where 1=1
+	<if test="userId != null and userId != ''" >
+      and pm.USER_ID LIKE '%'||#{userId}||'%'
+   </if>
+   <if test="trtanId != null and trtanId != ''" >
+      and pm.TRTAN_ID  LIKE '%'||#{trtanId}||'%'
+   </if>
+   <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+      and pm.TRAN_TIME between #{startTime} and #{endTime}
+    </if>
+   
+   <if test="tranType != null and tranType != ''" >
+      and pm.TRAN_TYPE  LIKE '%'||#{tranType}||'%'
+   </if>
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.PayCouponAccounttransRec" >
+    insert into T_PAY_COUPON_ACCOUNT_TRANS_REC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="trtanId != null" >
+        TRTAN_ID,
+      </if>
+      <if test="couponId != null" >
+        COUPON_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="transAmount != null" >
+        TRANS_AMOUNT,
+      </if>
+      <if test="tranTime != null" >
+        TRAN_TIME,
+      </if>
+      <if test="tranType != null" >
+        TRAN_TYPE,
+      </if>
+      <if test="tranStatus != null" >
+        TRAN_STATUS,
+      </if>
+      <if test="describe != null" >
+        DESCRIBE,
+      </if>
+      <if test="isDel != null" >
+        IS_DEL,
+      </if>
+      <if test="delTime != null" >
+        DEL_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="trtanId != null" >
+        #{trtanId,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null" >
+        #{couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="transAmount != null" >
+        #{transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="tranTime != null" >
+        #{tranTime,jdbcType=DECIMAL},
+      </if>
+      <if test="tranType != null" >
+        #{tranType,jdbcType=VARCHAR},
+      </if>
+      <if test="tranStatus != null" >
+        #{tranStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="delTime != null" >
+        #{delTime,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>

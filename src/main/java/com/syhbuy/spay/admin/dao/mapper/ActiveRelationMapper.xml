@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.ActiveRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.ActiveRelation" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ACTIVE_ID" property="activeId" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+  </resultMap>
+  <!-- 业务规则列表页 -->
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.ActiveRelation" parameterType="com.syhbuy.spay.admin.entity.ActiveRelation">
+   select 
+  	ID as id,
+	ACTIVE_ID as activeId,
+	BUSINESS_ID as businessId
+	from T_PAY_ACTIVE_RELATION
+	where 1=1
+	<if test="activeId!=null and activeId!=''">
+         and ACTIVE_ID like '%'||#{activeId,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="businessId!=null and businessId!=''">
+         and BUSINESS_ID like '%'||#{businessId,jdbcType=VARCHAR}||'%'
+    </if>
+  </select>
+  <!-- 添加业务规则 -->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.ActiveRelation">
+      <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select lpad(T_PAY_ACTIVE_RELATION_sequence.nextval,32,0) from dual
+      </selectKey>
+    insert into T_PAY_ACTIVE_RELATION (
+    	ID,
+		ACTIVE_ID,
+		BUSINESS_ID
+      )
+    values (
+      #{id,jdbcType=VARCHAR}, 
+      #{activeId,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=VARCHAR})
+  </insert>
+   <!-- 删除业务规则 -->
+  <delete id="deleteActiveRelation" parameterType="java.lang.String">
+    delete from T_PAY_ACTIVE_RELATION
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <!-- 根据ID查询 -->
+  <select id="activeRelationById" resultType="com.syhbuy.spay.admin.entity.ActiveRelation">
+    select 
+    ID as id, 
+    ACTIVE_ID as activeId, 
+    BUSINESS_ID as businessId,
+    IS_DEL as isDel, 
+    DEL_TIME as delTime
+    from T_PAY_ACTIVE_RELATION
+     where ID=#{id}
+  </select>
+  <!-- 修改业务规则 -->
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.ActiveRelation">
+    update T_PAY_ACTIVE_RELATION
+    set 
+      ACTIVE_ID = #{activeId,jdbcType=VARCHAR},
+      BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

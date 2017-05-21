@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.AppAdvertisementMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.AppAdvertisement" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="IMG" property="img" jdbcType="VARCHAR" />
+    <result column="ADVERTISEMENT_TYPE" property="advertisementtype" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="ADVERTISEMENT_ORDER" property="advertisementOrder" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TITLE, IMG, ADVERTISEMENT_TYPE, URL, ADVERTISEMENT_ORDER, STATE,IS_DEL
+  </sql>
+  <!-- 显示广告显示列表 -->
+  <select id="QueryAll" parameterType="com.syhbuy.spay.admin.entity.AppAdvertisement" resultType="com.syhbuy.spay.admin.entity.AppAdvertisement">
+    select  ID as id, 
+    TITLE as title, 
+    IMG as img, 
+    URL as url, 
+    ADVERTISEMENT_ORDER as advertisementOrder, 
+    STATE as state,
+    IS_DEL as isDel,
+	case 
+ 		 WHEN ADVERTISEMENT_TYPE='0' THEN 'App欢迎页' 
+  		 WHEN ADVERTISEMENT_TYPE='1' THEN 'App启动页' 
+  		 WHEN ADVERTISEMENT_TYPE='2' THEN '首页轮播大图' 
+	ELSE '首页底部广告'
+  	end as advertisementtype
+  	
+    from T_PAY_APP_ADVERTISEMENT
+     where 1=1
+	<if test="title!=null and title!=''">
+         and TITLE like '%'||#{title,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="advertisementtype!=null and advertisementtype!=''">
+         and ADVERTISEMENT_TYPE like '%'||#{advertisementtype,jdbcType=VARCHAR}||'%'
+    </if>
+    and IS_DEL='0'
+  </select>
+  
+  <!-- 查看广告详情 -->
+  <select id="detailsById" parameterType="com.syhbuy.spay.admin.entity.AppAdvertisement" resultType="com.syhbuy.spay.admin.entity.AppAdvertisement">
+    select 
+    ID as id, 
+    TITLE as title, 
+    IMG as img, 
+    URL as url, 
+    ADVERTISEMENT_ORDER as advertisementOrder, 
+    STATE as state,
+    case 
+ 		 WHEN ADVERTISEMENT_TYPE='0' THEN 'App欢迎页' 
+  		 WHEN ADVERTISEMENT_TYPE='1' THEN 'App启动页' 
+  		 WHEN ADVERTISEMENT_TYPE='2' THEN '首页轮播大图' 
+	ELSE '首页底部广告'
+  	end as advertisementtype
+    from T_PAY_APP_ADVERTISEMENT
+    where ID = #{id,jdbcType=VARCHAR}
+   </select>
+  
+  <!-- 添加广告 -->
+  <insert id="add" parameterType="com.syhbuy.spay.admin.entity.AppAdvertisement" >
+    	<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+    	select lpad(T_PAY_APP_sequence.nextval,32,0) from dual
+		</selectKey>
+    insert into T_PAY_APP_ADVERTISEMENT (
+    ID, 
+    TITLE, 
+    IMG, 
+    ADVERTISEMENT_TYPE, 
+    URL, 
+    ADVERTISEMENT_ORDER, 
+    STATE,
+    IS_DEL
+      )
+    values (
+    #{id,jdbcType=VARCHAR}, 
+    #{title,jdbcType=VARCHAR}, 
+    #{img,jdbcType=VARCHAR}, 
+    #{advertisementtype,jdbcType=VARCHAR}, 
+    #{url,jdbcType=VARCHAR}, 
+    #{advertisementOrder,jdbcType=VARCHAR}, 
+    #{state,jdbcType=VARCHAR},
+    #{isDel,jdbcType=VARCHAR})
+  </insert>
+  <!-- 删除广告 -->
+  <!-- <delete id="deleteApp" parameterType="com.syhbuy.spay.admin.entity.AppAdvertisement" >
+    delete from T_PAY_APP_ADVERTISEMENT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete> -->
+  
+  <update id="deleteApp" parameterType="java.lang.String">
+		update T_PAY_APP_ADVERTISEMENT
+		<set>
+				IS_DEL = '1'
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.AppAdvertisement" >
+    update T_PAY_APP_ADVERTISEMENT
+    set TITLE = #{title,jdbcType=VARCHAR},
+      IMG = #{img,jdbcType=VARCHAR},
+      ADVERTISEMENT_TYPE = #{advertisementtype,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      ADVERTISEMENT_ORDER = #{advertisementOrder,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

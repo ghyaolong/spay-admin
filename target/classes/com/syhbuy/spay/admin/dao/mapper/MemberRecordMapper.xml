@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.MemberRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.MemberRecord" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="PAY_ACCOUNT" property="payAccount" jdbcType="DECIMAL" />
+    <result column="RECHARGE_DATE" property="rechargeDate" jdbcType="DECIMAL" />
+    <result column="RECHARGE_TYPE" property="rechargeType" jdbcType="VARCHAR" />
+    <result column="RECHARGE_WAY" property="rechargeWay" jdbcType="VARCHAR" />
+    <result column="DRAWEE_ACCOUNT_NAME" property="draweeAccountName" jdbcType="VARCHAR" />
+    <result column="DRAWEE_ACCOUNT" property="draweeAccount" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="TRANFSER_BANK" property="tranfserBank" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TRANSFER_ORDER" property="transferOrder" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="STATE_DESC" property="stateDesc" jdbcType="VARCHAR" />
+    <result column="AUDITOR" property="auditor" jdbcType="VARCHAR" />
+    <result column="AUDIT_DATE" property="auditDate" jdbcType="DECIMAL" />
+    <result column="RESKEY" property="reskey" jdbcType="VARCHAR" />
+    <result column="BANK_FLOW" property="bankFlow" jdbcType="VARCHAR" />
+  </resultMap>
+   <!-- 会员充值页面列表 -->
+   <!-- 状态(0审核中 1充值成功 2充值失败3审核成功4驳回) -->
+  <select id="queryAllMemberRecord" resultType="com.syhbuy.spay.admin.entityVo.PayAuditVo" parameterType="com.syhbuy.spay.admin.entityVo.PayAuditVo">
+    select 
+    pm.ID as id,
+    pm.USER_ID as userId,
+	pm.RECHARGE_DATE as rechargeDate,
+	pm.PAY_ACCOUNT as payAccount,
+	pm.TRANFSER_BANK as tranfserBank,
+	pm.REMARK as remark,
+	pm.TRANSFER_ORDER as transferOrder,
+	pm.STATE_DESC as stateDesc,
+	pm.AUDITOR as auditor,
+	pm.AUDIT_DATE as auditDate,
+	case 
+ 		 WHEN pm.RECHARGE_TYPE='5' THEN '后台充值'  
+	ELSE '后台充值'
+  	end as rechargeType,
+	pu.USER_NAME as userName,
+	pu.REAL_NAME as realName,
+    li.PHONE as phone,
+    li.LOGIN_TYPE as loginType,
+	case 
+ 		 WHEN pm.RECHARGE_WAY='0' THEN '银联'  
+  		 WHEN pm.RECHARGE_WAY='1' THEN '微信' 
+  		 WHEN pm.RECHARGE_WAY='2' THEN '支付宝' 
+  		 WHEN pm.RECHARGE_WAY='3' THEN '易宝' 
+	ELSE '线下充值'
+  	end as rechargeWay,
+	case 
+ 		 WHEN pm.STATE='1' THEN '充值成功' 
+ 		 WHEN pm.STATE='2' THEN '充值失败'   
+    
+  	 end as state
+     from T_PAY_RECHARGE_RECORD pm 
+     left join T_PAY_USER pu on pu.ID = pm.USER_ID
+     left join t_pay_user_login_info li on li.USER_ID =  pm.USER_ID
+   
+  	where 1=1 and login_type='phone'    
+    <if test="phone != null and phone != ''" >
+      and li.PHONE  LIKE '%'||#{phone}||'%'
+   </if>  
+   <if test="payAccount != null and payAccount != ''" >
+      and pm.PAY_ACCOUNT  LIKE '%'||#{payAccount}||'%'
+   </if>  
+   <if test="rechargeWay != null and rechargeWay != ''" >
+      and pm.RECHARGE_WAY  LIKE '%'||#{rechargeWay}||'%'
+   </if>  
+   <if test="state != null and state != ''" >
+      and pm.STATE  LIKE '%'||#{state}||'%'
+   </if>  
+    <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+      and pm.RECHARGE_DATE between #{startTime} and #{endTime}
+     </if>
+     order by pm.RECHARGE_DATE desc
+  </select>
+ 
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entityVo.MemberRecordVo" >
+    
+    insert into T_PAY_RECHARGE_RECORD(
+        ID,
+        USER_ID,
+        RECHARGE_TYPE,
+        RECHARGE_WAY,
+        PAY_ACCOUNT,
+        STATE,
+        RECHARGE_DATE)
+        values(
+        #{id,jdbcType=VARCHAR},
+        #{userId,jdbcType=VARCHAR},
+        #{rechargeType,jdbcType=VARCHAR},
+        #{rechargeWay,jdbcType=VARCHAR},
+        #{payAccount,jdbcType=DECIMAL},
+        #{state,jdbcType=VARCHAR},
+        #{rechargeDate,jdbcType=DECIMAL}
+        )
+  </insert>
+  
+   <select id="detailsById" resultType="com.syhbuy.spay.admin.entityVo.TopuPauditVo" >
+    select
+    pm.ID as id, 
+	pm.USER_ID as userId,
+	pm.PAY_ACCOUNT as payAccount,
+	pm.RECHARGE_DATE as rechargeDate,
+	pm.RECHARGE_TYPE as rechargeType,
+	pm.RECHARGE_WAY as rechargeWay,
+	pm.DRAWEE_ACCOUNT_NAME as draweeAccountName,
+	pm.DRAWEE_ACCOUNT as draweeAccount,
+	pm.CURRENCY as currency,
+	pm.TRANFSER_BANK as tranfserBank,
+	pm.REMARK as remark,
+	pm.TRANSFER_ORDER as transferOrder,
+	pm.STATE as state,
+	pm.STATE_DESC as stateDesc,
+	pm.AUDITOR as auditor,
+	pm.AUDIT_DATE as auditDate,
+	pu.USER_NAME as userName,
+	pu.PHONE as phone,
+	pb.BANKCARD as bankcard 
+	 
+  from T_PAY_RECHARGE_RECORD pm 
+  
+  left join T_PAY_BANKCARD pb on pb.user_Id = pm.user_id
+  left join t_pay_user pu on pu.ID = pm.user_id
+  WHERE pm.ID = #{id,jdbcType=VARCHAR}
+ 
+  </select>
+  
+  <!-- 会员修改页面 -->
+  <update id="detailsUpdate" parameterType="com.syhbuy.spay.admin.entity.MemberRecord">
+      
+    update T_PAY_RECHARGE_RECORD 
+    set
+	DRAWEE_ACCOUNT_NAME=#{draweeAccountName,jdbcType=VARCHAR},
+	DRAWEE_ACCOUNT=#{draweeAccount,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 导出Excel表格 -->
+  <select id="getAllMember" resultType="com.syhbuy.spay.admin.entityVo.PayAuditVo" parameterType="com.syhbuy.spay.admin.entityVo.PayAuditVo">
+         select 
+    pm.ID as id,
+	pm.RECHARGE_DATE as rechargeDate,
+	pm.PAY_ACCOUNT as payAccount,
+	pm.TRANFSER_BANK as tranfserBank,
+	pm.REMARK as remark,
+	pm.TRANSFER_ORDER as transferOrder,
+	pm.STATE_DESC as stateDesc,
+	pm.AUDITOR as auditor,
+	pm.AUDIT_DATE as auditDate,
+	case 
+ 		 WHEN pm.RECHARGE_TYPE='5' THEN '后台充值'  
+	ELSE '后台充值'
+  	end as rechargeType,
+	pu.USER_NAME as userName,
+    li.PHONE as phone,
+    li.USER_ID as userId,
+	case 
+ 		 WHEN pm.RECHARGE_WAY='0' THEN '银联'  
+  		 WHEN pm.RECHARGE_WAY='1' THEN '微信' 
+  		 WHEN pm.RECHARGE_WAY='2' THEN '支付宝' 
+  		 WHEN pm.RECHARGE_WAY='3' THEN '易宝' 
+	ELSE '线下充值'
+  	end as rechargeWay,
+	case 
+ 		 WHEN pm.STATE='1' THEN '充值成功' 
+ 		 WHEN pm.STATE='2' THEN '充值失败'   
+    
+  	 end as state
+     from T_PAY_RECHARGE_RECORD pm 
+     left join T_PAY_USER pu on pu.ID = pm.USER_ID
+     left join t_pay_user_login_info li on li.USER_ID =  pm.USER_ID
+     
+  	where 1=1
+  </select>
+  
+  
+  <!-- 充值 -->
+  <select id="getUserIdByPhone" parameterType="com.syhbuy.spay.admin.entityVo.MemberRecordVo" resultType="com.syhbuy.spay.admin.entityVo.MemberRecordVo">
+	select 
+	  f.ID as id,
+	  u.USER_NAME as userName,
+	  u.REAL_NAME as realName,
+	  f.user_id as userId
+	  from T_PAY_USER_LOGIN_INFO f 
+	  left join T_PAY_USER u on f.user_id= u.id
+	where f.phone = #{phone,jdbcType=VARCHAR}
+  </select>
+ 
+</mapper>

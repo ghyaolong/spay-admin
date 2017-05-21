@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.PayDispenseBuyRecordMapper">
+	<resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayDispenseBuyRecord">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="ACTIVITY_ID" jdbcType="VARCHAR" property="activityId" />
+		<id column="BUY_AMOUNT" jdbcType="VARCHAR" property="buyAmount" />
+		<id column="FACE_VALUE" jdbcType="VARCHAR" property="faceValue" />
+		<id column="BUY_TIME" jdbcType="DECIMAL" property="buyTime" />
+		<id column="PURCHASER" jdbcType="VARCHAR" property="purchaser" />
+		<id column="STATUS" jdbcType="VARCHAR" property="status" />
+		<id column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+		<id column="DEL_TIME" jdbcType="DECIMAL" property="delTime" />
+		<id column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+	</resultMap>
+
+	<select id="getAllDispenseBuyRecord" resultType="com.syhbuy.spay.admin.entityVo.PayDispenseBuyRecordVO" parameterType="com.syhbuy.spay.admin.entityVo.PayDispenseBuyRecordVO">
+	select
+		r.id as id,
+		t.TITLE as title,
+		r.ACTIVITY_ID as activityId,
+		r.BUY_AMOUNT as buyAmount,
+		r.FACE_VALUE as faceValue,
+		r.BUY_TIME as buyTime,
+		r.STATUS as status,
+		r.PURCHASER as purchaser
+		from T_PAY_DISPENSE_BUY_RECORD r
+		left join T_PAY_ACTIVITY t on r.ACTIVITY_ID=t.id
+		left join T_PAY_USER u on u.ID = r.PURCHASER
+		
+		where 1 = 1
+
+		<if test="title!=null and title!=''">
+			and t.TITLE like '%'||#{title}||'%'
+		</if>
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+			and r.BUY_TIME between #{startTime} and #{endTime}
+		</if>
+	</select>
+	<select id="getDispenseBuyRecordById" parameterType="com.syhbuy.spay.admin.entityVo.PayDispenseBuyRecordVO" resultType="com.syhbuy.spay.admin.entityVo.PayDispenseBuyRecordVO">
+	select
+		r.id as id,
+		t.TITLE as title,
+		r.ACTIVITY_ID as activityId,
+		r.BUY_AMOUNT as buyAmount,
+		r.FACE_VALUE as faceValue,
+		r.BUY_TIME as buyTime,
+		r.STATUS as status,
+		r.PURCHASER as purchaser
+		from T_PAY_DISPENSE_BUY_RECORD r
+		left join T_PAY_ACTIVITY t on r.ACTIVITY_ID=t.id
+		left join T_PAY_USER u on u.ID = r.PURCHASER 
+		where r.id =#{id}
+	</select>
+</mapper>

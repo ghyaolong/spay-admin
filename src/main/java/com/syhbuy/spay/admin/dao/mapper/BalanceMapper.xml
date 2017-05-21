@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.BalanceMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.Balance">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="ACCOUNT_BALANCE" jdbcType="DECIMAL" property="accountBalance" />
+    <result column="MYCOMMISSIONS" jdbcType="DECIMAL" property="mycommissions" />
+  </resultMap>
+  <update id="updateMemberRecord" parameterType="com.syhbuy.spay.admin.entityVo.MemberRecordVo">
+     update T_PAY_BALANCE
+    set 
+      ACCOUNT_BALANCE = ACCOUNT_BALANCE + #{payAccount}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+   
+  </update>
+  <select id="getBalanceRest" parameterType="String" resultType="com.syhbuy.spay.admin.entity.Balance">
+      select * from T_PAY_BALANCE where userId=#{userId}
+  </select>
+  
+  <!-- 根据ID查询账户余额 -->
+  <select id="findByUserId" parameterType="String" resultType="com.syhbuy.spay.admin.entity.Balance">
+      select ACCOUNT_BALANCE as accountBalance from T_PAY_BALANCE where USER_ID=#{userId}
+  </select>
+  
+  <!-- 根据账户ID 添加余额-->
+  <update id="plusBalance" parameterType="com.syhbuy.spay.admin.entity.Balance">
+      update T_PAY_BALANCE
+      set 
+      ACCOUNT_BALANCE = ACCOUNT_BALANCE + #{accountBalance}
+      where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 根据会员ID 减少账户余额 -->
+  <update id="subtractionBalance" parameterType="com.syhbuy.spay.admin.entity.Balance">
+      update T_PAY_BALANCE
+      set 
+      ACCOUNT_BALANCE = ACCOUNT_BALANCE - #{accountBalance}
+      where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 余额列表页  显示会员ID和 账户余额-->
+  <select id="listAll"  resultType="com.syhbuy.spay.admin.entity.Balance" parameterType="com.syhbuy.spay.admin.entity.Balance">
+       select 
+     pb.ID as id,
+     pb.user_Id as userId,
+     pb.ACCOUNT_BALANCE as accountBalance ,
+     pu.PHONE as phone,
+     pu.LOGIN_TYPE as loginType
+     from 
+     T_PAY_BALANCE pb 
+     LEFT join T_PAY_USER_LOGIN_INFO  pu on pu.USER_ID = pb.USER_ID 
+    where 1=1 and pu.LOGIN_TYPE='phone'
+    <if test="userId != null and userId != ''">
+      and pb.USER_ID  LIKE '%'||#{userId}||'%'
+    </if>   
+    <if test="phone != null and phone != ''">
+      and pu.PHONE = #{phone}
+    </if>   
+  </select>
+  
+  <!-- 添加金额页面 根据ID查询方法 -->
+  <select id="findById" parameterType="com.syhbuy.spay.admin.entity.Balance" resultType="com.syhbuy.spay.admin.entity.Balance">
+      select 
+     pb.ID as id,
+     pb.user_Id as userId,
+     pb.ACCOUNT_BALANCE as accountBalance ,
+     pu.PHONE as phone,
+     pu.LOGIN_TYPE as loginType
+     from 
+     T_PAY_BALANCE pb 
+     LEFT join T_PAY_USER_LOGIN_INFO  pu on pu.USER_ID = pb.USER_ID 
+     and pu.LOGIN_TYPE='phone'
+     where pb.ID=#{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 减少金额页面  根据Id查询方法 -->
+  <select id="ById" parameterType="com.syhbuy.spay.admin.entity.Balance" resultType="com.syhbuy.spay.admin.entity.Balance">
+       select 
+     pb.ID as id,
+     pb.user_Id as userId,
+     pb.ACCOUNT_BALANCE as accountBalance ,
+     pu.PHONE as phone,
+     pu.LOGIN_TYPE as loginType
+     from 
+     T_PAY_BALANCE pb 
+     LEFT join T_PAY_USER_LOGIN_INFO  pu on pu.USER_ID = pb.USER_ID 
+     and pu.LOGIN_TYPE='phone'
+     where pb.ID=#{id,jdbcType=VARCHAR} 
+  </select>
+  
+  <!-- 修改账户余额 -->
+   <update id="updateBalance" parameterType="com.syhbuy.spay.admin.entity.Balance">
+     update T_PAY_BALANCE
+    set 
+      ACCOUNT_BALANCE = ACCOUNT_BALANCE + #{payAccount}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.Balance">
+  	insert into T_PAY_BALANCE values(#{id},#{userId},#{accountBalance},0)
+  </insert>
+  
+</mapper>

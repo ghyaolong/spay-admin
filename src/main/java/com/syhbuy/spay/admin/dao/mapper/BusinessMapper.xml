@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.BusinessMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.Business">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="REWARD_ID" jdbcType="VARCHAR" property="rewardId" />
+    <result column="REWARD_OBJ_TYPE" jdbcType="VARCHAR" property="rewardObjType" />
+    <result column="REWARD_TYPE" jdbcType="VARCHAR" property="rewardType" />
+    <result column="REWARD_REF" jdbcType="VARCHAR" property="rewardRef" />
+    <result column="BONUS" jdbcType="DECIMAL" property="bonus" />
+    <result column="UP_LIMIT" jdbcType="DECIMAL" property="upLimit" />
+    <result column="IS_LIMIT" jdbcType="DECIMAL" property="isLimit" />
+    <result column="IS_FREEZE" jdbcType="VARCHAR" property="isFreeze" />
+    <result column="FREEZE_PERIOD" jdbcType="DECIMAL" property="freezePeriod" />
+    <result column="IS_INDATE" jdbcType="VARCHAR" property="isIndate" />
+    <result column="INDATE" jdbcType="DECIMAL" property="indate" />
+    <result column="DIRECT_CATEGORY" jdbcType="VARCHAR" property="directCategory" />
+    <result column="DIRECT_OBJ_ID" jdbcType="VARCHAR" property="directObjId" />
+    <result column="DIRECT_OBJ_ID2" jdbcType="VARCHAR" property="directObjId2" />
+    <result column="DIRECT_OBJ_ID3" jdbcType="VARCHAR" property="directObjId3" />
+    <result column="DIRECT_OBJ_ID1_NAME" jdbcType="VARCHAR" property="directObjId1Name" />
+    <result column="DIRECT_OBJ_ID2_NAME" jdbcType="VARCHAR" property="directObjId2Name" />
+    <result column="DIRECT_OBJ_ID3_NAME" jdbcType="VARCHAR" property="directObjId3Name" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+    <result column="DEL_TIME" jdbcType="DECIMAL" property="delTime" />
+     <result column="TITLE" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, REWARD_ID, REWARD_OBJ_TYPE, REWARD_TYPE, REWARD_REF, BONUS, UP_LIMIT, IS_LIMIT, 
+    IS_FREEZE, FREEZE_PERIOD, IS_INDATE, INDATE, DIRECT_CATEGORY, DIRECT_OBJ_ID, IS_DEL, 
+    DEL_TIME
+  </sql>
+  
+  <delete id="deleteBusiness" parameterType="java.lang.String">
+    delete from T_PAY_BUSINESS
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="saveBusiness" parameterType="com.syhbuy.spay.admin.entity.Business">
+    insert into T_PAY_BUSINESS (
+      ID, REWARD_ID, REWARD_OBJ_TYPE, 
+      REWARD_TYPE, REWARD_REF, BONUS, 
+      UP_LIMIT, IS_LIMIT, IS_FREEZE, 
+      FREEZE_PERIOD, IS_INDATE, INDATE, 
+      DIRECT_CATEGORY, DIRECT_OBJ_ID)
+    values (
+      #{id,jdbcType=VARCHAR}, #{rewardId,jdbcType=VARCHAR}, #{rewardObjType,jdbcType=VARCHAR}, 
+      #{rewardType,jdbcType=VARCHAR}, #{rewardRef,jdbcType=VARCHAR}, #{bonus,jdbcType=DECIMAL}, 
+      #{upLimit,jdbcType=DECIMAL}, #{isLimit,jdbcType=VARCHAR}, #{isFreeze,jdbcType=VARCHAR}, 
+      #{freezePeriod,jdbcType=DECIMAL}, #{isIndate,jdbcType=VARCHAR}, #{indate,jdbcType=DECIMAL}, 
+      #{directCategory,jdbcType=VARCHAR}, #{directObjId,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateBusiness" parameterType="com.syhbuy.spay.admin.entity.Business">
+    update T_PAY_BUSINESS
+    set 
+      REWARD_ID = #{rewardId,jdbcType=VARCHAR},
+      REWARD_OBJ_TYPE = #{rewardObjType,jdbcType=VARCHAR},
+      REWARD_TYPE = #{rewardType,jdbcType=VARCHAR},
+      REWARD_REF = #{rewardRef,jdbcType=VARCHAR},
+      BONUS = #{bonus,jdbcType=DECIMAL},
+      UP_LIMIT = #{upLimit,jdbcType=DECIMAL},
+      IS_LIMIT = #{isLimit,jdbcType=VARCHAR},
+      IS_FREEZE = #{isFreeze,jdbcType=VARCHAR},
+      FREEZE_PERIOD = #{freezePeriod,jdbcType=DECIMAL},
+      IS_INDATE = #{isIndate,jdbcType=VARCHAR},
+      INDATE = #{indate,jdbcType=DECIMAL},
+      DIRECT_CATEGORY = #{directCategory,jdbcType=VARCHAR},
+      DIRECT_OBJ_ID = #{directObjId,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=VARCHAR},
+      DEL_TIME = #{delTime,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="findAllBussiness" parameterType="com.syhbuy.spay.admin.entity.Business" resultType="com.syhbuy.spay.admin.entity.Business">
+      select ID as id,
+      REWARD_ID as rewardId,
+      BONUS as bonus, 
+      UP_LIMIT as upLimit, 
+      FREEZE_PERIOD as freezePeriod, 
+      INDATE as indate,
+      DIRECT_OBJ_ID as directObjId,
+      IS_DEL as isDel, 
+      DEL_TIME as delTime,
+      case 
+        when REWARD_OBJ_TYPE='0' then '买方'
+        when REWARD_OBJ_TYPE='1' then '卖方'
+        when REWARD_OBJ_TYPE='2' then '第三方'
+        end as rewardObjType,
+      case 
+        when REWARD_TYPE='0' then '现金'
+        when REWARD_TYPE='1' then '代金券'
+        end as rewardType,
+      case 
+        when REWARD_REF='0' then '百分比'
+        when REWARD_REF='1' then '固定值'
+        end as rewardRef,
+      case 
+      when IS_LIMIT='0' then '不限制'
+      when IS_LIMIT='1' then '限制'
+      end as isLimit,
+      case 
+      when IS_FREEZE ='0' then '不冻结'
+      when IS_FREEZE ='1' then '冻结'
+        end as isFreeze,
+      case 
+      when IS_INDATE ='0' then '有'
+      when IS_INDATE ='1' then '无'
+      end as isIndate,
+      case 
+      when DIRECT_CATEGORY ='0' then '不定向'
+      when DIRECT_CATEGORY ='1' then '业务'
+      when DIRECT_CATEGORY ='2' then '品类'
+      when DIRECT_CATEGORY ='3' then '商铺'
+      end as directCategory
+      from t_pay_business where 1 = 1
+      <if test="rewardObjType != null and rewardObjType != ''" >
+      and REWARD_OBJ_TYPE  LIKE '%'||#{rewardObjType}||'%' 
+   </if>  
+   <if test="rewardType != null and rewardType != ''" >
+      and REWARD_TYPE  LIKE '%'||#{rewardType}||'%' 
+   </if> 
+      
+      
+  </select>
+  
+  <select id="findById" resultType="com.syhbuy.spay.admin.entity.Business" parameterType="String">
+      select ID as id,
+      REWARD_ID as rewardId,
+      BONUS as bonus, 
+      UP_LIMIT as upLimit, 
+      FREEZE_PERIOD as freezePeriod, 
+      INDATE as indate,
+      DIRECT_OBJ_ID as directObjId,
+      IS_DEL as isDel, 
+      DEL_TIME as delTime,
+      case 
+        when REWARD_OBJ_TYPE='0' then '买方'
+        when REWARD_OBJ_TYPE='1' then '卖方'
+        when REWARD_OBJ_TYPE='2' then '第三方'
+        end as rewardObjType,
+      case 
+        when REWARD_TYPE='0' then '现金'
+        when REWARD_TYPE='1' then '代金券'
+        end as rewardType,
+      case 
+        when REWARD_REF='0' then '百分比'
+        when REWARD_REF='1' then '固定值'
+        end as rewardRef,
+      case 
+      when IS_LIMIT='0' then '不限制'
+      when IS_LIMIT='1' then '限制'
+      end as isLimit,
+      case 
+      when IS_FREEZE ='0' then '不冻结'
+      when IS_FREEZE ='1' then '冻结'
+        end as isFreeze,
+      case 
+      when IS_INDATE ='0' then '有'
+      when IS_INDATE ='1' then '无'
+      end as isIndate,
+      case 
+      when DIRECT_CATEGORY ='0' then '不定向'
+      when DIRECT_CATEGORY ='1' then '业务'
+      when DIRECT_CATEGORY ='2' then '品类'
+      when DIRECT_CATEGORY ='3' then '商铺'
+      end as directCategory
+      from t_pay_business where id  = #{id}
+  </select>
+  
+  <!-- 规则的交易 -->
+  <insert id="save" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into T_PAY_BUSINESS (
+     ID, REWARD_ID, REWARD_OBJ_TYPE, REWARD_TYPE, REWARD_REF, BONUS, IS_LIMIT, UP_LIMIT, 
+     IS_FREEZE, FREEZE_PERIOD, IS_INDATE, INDATE, DIRECT_CATEGORY, DIRECT_OBJ_ID,DIRECT_OBJ_ID2,DIRECT_OBJ_ID3,DIRECT_OBJ_ID1_NAME,DIRECT_OBJ_ID2_NAME,DIRECT_OBJ_ID3_NAME, 
+     DEL_TIME,IS_DEL
+      )
+       SELECT A.*
+   	  FROM(
+   	  <foreach collection="list" item="item" index="index" separator="union all"> 			
+      (select #{item.id,jdbcType=VARCHAR} ID,
+      #{item.rewardId,jdbcType=VARCHAR} REWARD_ID,
+      #{item.rewardObjType,jdbcType=VARCHAR} REWARD_OBJ_TYPE, 
+      #{item.rewardType,jdbcType=VARCHAR} REWARD_TYPE,
+      #{item.rewardRef,jdbcType=VARCHAR} REWARD_REF,
+      #{item.bonus,jdbcType=VARCHAR} BONUS,
+      #{item.isLimit,jdbcType=DECIMAL} IS_LIMIT,
+      #{item.upLimit,jdbcType=DECIMAL} UP_LIMIT,
+      #{item.isFreeze,jdbcType=VARCHAR} IS_FREEZE,
+      #{item.freezePeriod,jdbcType=VARCHAR} FREEZE_PERIOD,
+      #{item.isIndate,jdbcType=VARCHAR} IS_INDATE,
+      #{item.indate,jdbcType=VARCHAR} INDATE,
+      #{item.directCategory,jdbcType=VARCHAR} DIRECT_CATEGORY,
+      #{item.directObjId,jdbcType=VARCHAR} DIRECT_OBJ_ID,
+      #{item.directObjId2,jdbcType=VARCHAR} DIRECT_OBJ_ID2,
+      #{item.directObjId3,jdbcType=VARCHAR} DIRECT_OBJ_ID3,
+      #{item.directObjId1Name,jdbcType=VARCHAR} DIRECT_OBJ_ID1_NAME,
+      #{item.directObjId2Name,jdbcType=VARCHAR} DIRECT_OBJ_ID2_NAME,
+      #{item.directObjId3Name,jdbcType=VARCHAR} DIRECT_OBJ_ID3_NAME,
+       0 DEL_TIME, 0 IS_DEL 
+       from dual )
+    </foreach>
+    ) A
+  </insert>
+</mapper>

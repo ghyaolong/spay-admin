@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049) -->
+<html lang="en"
+	class="app js no-touch no-android chrome no-firefox no-iemobile no-ie no-ie10 no-ie11 no-ios no-ios7 ipad">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Notebook | Web Application</title>
+<meta name="description"
+	content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="./fullcalendar_files/font.css"
+	type="text/css">
+<link rel="stylesheet" href="./fullcalendar_files/fuelux.css"
+	type="text/css">
+<link rel="stylesheet" href="./fullcalendar_files/fullcalendar.css"
+	type="text/css">
+<link rel="stylesheet" href="./fullcalendar_files/theme.css"
+	type="text/css">
+<link rel="stylesheet" href="./fullcalendar_files/app.v1.css"
+	type="text/css">
+<!--[if lt IE 9]> <script src="js/ie/html5shiv.js"></script> <script src="js/ie/respond.min.js"></script> <script src="js/ie/excanvas.js"></script> <![endif]-->
+</head>
+<body class="" style="">
+	<section class="vbox">
+		<header class="bg-dark dk header navbar navbar-fixed-top-xs">
+			<div class="navbar-header aside-md">
+				<a class="btn btn-link visible-xs"
+					data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+					<i class="fa fa-bars"></i>
+				</a> <a href="#" class="navbar-brand"
+					data-toggle="fullscreen"><img
+					src="./fullcalendar_files/logo.png" class="m-r-sm">Notebook</a> <a
+					class="btn btn-link visible-xs" data-toggle="dropdown"
+					data-target=".nav-user"> <i class="fa fa-cog"></i>
+				</a>
+			</div>
+			<ul class="nav navbar-nav hidden-xs">
+				<li class="dropdown"><a href="#"
+					class="dropdown-toggle dker" data-toggle="dropdown"> <i
+						class="fa fa-building-o"></i> <span class="font-bold">Activity</span>
+				</a>
+					<section
+						class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
+						<div class="wrapper lter m-t-n-xs">
+							<a href="#" class="thumb pull-left m-r"> <img
+								src="./fullcalendar_files/avatar.jpg" class="img-circle">
+							</a>
+							<div class="clear">
+								<a href="#"><span
+									class="text-white font-bold">@Mike Mcalidek</span></a> <small
+									class="block">Art Director</small> <a href="#"
+									class="btn btn-xs btn-success m-t-xs">Upgrade</a>
+							</div>
+						</div>
+						<div class="row m-l-none m-r-none m-b-n-xs text-center">
+							<div class="col-xs-4">
+								<div class="padder-v">
+									<span class="m-b-xs h4 block text-white">245</span> <small
+										class="text-muted">Followers</small>
+								</div>
+							</div>
+							<div class="col-xs-4 dk">
+								<div class="padder-v">
+									<span class="m-b-xs h4 block text-white">55</span> <small
+										class="text-muted">Likes</small>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="padder-v">
+									<span class="m-b-xs h4 block text-white">2,035</span> <small
+										class="text-muted">Photos</small>
+								</div>
+							</div>
+						</div>
+					</section></li>
+				<li>
+					<div class="m-t m-l">
+						<a href="price.html"
+							class="dropdown-toggle btn btn-xs btn-primary" title="Upgrade"><i
+							class="fa fa-long-arrow-up"></i></a>
+					</div>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user">
+				<li class="hidden-xs"><a href="#"
+					class="dropdown-toggle dk" data-toggle="dropdown"> <i
+						class="fa fa-bell"></i> <span
+						class="badge badge-sm up bg-danger m-l-n-sm count"
+						style="display: inline-block;">3</span>
+				</a>
+					<section class="dropdown-menu aside-xl">
+						<section class="panel bg-white">
+							<header class="panel-heading b-light bg-light">
+								<strong>You have <span class="count"
+									style="display: inline;">3</span> notifications
+								</strong>
+							</header>
+							<div class="list-group list-group-alt animated fadeInRight">
+								<a href="#" class="media list-group-item"
+									style="display: block;"><span
+									class="pull-left thumb-sm text-center"><i
+										class="fa fa-envelope-o fa-2x text-success"></i></span><span
+									class="media-body block m-b-none">Sophi sent you a email<br>
+									<small class="text-muted">1 minutes ago</small></span></a> <a
+									href="#" class="media list-group-item"> <span
+									class="pull-left thumb-sm"> <img
+										src="./fullcalendar_files/avatar.jpg" alt="John said"
+										class="img-circle">
+								</span> <span class="media-body block m-b-none"> Use awesome
+										animate.css<br> <small class="text-muted">10
+											minutes ago</small>
+								</span>
+								</a> <a href="#" class="media list-group-item">
+									<span class="media-body block m-b-none"> 1.0 initial
+										released<br> <small class="text-muted">1 hour ago</small>
+								</span>
+								</a>
+							</div>
+							<footer class="panel-footer text-sm">
+								<a href="#" class="pull-right"><i
+									class="fa fa-cog"></i></a> <a href="#notes"
+									data-toggle="class:show animated fadeInRight">See all the
+									notifications</a>
+							</footer>
+						</section>
+					</section></li>
+				<li class="dropdown hidden-xs"><a href="#"
+					class="dropdown-toggle dker" data-toggle="dropdown"><i
+						class="fa fa-fw fa-search"></i></a>
+					<section class="dropdown-menu aside-xl animated fadeInUp">
+						<section class="panel bg-white">
+							<form role="search">
+								<div class="form-group wrapper m-b-none">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Search">
+										<span class="input-group-btn">
+											<button type="submit" class="btn btn-info btn-icon">
+												<i class="fa fa-search"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</form>
+						</section>
+					</section></li>
+				<li class="dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown"> <span
+						class="thumb-sm avatar pull-left"> <img
+							src="./fullcalendar_files/avatar.jpg">
+					</span> John.Smith <b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu animated fadeInRight">
+						<span class="arrow top"></span>
+						<li><a href="#">Settings</a></li>
+						<li><a href="profile.html">Profile</a></li>
+						<li><a href="#"> <span
+								class="badge bg-danger pull-right">3</span> Notifications
+						</a></li>
+						<li><a href="docs.html">Help</a></li>
+						<li class="divider"></li>
+						<li><a href="modal.lockme.html" data-toggle="ajaxModal">Logout</a>
+						</li>
+					</ul></li>
+			</ul>
+		</header>
+		<section>
+			<section class="hbox stretch">
+				<!-- .aside -->
+				<aside class="bg-light lter b-r aside-md hidden-print hidden-xs"
+					id="nav">
+					<section class="vbox">
+						<header class="header bg-primary lter text-center clearfix">
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-dark btn-icon"
+									title="New project">
+									<i class="fa fa-plus"></i>
+								</button>
+								<div class="btn-group hidden-nav-xs">
+									<button type="button"
+										class="btn btn-sm btn-primary dropdown-toggle"
+										data-toggle="dropdown">
+										Switch Project <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu text-left">
+										<li><a href="#">Project</a></li>
+										<li><a href="#">Another Project</a></li>
+										<li><a href="#">More Projects</a></li>
+									</ul>
+								</div>
+							</div>
+						</header>
+						<section class="w-f scrollable">
+							<div class="slim-scroll" data-height="auto"
+								data-disable-fade-out="true" data-distance="0" data-size="5px"
+								data-color="#333333">
+									<!-- nav -->
+										<!-- nav -->
+								<nav class="nav-primary hidden-xs">
+									<ul class="nav">
+										<li class="active"><a href="index.jsp" class="active">
+												<i class="fa fa-dashboard icon"> <b class="bg-danger"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>Workset</span>
+										</a>
+											<ul class="nav lt">
+												<li class="active"><a href="index.jsp" class="active">
+														<i class="fa fa-angle-right"></i> <span>Dashboard
+															v1</span>
+												</a></li>
+												<li><a href="dashboard.html"> <i
+														class="fa fa-angle-right"></i> <span>Dashboard v2</span>
+												</a></li>
+											</ul></li>
+										<li><a href="#layout"> <i
+												class="fa fa-columns icon"> <b class="bg-warning"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>Layouts</span>
+										</a>
+											<ul class="nav lt">
+												<li><a href="layout-c.html"> <i
+														class="fa fa-angle-right"></i> <span>Color option</span>
+												</a></li>
+												<li><a href="layout-r.html"> <i
+														class="fa fa-angle-right"></i> <span>Right nav</span>
+												</a></li>
+												<li><a href="layout-h.html"> <i
+														class="fa fa-angle-right"></i> <span>Hbox Layout</span>
+												</a></li>
+												<li><a href="layout-boxed.html"> <i
+														class="fa fa-angle-right"></i> <span>Boxed Layout</span>
+												</a></li>
+												<li><a href="layout-fluid.html"> <i
+														class="fa fa-angle-right"></i> <span>Fluid Layout</span>
+												</a></li>
+											</ul></li>
+										<li><a href="#uikit"> <i class="fa fa-flask icon">
+													<b class="bg-success"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>UI kit</span>
+										</a>
+											<ul class="nav lt">
+												<li><a href="buttons.html"> <i
+														class="fa fa-angle-right"></i> <span>Buttons</span>
+												</a></li>
+												<li><a href="icons.html"> <b
+														class="badge bg-info pull-right">369</b> <i
+														class="fa fa-angle-right"></i> <span>Icons</span>
+												</a></li>
+												<li><a href="grid.html"> <i
+														class="fa fa-angle-right"></i> <span>Grid</span>
+												</a></li>
+												<li><a href="widgets.html"> <b
+														class="badge pull-right">8</b> <i
+														class="fa fa-angle-right"></i> <span>Widgets</span>
+												</a></li>
+												<li><a href="components.html"> <i
+														class="fa fa-angle-right"></i> <span>Components</span>
+												</a></li>
+												<li><a href="list.html"> <i
+														class="fa fa-angle-right"></i> <span>List group</span>
+												</a></li>
+												<li><a href="#table"> <i
+														class="fa fa-angle-down text"></i> <i
+														class="fa fa-angle-up text-active"></i> <span>Table</span>
+												</a>
+													<ul class="nav bg">
+														<li><a href="table-static.html"> <i
+																class="fa fa-angle-right"></i> <span>Table static</span>
+														</a></li>
+														<li><a href="table-datatable.html"> <i
+																class="fa fa-angle-right"></i> <span>Datatable</span>
+														</a></li>
+														<li><a href="table-datagrid.html"> <i
+																class="fa fa-angle-right"></i> <span>Datagrid</span>
+														</a></li>
+													</ul></li>
+												<li><a href="#form"> <i
+														class="fa fa-angle-down text"></i> <i
+														class="fa fa-angle-up text-active"></i> <span>Form</span>
+												</a>
+													<ul class="nav bg">
+														<li><a href="form-elements.html"> <i
+																class="fa fa-angle-right"></i> <span>Form
+																	elements</span>
+														</a></li>
+														<li><a href="form-validation.html"> <i
+																class="fa fa-angle-right"></i> <span>Form
+																	validation</span>
+														</a></li>
+														<li><a href="form-wizard.html"> <i
+																class="fa fa-angle-right"></i> <span>Form wizard</span>
+														</a></li>
+													</ul></li>
+												<li><a href="chart.html"> <i
+														class="fa fa-angle-right"></i> <span>Chart</span>
+												</a></li>
+												<li><a href=""> <i
+														class="fa fa-angle-right"></i> <span>Fullcalendar</span>
+												</a></li>
+												<li><a href="portlet.html"> <i
+														class="fa fa-angle-right"></i> <span>Portlet</span>
+												</a></li>
+												<li><a href="timeline.html"> <i
+														class="fa fa-angle-right"></i> <span>Timeline</span>
+												</a></li>
+											</ul></li>
+										<li><a href="#pages"> <i
+												class="fa fa-file-text icon"> <b class="bg-primary"></b>
+											</i> <span class="pull-right"> <i
+													class="fa fa-angle-down text"></i> <i
+													class="fa fa-angle-up text-active"></i>
+											</span> <span>Pages</span>
+										</a>
+											<ul class="nav lt">
+												<li><a href="gallery.html"> <i
+														class="fa fa-angle-right"></i> <span>Gallery</span>
+												</a></li>
+												<li><a href="profile.html"> <i
+														class="fa fa-angle-right"></i> <span>Profile</span>
+												</a></li>
+												<li><a href="invoice.html"> <i
+														class="fa fa-angle-right"></i> <span>Invoice</span>
+												</a></li>
+												<li><a href="intro.html"> <i
+														class="fa fa-angle-right"></i> <span>Intro</span>
+												</a></li>
+												<li><a href="master.html"> <i
+														class="fa fa-angle-right"></i> <span>Master</span>
+												</a></li>
+												<li><a href="gmap.html"> <i
+														class="fa fa-angle-right"></i> <span>Google Map</span>
+												</a></li>
+												<li><a href="jvectormap.html"> <i
+														class="fa fa-angle-right"></i> <span>Vector Map</span>
+												</a></li>
+												<li><a href="login.jsp"> <i
+														class="fa fa-angle-right"></i> <span>Signin</span>
+												</a></li>
+												<li><a href="signup.html"> <i
+														class="fa fa-angle-right"></i> <span>Signup</span>
+												</a></li>
+												<li><a href="404.html"> <i
+														class="fa fa-angle-right"></i> <span>404</span>
+												</a></li>
+											</ul></li>
+										<li><a href="mail.html"> <b
+												class="badge bg-danger pull-right">3</b> <i
+												class="fa fa-envelope-o icon"> <b
+													class="bg-primary dker"></b>
+											</i> <span>Message</span>
+										</a></li>
+										<li><a href="notebook.html"> <i
+												class="fa fa-pencil icon"> <b class="bg-info"></b>
+											</i> <span>Notes</span>
+										</a></li>
+									</ul>
+								</nav>
+									<!-- / nav -->
+								</div>
+						</section>
+						<footer class="footer lt hidden-xs b-t b-light">
+							<div id="chat" class="dropup">
+								<section class="dropdown-menu on aside-md m-l-n">
+									<section class="panel bg-white">
+										<header class="panel-heading b-b b-light">Active
+											chats</header>
+										<div class="panel-body animated fadeInRight">
+											<p class="text-sm">No active chats.</p>
+											<p>
+												<a href="#" class="btn btn-sm btn-default">Start
+													a chat</a>
+											</p>
+										</div>
+									</section>
+								</section>
+							</div>
+							<div id="invite" class="dropup">
+								<section class="dropdown-menu on aside-md m-l-n">
+									<section class="panel bg-white">
+										<header class="panel-heading b-b b-light">
+											John <i class="fa fa-circle text-success"></i>
+										</header>
+										<div class="panel-body animated fadeInRight">
+											<p class="text-sm">No contacts in your lists.</p>
+											<p>
+												<a href="#" class="btn btn-sm btn-facebook"><i
+													class="fa fa-fw fa-facebook"></i> Invite from Facebook</a>
+											</p>
+										</div>
+									</section>
+								</section>
+							</div>
+							<a href="#nav" data-toggle="class:nav-xs"
+								class="pull-right btn btn-sm btn-default btn-icon"> <i
+								class="fa fa-angle-left text"></i> <i
+								class="fa fa-angle-right text-active"></i>
+							</a>
+							<div class="btn-group hidden-nav-xs">
+								<button type="button" title="Chats"
+									class="btn btn-icon btn-sm btn-default" data-toggle="dropdown"
+									data-target="#chat">
+									<i class="fa fa-comment-o"></i>
+								</button>
+								<button type="button" title="Contacts"
+									class="btn btn-icon btn-sm btn-default" data-toggle="dropdown"
+									data-target="#invite">
+									<i class="fa fa-facebook"></i>
+								</button>
+							</div>
+						</footer>
+					</section>
+				</aside>
+				<!-- /.aside -->
+				<section id="content">
+					<section class="hbox stretch">
+						<!-- .aside -->
+						<aside>
+							<section class="vbox">
+								<section class="scrollable wrapper">
+									<section class="panel panel-default">
+										<header class="panel-heading bg-light clearfix">
+											<div class="btn-group pull-right" data-toggle="buttons">
+												<label class="btn btn-sm btn-bg btn-default active"
+													id="monthview"> <input type="radio" name="options">Month
+												</label> <label class="btn btn-sm btn-bg btn-default" id="weekview">
+													<input type="radio" name="options">Week
+												</label> <label class="btn btn-sm btn-bg btn-default" id="dayview">
+													<input type="radio" name="options">Day
+												</label>
+											</div>
+											<span class="m-t-xs inline"> Fullcalendar </span>
+										</header>
+										<div class="calendar fc fc-ltr" id="calendar">
+											<table class="fc-header" style="width: 100%">
+												<tbody>
+													<tr>
+														<td class="fc-header-left"><span
+															class="fc-button fc-button-prev fc-state-default fc-corner-left fc-corner-right"
+															unselectable="on"><span class="fc-text-arrow">‹</span></span></td>
+														<td class="fc-header-center"><span
+															class="fc-header-title"><h2>October 2014</h2></span></td>
+														<td class="fc-header-right"><span
+															class="fc-button fc-button-next fc-state-default fc-corner-left fc-corner-right"
+															unselectable="on"><span class="fc-text-arrow">›</span></span></td>
+													</tr>
+												</tbody>
+											</table>
+											<div class="fc-content" style="position: relative;">
+												<div class="fc-view fc-view-month fc-grid"
+													style="position: relative" unselectable="on">
+													<div class="fc-event-container"
+														style="position: absolute; z-index: 8; top: 0; left: 0">
+														<div
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+															style="position: absolute; left: 354px; width: 100px; top: 40px;">
+															<div class="fc-event-inner">
+																<span class="fc-event-title">All Day Event</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+														</div>
+														<div
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end bg-primary"
+															style="position: absolute; left: 237px; width: 451px; top: 237px;">
+															<div class="fc-event-inner">
+																<span class="fc-event-title">Long Event</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+														</div>
+														<div
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+															style="position: absolute; left: 237px; width: 100px; top: 263px;">
+															<div class="fc-event-inner">
+																<span class="fc-event-time">4p</span><span
+																	class="fc-event-title">Event</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+														</div>
+														<div
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+															style="position: absolute; left: 471px; width: 100px; top: 335px;">
+															<div class="fc-event-inner">
+																<span class="fc-event-time">4p</span><span
+																	class="fc-event-title">Repeating Event</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+														</div>
+														<div
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+															style="position: absolute; left: 3px; width: 100px; top: 335px;">
+															<div class="fc-event-inner">
+																<span class="fc-event-time">10:30a</span><span
+																	class="fc-event-title">Meeting</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+														</div>
+														<div
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+															style="position: absolute; left: 3px; width: 100px; top: 361px;">
+															<div class="fc-event-inner">
+																<span class="fc-event-time">12p</span><span
+																	class="fc-event-title">Lunch</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+														</div>
+														<div
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+															style="position: absolute; left: 120px; width: 100px; top: 335px;">
+															<div class="fc-event-inner">
+																<span class="fc-event-time">7p</span><span
+																	class="fc-event-title">Birthday Party</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+														</div>
+														<a href="http://google.com/"
+															class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"
+															style="position: absolute; left: 237px; width: 217px; top: 433px;"><div
+																class="fc-event-inner">
+																<span class="fc-event-title">Click for Google</span>
+															</div>
+															<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div></a>
+													</div>
+													<table class="fc-border-separate" style="width: 100%"
+														cellspacing="0">
+														<thead>
+															<tr class="fc-first fc-last">
+																<th
+																	class="fc-day-header fc-sun fc-widget-header fc-first"
+																	style="width: 117px;">Sun</th>
+																<th class="fc-day-header fc-mon fc-widget-header"
+																	style="width: 117px;">Mon</th>
+																<th class="fc-day-header fc-tue fc-widget-header"
+																	style="width: 117px;">Tue</th>
+																<th class="fc-day-header fc-wed fc-widget-header"
+																	style="width: 117px;">Wed</th>
+																<th class="fc-day-header fc-thu fc-widget-header"
+																	style="width: 117px;">Thu</th>
+																<th class="fc-day-header fc-fri fc-widget-header"
+																	style="width: 117px;">Fri</th>
+																<th
+																	class="fc-day-header fc-sat fc-widget-header fc-last">Sat</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr class="fc-week fc-first">
+																<td
+																	class="fc-day fc-sun fc-widget-content fc-other-month fc-past fc-first"
+																	data-date="2014-09-28"><div
+																		style="min-height: 98px;">
+																		<div class="fc-day-number">28</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-mon fc-widget-content fc-other-month fc-past"
+																	data-date="2014-09-29"><div>
+																		<div class="fc-day-number">29</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-tue fc-widget-content fc-other-month fc-past"
+																	data-date="2014-09-30"><div>
+																		<div class="fc-day-number">30</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-wed fc-widget-content fc-past"
+																	data-date="2014-10-01"><div>
+																		<div class="fc-day-number">1</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-thu fc-widget-content fc-past"
+																	data-date="2014-10-02"><div>
+																		<div class="fc-day-number">2</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-fri fc-widget-content fc-past"
+																	data-date="2014-10-03"><div>
+																		<div class="fc-day-number">3</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-sat fc-widget-content fc-past fc-last"
+																	data-date="2014-10-04"><div>
+																		<div class="fc-day-number">4</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+															</tr>
+															<tr class="fc-week">
+																<td
+																	class="fc-day fc-sun fc-widget-content fc-past fc-first"
+																	data-date="2014-10-05"><div
+																		style="min-height: 97px;">
+																		<div class="fc-day-number">5</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-mon fc-widget-content fc-past"
+																	data-date="2014-10-06"><div>
+																		<div class="fc-day-number">6</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-tue fc-widget-content fc-past"
+																	data-date="2014-10-07"><div>
+																		<div class="fc-day-number">7</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-wed fc-widget-content fc-past"
+																	data-date="2014-10-08"><div>
+																		<div class="fc-day-number">8</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-thu fc-widget-content fc-past"
+																	data-date="2014-10-09"><div>
+																		<div class="fc-day-number">9</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-fri fc-widget-content fc-past"
+																	data-date="2014-10-10"><div>
+																		<div class="fc-day-number">10</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-sat fc-widget-content fc-past fc-last"
+																	data-date="2014-10-11"><div>
+																		<div class="fc-day-number">11</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+															</tr>
+															<tr class="fc-week">
+																<td
+																	class="fc-day fc-sun fc-widget-content fc-past fc-first"
+																	data-date="2014-10-12"><div
+																		style="min-height: 97px;">
+																		<div class="fc-day-number">12</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-mon fc-widget-content fc-past"
+																	data-date="2014-10-13"><div>
+																		<div class="fc-day-number">13</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-tue fc-widget-content fc-past"
+																	data-date="2014-10-14"><div>
+																		<div class="fc-day-number">14</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-wed fc-widget-content fc-past"
+																	data-date="2014-10-15"><div>
+																		<div class="fc-day-number">15</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-thu fc-widget-content fc-past"
+																	data-date="2014-10-16"><div>
+																		<div class="fc-day-number">16</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-fri fc-widget-content fc-past"
+																	data-date="2014-10-17"><div>
+																		<div class="fc-day-number">17</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-sat fc-widget-content fc-past fc-last"
+																	data-date="2014-10-18"><div>
+																		<div class="fc-day-number">18</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+															</tr>
+															<tr class="fc-week">
+																<td
+																	class="fc-day fc-sun fc-widget-content fc-today fc-state-highlight fc-first"
+																	data-date="2014-10-19"><div
+																		style="min-height: 97px;">
+																		<div class="fc-day-number">19</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-mon fc-widget-content fc-future"
+																	data-date="2014-10-20"><div>
+																		<div class="fc-day-number">20</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-tue fc-widget-content fc-future"
+																	data-date="2014-10-21"><div>
+																		<div class="fc-day-number">21</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-wed fc-widget-content fc-future"
+																	data-date="2014-10-22"><div>
+																		<div class="fc-day-number">22</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-thu fc-widget-content fc-future"
+																	data-date="2014-10-23"><div>
+																		<div class="fc-day-number">23</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-fri fc-widget-content fc-future"
+																	data-date="2014-10-24"><div>
+																		<div class="fc-day-number">24</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-sat fc-widget-content fc-future fc-last"
+																	data-date="2014-10-25"><div>
+																		<div class="fc-day-number">25</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 52px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+															</tr>
+															<tr class="fc-week">
+																<td
+																	class="fc-day fc-sun fc-widget-content fc-future fc-first"
+																	data-date="2014-10-26"><div
+																		style="min-height: 97px;">
+																		<div class="fc-day-number">26</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-mon fc-widget-content fc-future"
+																	data-date="2014-10-27"><div>
+																		<div class="fc-day-number">27</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-tue fc-widget-content fc-future"
+																	data-date="2014-10-28"><div>
+																		<div class="fc-day-number">28</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-wed fc-widget-content fc-future"
+																	data-date="2014-10-29"><div>
+																		<div class="fc-day-number">29</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-thu fc-widget-content fc-future"
+																	data-date="2014-10-30"><div>
+																		<div class="fc-day-number">30</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td class="fc-day fc-fri fc-widget-content fc-future"
+																	data-date="2014-10-31"><div>
+																		<div class="fc-day-number">31</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-sat fc-widget-content fc-other-month fc-future fc-last"
+																	data-date="2014-11-01"><div>
+																		<div class="fc-day-number">1</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 26px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+															</tr>
+															<tr class="fc-week fc-last">
+																<td
+																	class="fc-day fc-sun fc-widget-content fc-other-month fc-future fc-first"
+																	data-date="2014-11-02"><div
+																		style="min-height: 98px;">
+																		<div class="fc-day-number">2</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-mon fc-widget-content fc-other-month fc-future"
+																	data-date="2014-11-03"><div>
+																		<div class="fc-day-number">3</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-tue fc-widget-content fc-other-month fc-future"
+																	data-date="2014-11-04"><div>
+																		<div class="fc-day-number">4</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-wed fc-widget-content fc-other-month fc-future"
+																	data-date="2014-11-05"><div>
+																		<div class="fc-day-number">5</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-thu fc-widget-content fc-other-month fc-future"
+																	data-date="2014-11-06"><div>
+																		<div class="fc-day-number">6</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-fri fc-widget-content fc-other-month fc-future"
+																	data-date="2014-11-07"><div>
+																		<div class="fc-day-number">7</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+																<td
+																	class="fc-day fc-sat fc-widget-content fc-other-month fc-future fc-last"
+																	data-date="2014-11-08"><div>
+																		<div class="fc-day-number">8</div>
+																		<div class="fc-day-content">
+																			<div style="position: relative; height: 0px;">&nbsp;</div>
+																		</div>
+																	</div></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</section>
+								</section>
+							</section>
+						</aside>
+						<!-- /.aside -->
+						<!-- .aside -->
+						<aside class="aside-lg b-l">
+							<div class="padder">
+								<h5>Dragable events</h5>
+								<div class="line"></div>
+								<div id="myEvents"
+									class="pillbox clearfix m-b no-border no-padder">
+									<ul>
+										<li class="label bg-dark ui-draggable"
+											style="position: relative;">Item One</li>
+										<li class="label bg-success ui-draggable"
+											style="position: relative;">Item Two</li>
+										<li class="label bg-warning ui-draggable"
+											style="position: relative;">Item Three</li>
+										<li class="label bg-danger ui-draggable"
+											style="position: relative;">Item Four</li>
+										<li class="label bg-info ui-draggable"
+											style="position: relative;">Item Five</li>
+										<li class="label bg-primary ui-draggable"
+											style="position: relative;">Item Six</li>
+										<input type="text" placeholder="add an event">
+									</ul>
+								</div>
+								<div class="line"></div>
+								<div class="checkbox">
+									<label class="checkbox-custom"><input type="checkbox"
+										id="drop-remove"><i class="fa fa-square-o"></i> remove
+										after drop</label>
+								</div>
+							</div>
+						</aside>
+						<!-- /.aside -->
+					</section>
+					<a href="#" class="hide nav-off-screen-block"
+						data-toggle="class:nav-off-screen, open" data-target="#nav,html"></a>
+				</section>
+				<aside class="bg-light lter b-l aside-md hide" id="notes">
+					<div class="wrapper">Notification</div>
+				</aside>
+			</section>
+		</section>
+	</section>
+	<!-- Bootstrap -->
+	<!-- App -->
+	<script src="./fullcalendar_files/app.v1.js"></script>
+	<!-- fuelux -->
+	<script src="./fullcalendar_files/fuelux.js"></script>
+	<!-- fullcalendar -->
+	<script src="./fullcalendar_files/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="./fullcalendar_files/jquery.ui.touch-punch.min.js"></script>
+	<script src="./fullcalendar_files/fullcalendar.min.js"></script>
+	<script src="./fullcalendar_files/demo.js"></script>
+	<script src="./fullcalendar_files/app.plugin.js"></script>
+</body>
+</html>

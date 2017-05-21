@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.NewsPushedMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.NewsPushed" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="HOST_IMG" property="hostImg" jdbcType="VARCHAR" />
+    <result column="SEND_TIME" property="sendTime" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="CHAINING" property="chaining" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TIME" property="operatorTime" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, HOST_IMG, SEND_TIME, TITLE, CHAINING, OPERATOR, OPERATOR_TIME,IS_DEL
+  </sql>
+  
+  <!--  消息推送列表页 -->
+  <select id="QueryAll" resultType="com.syhbuy.spay.admin.entity.NewsPushed" parameterType="com.syhbuy.spay.admin.entity.NewsPushed" >
+    select 
+    ID as id,
+    HOST_IMG as hostImg,
+    SEND_TIME as sendTime,
+    TITLE as title,
+    CHAINING as chaining,
+    OPERATOR as operator,
+    IS_DEL as isDel,
+    OPERATOR_TIME as operatorTime
+    	from 
+    T_PAY_NEWS_PUSHED 
+    where 1=1 
+	<if test="title!=null and title!=''">
+     and TITLE like '%'||#{title,jdbcType=VARCHAR}||'%'
+    </if>
+    and IS_DEL='0'
+    order by sendTime desc
+  </select>
+  
+  <!-- 消息推送 --> 
+  <insert id="add" parameterType="com.syhbuy.spay.admin.entity.NewsPushed" >
+      	<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      	select lpad(T_PAY_NEWS_PUSHED_sequence.nextval,32,0) from dual
+		</selectKey>
+    insert into T_PAY_NEWS_PUSHED (
+    	ID,
+    	TITLE,  
+    	HOST_IMG, 
+    	SEND_TIME, 
+        CHAINING, 
+        OPERATOR,
+        IS_DEL, 
+        OPERATOR_TIME
+      )
+    values
+     (#{id,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, 
+      #{hostImg,jdbcType=VARCHAR}, 
+      #{sendTime,jdbcType=VARCHAR}, 
+      #{chaining,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, 
+      #{operatorTime,jdbcType=VARCHAR})
+  </insert>
+  
+  <!--推送详情-->
+  <select id="detailsById" resultType="com.syhbuy.spay.admin.entity.NewsPushed">
+       select 
+     	ID as id,
+    	TITLE as title,  
+    	HOST_IMG as hostImg, 
+    	SEND_TIME as sendTime, 
+        CHAINING as chaining, 
+        OPERATOR as operator, 
+        IS_DEL as isDel,
+        OPERATOR_TIME as operatorTime
+        from T_PAY_NEWS_PUSHED
+      	where id = #{id,jdbcType=VARCHAR} 
+  </select>
+  
+  <!-- 删除推送消息 -->
+  <!-- <delete id="deleteNewsPushed" parameterType="java.lang.String" >
+    delete from T_PAY_NEWS_PUSHED
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete> -->
+  
+  <update id="deleteNewsPushed" parameterType="java.lang.String">
+		update T_PAY_NEWS_PUSHED
+		<set>
+				IS_DEL = '1'
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+  
+  <insert id="insert" parameterType="com.syhbuy.spay.admin.entity.NewsPushed" >
+    insert into T_PAY_NEWS_PUSHED (ID, HOST_IMG, SEND_TIME, 
+      TITLE, CHAINING, OPERATOR, 
+      OPERATOR_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{hostImg,jdbcType=VARCHAR}, #{sendTime,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{chaining,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{operatorTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.syhbuy.spay.admin.entity.NewsPushed" >
+    insert into T_PAY_NEWS_PUSHED
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="hostImg != null" >
+        HOST_IMG,
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="chaining != null" >
+        CHAINING,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="operatorTime != null" >
+        OPERATOR_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="hostImg != null" >
+        #{hostImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="chaining != null" >
+        #{chaining,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTime != null" >
+        #{operatorTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.syhbuy.spay.admin.entity.NewsPushed" >
+    update T_PAY_NEWS_PUSHED
+    <set >
+      <if test="hostImg != null" >
+        HOST_IMG = #{hostImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME = #{sendTime,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="chaining != null" >
+        CHAINING = #{chaining,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTime != null" >
+        OPERATOR_TIME = #{operatorTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.syhbuy.spay.admin.entity.NewsPushed" >
+    update T_PAY_NEWS_PUSHED
+    set HOST_IMG = #{hostImg,jdbcType=VARCHAR},
+      SEND_TIME = #{sendTime,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      CHAINING = #{chaining,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPERATOR_TIME = #{operatorTime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

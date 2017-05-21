@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.BalanceRecordMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.BalanceRecord">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="BALANCE_ID" jdbcType="VARCHAR" property="balanceId" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="TRAN_ID" jdbcType="VARCHAR" property="tranId" />
+    <result column="AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="CONDITION" jdbcType="VARCHAR" property="condition" />
+    <result column="BEFORE_CHANG_BLANCE" jdbcType="DECIMAL" property="beforeChangBlance" />
+    <result column="AFTER_CHANGE_BLANCE" jdbcType="DECIMAL" property="afterChangeBlance" />
+    <result column="TRANSACTION_STATE" jdbcType="VARCHAR" property="transactionState" />
+    <result column="CREATE_DATE" jdbcType="VARCHAR" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="VARCHAR" property="updateDate" />
+    <result column="BUSINESS_FLOW" jdbcType="VARCHAR" property="businessFlow" />
+  </resultMap>
+  
+  <select id="findAllBalanceRecord" resultType="com.syhbuy.spay.admin.entity.BalanceRecord" parameterType="com.syhbuy.spay.admin.entity.BalanceRecord">
+     
+ select  
+      pm.ID as id,
+      pm.BALANCE_ID as balanceId,
+      pm.USER_ID as userId,
+      pm.TRAN_ID as tranId,
+      pm.AMOUNT as amount,
+      f.PHONE as phone,
+      f.LOGIN_TYPE as loginType,
+      case
+         WHEN pm.CONDITION='0' THEN '充值'
+         WHEN pm.CONDITION='1' THEN '支付'
+         WHEN pm.CONDITION='2' THEN '退款'
+         WHEN pm.CONDITION='3' THEN '提现'
+         WHEN pm.CONDITION='4' THEN '转账'
+         WHEN pm.CONDITION='5' THEN '面对面支付'
+         WHEN pm.CONDITION='6' THEN '收款'
+         WHEN pm.CONDITION='7' THEN '后台增款'
+         WHEN pm.CONDITION='8' THEN '后台减款'
+         WHEN pm.CONDITION='9' THEN '返现'
+       end as  condition ,   
+      pm.BEFORE_CHANG_BLANCE as beforeChangBlance,
+      pm.AFTER_CHANGE_BLANCE as afterChangeBlance,
+      case
+        WHEN pm.TRANSACTION_STATE='0' THEN '失败'
+        WHEN pm.TRANSACTION_STATE='1' THEN '成功'
+       end as transactionState,
+      pm.CREATE_DATE as createDate,
+      pm.UPDATE_DATE as updateDate,
+      pm.BUSINESS_FLOW as businessFlow
+      from T_PAY_BALANCE_RECORD pm 
+      left join t_pay_user_login_info f on f.user_id = pm.user_id
+      left join t_pay_user a on a.ID = pm.user_id
+	  where 1=1
+	  
+      <if test="condition != null and condition != ''">
+        and pm.CONDITION  LIKE '%'||#{condition}||'%'
+      </if>
+      <if test="phone != null and phone != ''">
+        and f.phone  LIKE '%'||#{phone}||'%'
+      </if>
+       <if test="transactionState != null and transactionState != ''">
+      and pm.TRANSACTION_STATE  LIKE '%'||#{transactionState}||'%'
+      </if>
+      <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+      and pm.CREATE_DATE between #{startTime} and #{endTime}
+     </if>
+  </select>
+
+   <insert id="save" parameterType="com.syhbuy.spay.admin.entity.BalanceRecord" >
+    
+    <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select lpad(T_PAY_BALANCE_RECORD_sequence.nextval,32,0) from dual
+    </selectKey>
+    
+    insert into T_PAY_BALANCE_RECORD(
+        ID,
+        BALANCE_ID,
+        USER_ID,
+        TRAN_ID,
+        AMOUNT,
+        CONDITION,
+        BEFORE_CHANG_BLANCE,
+        AFTER_CHANGE_BLANCE,
+        TRANSACTION_STATE,
+        CREATE_DATE
+        
+    	)
+      	values
+      	(
+        #{id,jdbcType=VARCHAR},
+        #{balanceId,jdbcType=VARCHAR},
+        #{userId,jdbcType=VARCHAR},
+        #{tranId,jdbcType=VARCHAR},
+        #{amount,jdbcType=DECIMAL},
+        #{condition,jdbcType=VARCHAR},
+        #{beforeChangBlance,jdbcType=DECIMAL},
+        #{afterChangeBlance,jdbcType=DECIMAL},
+        #{transactionState,jdbcType=VARCHAR},
+        #{createDate,jdbcType=VARCHAR})
+  </insert>
+</mapper>

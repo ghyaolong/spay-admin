@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.PayActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayActivity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="COUPON_SCALE" property="couponScale" jdbcType="DECIMAL" />
+    <result column="RELEASE_STATUS" property="releaseStatus" jdbcType="VARCHAR" />
+    <result column="ACTIVITY_BEGIN_TIME" property="activityBeginTime" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_END_TIME" property="activityEndTime" jdbcType="DECIMAL" />
+    <result column="COUPON_BEGIN_TIME" property="couponBeginTime" jdbcType="DECIMAL" />
+    <result column="COUPON_END_TIME" property="couponEndTime" jdbcType="DECIMAL" />
+    <result column="DIRECT_CATEGORY" property="directCategory" jdbcType="VARCHAR" />
+    <result column="DIRECT_OBJ_ID" property="directObjId" jdbcType="VARCHAR" />
+    <result column="RULE_DESC" property="ruleDesc" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="BUY_TYPE_DESC" property="buyTypeDesc" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+  </resultMap>
+
+   <!-- 平台活动列表页 -->
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.PayActivity" parameterType="com.syhbuy.spay.admin.entity.PayActivity">
+   select 
+  	ID as id,
+	TITLE as title,
+	COUPON_SCALE as couponScalse,
+<!-- 	RELEASE_STATUS as releaseStatus, -->
+	case 
+ 		 WHEN RELEASE_STATUS='0' THEN '保存' 
+ 		 WHEN RELEASE_STATUS='1' THEN '已发布' 
+ 		 WHEN RELEASE_STATUS='2' THEN '停用'
+	ELSE '已过期'
+  	end as releaseStatus,
+	ACTIVITY_BEGIN_TIME as activityBeginTime,
+	ACTIVITY_END_TIME as activityEndTime,
+	COUPON_BEGIN_TIME as couponBeginTime,
+	COUPON_END_TIME as couponEndTime,
+	DIRECT_CATEGORY as directCategory,
+	DIRECT_OBJ_ID as directObjId,
+	RULE_DESC as ruleDesc,
+	ICON as icon,
+	BUY_TYPE_DESC as buyTypeDesc
+	from T_PAY_ACTIVITY pm
+	where 1=1
+   <if test="title != null and title != ''" >
+      and pm.TITLE  LIKE '%'||#{title}||'%'
+   </if>
+    <if test="activityBeginTime != null and activityBeginTime != ''" >
+      and pm.ACTIVITY_BEGIN_TIME  LIKE '%'||#{activityBeginTime}||'%'
+   </if>
+    <if test="activityEndTime != null and activityEndTime != ''" >
+      and pm.ACTIVITY_END_TIME  LIKE '%'||#{activityEndTime}||'%'
+   </if>
+   <if test="releaseStatus != null and releaseStatus != ''" >
+      and pm.RELEASE_STATUS  LIKE '%'||#{releaseStatus}||'%'
+   </if>
+  </select>
+  <!-- 添加平台活动 -->
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.PayActivity">
+      <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select lpad(T_PAY_ACTIVITY_sequence.nextval,32,0) from dual
+      </selectKey>
+    insert into T_PAY_ACTIVITY (
+    	ID,
+		TITLE,
+		COUPON_SCALE,
+		RELEASE_STATUS,
+		ACTIVITY_BEGIN_TIME,
+		ACTIVITY_END_TIME,
+		COUPON_BEGIN_TIME,
+		COUPON_END_TIME,
+		DIRECT_CATEGORY,
+		DIRECT_OBJ_ID,
+		RULE_DESC,
+		ICON,
+		BUY_TYPE_DESC
+      )
+    values (
+       #{id,jdbcType=VARCHAR}, 
+       #{title,jdbcType=VARCHAR}, 
+       #{couponScalse,jdbcType=DECIMAL},
+       #{releaseStatus,jdbcType=VARCHAR},
+       #{activityBeginTime,jdbcType=DECIMAL},
+       #{activityEndTime,jdbcType=DECIMAL},
+       #{couponBeginTime,jdbcType=DECIMAL},
+       #{couponEndTime,jdbcType=DECIMAL},
+       #{directCategory,jdbcType=VARCHAR},
+       #{directObjId,jdbcType=VARCHAR},
+       #{ruleDesc,jdbcType=VARCHAR}, 
+       #{icon,jdbcType=VARCHAR}, 
+       #{buyTypeDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+   <!-- 删除平台活动 -->
+  <delete id="deletePayActivity" parameterType="java.lang.String">
+    delete from T_PAY_ACTIVITY
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <!-- 根据ID查询 -->
+  <select id="getPayActivityById" resultType="com.syhbuy.spay.admin.entity.PayActivity">
+    select 
+    ID as id,
+	TITLE as title,
+	COUPON_SCALE as couponScalse,
+	RELEASE_STATUS as releaseStatus,
+	ACTIVITY_BEGIN_TIME as activityBeginTime,
+	ACTIVITY_END_TIME as activityEndTime,
+	COUPON_BEGIN_TIME as couponBeginTime,
+	COUPON_END_TIME as couponEndTime,
+	DIRECT_CATEGORY as directCategory,
+	DIRECT_OBJ_ID as directObjId,
+	RULE_DESC as ruleDesc,
+	ICON as icon,
+	BUY_TYPE_DESC as buyTypeDesc
+	from T_PAY_ACTIVITY
+     where ID=#{id}
+  </select>
+  <!-- 修改平台活动 -->
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.PayActivity">
+    update T_PAY_ACTIVITY
+    set 
+      TITLE = #{title,jdbcType=VARCHAR},
+      COUPON_SCALE = #{couponScalse,jdbcType=DECIMAL},
+      RELEASE_STATUS = #{releaseStatus,jdbcType=VARCHAR},
+      ACTIVITY_BEGIN_TIME = #{activityBeginTime,jdbcType=DECIMAL},
+      ACTIVITY_END_TIME = #{activityEndTime,jdbcType=DECIMAL},
+      COUPON_BEGIN_TIME = #{couponBeginTime,jdbcType=DECIMAL},
+      COUPON_END_TIME = #{couponEndTime,jdbcType=DECIMAL},
+      DIRECT_CATEGORY = #{directCategory,jdbcType=VARCHAR},
+      DIRECT_OBJ_ID = #{directObjId,jdbcType=VARCHAR},
+      RULE_DESC = #{ruleDesc,jdbcType=VARCHAR},
+      ICON = #{icon,jdbcType=VARCHAR},
+      BUY_TYPE_DESC = #{buyTypeDesc,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syhbuy.spay.admin.dao.OrientMapper">
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.Address">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CONSIGNEE" jdbcType="VARCHAR" property="consignee" />
+    <result column="CONTACT_TEL" jdbcType="VARCHAR" property="contactTel" />
+    <result column="CONTACT_MACHINE" jdbcType="VARCHAR" property="contactMachine" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="AREA" jdbcType="VARCHAR" property="area" />
+    <result column="STREET" jdbcType="VARCHAR" property="street" />
+    <result column="DETAIL_ADDRESS" jdbcType="VARCHAR" property="detailAddress" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    
+    <result column="CASH_COUPON_ID" property="cashCouponId" jdbcType="VARCHAR" />
+    <result column="ORIGIN" property="origin" jdbcType="VARCHAR" />
+	<result column="ORIGIN_ID" property="originId" jdbcType="VARCHAR" />
+	<result column="TITLE" property="title" jdbcType="VARCHAR" />
+	<result column="DENOMINATION" property="denomination" jdbcType="VARCHAR" />
+	<result column="COUPON_MONEY" property="couponMoney" jdbcType="DECIMAL" />
+	<result column="GENERATE_TIME" property="generateTime" jdbcType="DECIMAL" />
+	<result column="ENABLE_TIME" property="enableTime" jdbcType="DECIMAL" />
+	<result column="DISABLE_TIME" property="disableTime" jdbcType="DECIMAL" />
+	<result column="DIRECT_CATEGORY" property="directCategory" jdbcType="VARCHAR" />
+	<result column="DIRECT_OBJ_ID" property="directObjId" jdbcType="VARCHAR" />
+	<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	<result column="COUPON_SATUS" property="couponSatus" jdbcType="VARCHAR" />
+	<result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+	<result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+	<!-- 郭涛 2016-10-9 增加品类和店铺名称 -->
+	<!-- 店铺名称 -->
+	<result column="DIRECT_OBJ_ID_NAME" property="directObjIdName" jdbcType="VARCHAR" />
+	<!-- 品类名称 -->
+	<result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CONSIGNEE, CONTACT_TEL, CONTACT_MACHINE, PROVINCE, CITY, AREA, STREET, DETAIL_ADDRESS, 
+    USER_ID
+  </sql>
+  <select id="getAllDispenseRecord" resultType="com.syhbuy.spay.admin.entity.Orient" parameterType="com.syhbuy.spay.admin.entity.Orient">
+      select 
+	    o.id as id,
+	    o.CASH_COUPON_ID as cashCouponId,
+	    o.ORIGIN_ID as originId,
+	    o.TITLE as title,
+	    o.DENOMINATION as denomination,
+	    o.COUPON_MONEY as couponMoney,
+	    o.GENERATE_TIME as generateTime,
+	    o.ENABLE_TIME as enableTime,
+	    o.FAILURE_TIME as disableTime,
+	    o.DIRECT_OBJ_ID as directObjId,
+	    o.USER_ID as userId,
+	    u.user_name as userAccountName,
+	    case 
+	    	when o.RECEIVE_COUPON ='0' then '平台'
+	    	 when o.RECEIVE_COUPON ='1' then '商家'
+	    	 end as receiveCoupon,
+	    case   
+	     when o.DIRECT_CATEGORY ='0' then '业务'
+	     when o.DIRECT_CATEGORY ='1' then '品类'
+	     when o.DIRECT_CATEGORY ='2' then '商户'
+	    	 end as directCategory,
+	    case 
+	    when o.COUPON_SATUS = '0' then '使用中'
+	    when o.COUPON_SATUS = '1' then '已使用'
+	    when o.COUPON_SATUS = '2' then '已冻结'
+	    when o.COUPON_SATUS = '3' then '过期'
+	    	end as couponSatus
+	    
+ 	from T_PAY_DIRECT_COUPON o left join T_PAY_USER u on o.USER_ID = u.USER_ID where 1=1 
+ 		<!-- <if test="cashCouponId!=null and cashCouponId!=''">
+            and o.CASH_COUPON_ID like '%'||#{cashCouponId,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="originId!=null and originId!=''">
+            and o.ORIGIN_ID like '%'||#{originId,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="title!=null and title!=''">
+            and o.TITLE like '%'||#{title,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="denomination!=null and denomination!=''">
+            and o.DENOMINATION like '%'||#{denomination,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="couponMoney!=null and couponMoney!=''">
+            and o.COUPON_MONEY like '%'||#{couponMoney,jdbcType=VARCHAR}||'%'
+        </if> -->
+        <if test="userAccountName!=null and userAccountName!=''">
+            and u.user_name like '%'||#{userAccountName,jdbcType=VARCHAR}||'%'
+        </if>
+      
+  </select>
+  <select id="findById" resultType="com.syhbuy.spay.admin.entity.Orient" parameterType="com.syhbuy.spay.admin.entity.Orient">
+      select 
+	    o.id as id,
+	    o.CASH_COUPON_ID as cashCouponId,
+	    o.RECEIVE_COUPON as receiveCoupon,
+	    o.ORIGIN_ID as originId,
+	    o.TITLE as title,
+	    o.DENOMINATION as denomination,
+	    o.COUPON_MONEY as couponMoney,
+	    o.GENERATE_TIME as generateTime,
+	    o.ENABLE_TIME as enableTime,
+	    o.FAILURE_TIME as disableTime,
+	    o.DIRECT_CATEGORY as directCategory,
+	    o.DIRECT_OBJ_ID as directObjId,
+	    o.USER_ID as userId,
+	    o.COUPON_SATUS as couponSatus,
+	    u.user_name as userAccountName
+ 	from T_PAY_DIRECT_COUPON o left join T_PAY_USER u on o.USER_ID = u.USER_ID where o.id = #{id}
+      
+  </select>
+  
+  
+</mapper>

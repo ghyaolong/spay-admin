@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.BusinessDefMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.BusinessDef" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="BUSSINESS_ID" property="bussinessId" jdbcType="VARCHAR" />
+    <result column="BUSINESS_DESCRIBE" property="businessDescribe" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BUSSINESS_ID, BUSINESS_DESCRIBE, IS_DEL, DEL_TIME
+  </sql>
+  <select id="findAll" resultType="com.syhbuy.spay.admin.entity.BusinessDef" parameterType="com.syhbuy.spay.admin.entity.BusinessDef" >
+    select 
+    ID as id, 
+    BUSSINESS_ID as bussinessId, 
+    BUSINESS_DESCRIBE as businessDescribe, 
+    IS_DEL as isDel, 
+    DEL_TIME as delTime
+    from T_PAY_BUSINESS_DEF
+     where 1=1
+	<if test="bussinessId!=null and bussinessId!=''">
+         and BUSSINESS_ID like '%'||#{bussinessId,jdbcType=VARCHAR}||'%'
+    </if>
+	<if test="businessDescribe!=null and businessDescribe!=''">
+         and BUSINESS_DESCRIBE like '%'||#{businessDescribe,jdbcType=VARCHAR}||'%'
+    </if>
+  </select>
+  <delete id="deleteBusinessDef" parameterType="java.lang.String" >
+    delete from T_PAY_BUSINESS_DEF
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" parameterType="com.syhbuy.spay.admin.entity.BusinessDef" >
+      <selectKey keyProperty="id" resultType="String" order="BEFORE">
+         	select lpad(T_PAY_BUSINESS_DEF_sequence.nextval,32,0) from dual
+		</selectKey>
+    insert into T_PAY_BUSINESS_DEF (ID, BUSSINESS_ID, BUSINESS_DESCRIBE, 
+      IS_DEL, DEL_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{bussinessId,jdbcType=VARCHAR}, #{businessDescribe,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR}, #{delTime,jdbcType=DECIMAL})
+  </insert>
+  <!-- 根据ID查询 -->
+  <select id="findById" resultType="com.syhbuy.spay.admin.entity.BusinessDef">
+    select 
+    ID as id, 
+    BUSSINESS_ID as bussinessId, 
+    BUSINESS_DESCRIBE as businessDescribe, 
+    IS_DEL as isDel, 
+    DEL_TIME as delTime
+    from T_PAY_BUSINESS_DEF
+     where ID=#{id}
+  </select>
+  <update id="update" parameterType="com.syhbuy.spay.admin.entity.BusinessDef" >
+    update T_PAY_BUSINESS_DEF
+    set 
+      BUSSINESS_ID = #{bussinessId,jdbcType=VARCHAR},
+      BUSINESS_DESCRIBE = #{businessDescribe,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

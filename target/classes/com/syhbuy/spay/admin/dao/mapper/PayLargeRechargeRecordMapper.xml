@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syhbuy.spay.admin.dao.PayLargeRechargeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.syhbuy.spay.admin.entity.PayLargeRechargeRecord" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="PAY_ACCOUNT" property="payAccount" jdbcType="DECIMAL" />
+    <result column="RECHARGE_DATE" property="rechargeDate" jdbcType="DECIMAL" />
+    <result column="RECHARGE_TYPE" property="rechargeType" jdbcType="VARCHAR" />
+    <result column="RECHARGE_WAY" property="rechargeWay" jdbcType="VARCHAR" />
+    <result column="DRAWEE_ACCOUNT_NAME" property="draweeAccountName" jdbcType="VARCHAR" />
+    <result column="DRAWEE_ACCOUNT" property="draweeAccount" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="TRANFSER_BANK" property="tranfserBank" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TRANSFER_ORDER" property="transferOrder" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="STATE_DESC" property="stateDesc" jdbcType="VARCHAR" />
+    <result column="AUDITOR" property="auditor" jdbcType="VARCHAR" />
+    <result column="AUDIT_DATE" property="auditDate" jdbcType="DECIMAL" />
+    <result column="RESKEY" property="reskey" jdbcType="VARCHAR" />
+    <result column="BANK_FLOW" property="bankFlow" jdbcType="VARCHAR" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
+    <result column="DEL_TIME" property="delTime" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, PAY_ACCOUNT, RECHARGE_DATE, RECHARGE_TYPE, RECHARGE_WAY, DRAWEE_ACCOUNT_NAME, 
+    DRAWEE_ACCOUNT, CURRENCY, TRANFSER_BANK, REMARK, TRANSFER_ORDER, STATE, STATE_DESC, 
+    AUDITOR, AUDIT_DATE, RESKEY, BANK_FLOW, IS_DEL, DEL_TIME
+  </sql>
+ <!-- 充值审核列表页 -->
+  <!-- 状态(0审核中 1充值成功 2充值失败3审核成功4审核驳回) -->
+  <select id="queryAllRecord" resultType="com.syhbuy.spay.admin.entityVo.TopuPauditVo" parameterType="com.syhbuy.spay.admin.entityVo.TopuPauditVo">
+      select
+  	pm.ID as id,
+	pm.USER_ID as userId,
+	pm.PAY_ACCOUNT as payAccount,
+	pm.RECHARGE_DATE as rechargeDate,
+	pm.RECHARGE_TYPE as rechargeType,
+	pm.DRAWEE_ACCOUNT_NAME as draweeAccountName,
+	pm.DRAWEE_ACCOUNT as draweeAccount,
+	pm.CURRENCY as currency,
+	pm.TRANFSER_BANK as tranfserBank,
+	pm.REMARK as remark,
+	pm.TRANSFER_ORDER as transferOrder,
+	pm.STATE_DESC as stateDesc,
+	pm.AUDITOR as auditor,
+	pm.AUDIT_DATE as auditDate,
+	pm.RESKEY as reskey,
+	pm.BANK_FLOW as bankFlow,
+	pu.USER_NAME as userName,
+	i.PHONE as phone,
+    i.login_type as loginType,
+	br.TRAN_ID as tranId,
+	br.AMOUNT as amount,
+	br.CONDITION as condition,
+	br.CREATE_DATE as createDate,	
+	pb.BANKCARD as bankcard,
+	case 
+ 		 WHEN pm.RECHARGE_WAY='0' THEN '银联' 
+  		 WHEN pm.RECHARGE_WAY='1' THEN '微信' 
+  		 WHEN pm.RECHARGE_WAY='2' THEN '支付宝' 
+  		 WHEN pm.RECHARGE_WAY='3' THEN '易宝' 
+	ELSE '线下付款'
+  	end as rechargeWay,
+	case 
+ 		 WHEN pm.STATE='0' THEN '审核中' 
+ 		 WHEN pm.STATE='3' THEN '审核成功' 
+ 		 WHEN pm.STATE='4' THEN '审核驳回' 
+  	end as state 
+  from T_PAY_LARGE_RECHARGE_RECORD pm   
+  left join T_PAY_BALANCE_RECORD br on br.TRAN_ID = pm.RESKEY
+   left join T_PAY_USER pu on pu.Id = pm.user_id
+  left join T_PAY_BANKCARD pb on pb.user_Id = pu.Id
+  left join t_pay_user_login_info i on i.USER_ID = pu.id
+  WHERE 1=1
+  
+  <if test="userId != null and userId !=''">
+      and pm.USER_ID LIKE '%'||#{userId}||'%'
+  </if>
+  <if test="phone != null and phone !=''">
+      and i.PHONE LIKE '%'||#{phone}||'%'
+  </if>
+  <if test="bankcard != null and bankcard !=''">
+      and pb.BANKCARD LIKE '%'||#{bankcard}||'%'
+  </if>
+  <if test="rechargeWay != null and rechargeWay !=''">
+      and pm.RECHARGE_WAY LIKE '%'||#{rechargeWay}||'%'
+  </if>
+  <if test="state != null and state !=''">
+      and pm.STATE LIKE '%'||#{state}||'%'
+  </if>
+  <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+      and pm.RECHARGE_DATE between #{startTime} and #{endTime}
+  </if>
+   order by pm.RECHARGE_DATE desc
+  </select>
+    <!-- 审核 -->
+  <select id="topuPauditById" parameterType="com.syhbuy.spay.admin.entityVo.TopuPauditVo" resultType="com.syhbuy.spay.admin.entityVo.TopuPauditVo">
+     select
+  	pm.ID as id,
+	pm.USER_ID as userId,
+	pm.PAY_ACCOUNT as payAccount,
+	pm.RECHARGE_DATE as rechargeDate,
+	pm.RECHARGE_TYPE as rechargeType,
+	pm.DRAWEE_ACCOUNT_NAME as draweeAccountName,
+	pm.DRAWEE_ACCOUNT as draweeAccount,
+	pm.CURRENCY as currency,
+	pm.TRANFSER_BANK as tranfserBank,
+	pm.REMARK as remark,
+	pm.TRANSFER_ORDER as transferOrder,
+	pm.STATE_DESC as stateDesc,
+	pm.AUDITOR as auditor,
+	pm.AUDIT_DATE as auditDate,
+	pm.RESKEY as reskey,
+	pm.BANK_FLOW as bankFlow,	
+	pu.USER_NAME as userName,
+	i.PHONE as phone,
+    i.login_type as loginType,
+	br.TRAN_ID as tranId,
+	br.AMOUNT as amount,
+	br.CONDITION as condition,
+	br.CREATE_DATE as createDate,	
+	pb.BANKCARD as bankcard,
+	 <!-- 0银联 1微信 2支付宝3易宝4线下付款 -->
+	case 
+ 		 WHEN pm.RECHARGE_WAY='0' THEN '银联' 
+  		 WHEN pm.RECHARGE_WAY='1' THEN '微信' 
+  		 WHEN pm.RECHARGE_WAY='2' THEN '支付宝' 
+  		 WHEN pm.RECHARGE_WAY='3' THEN '易宝' 
+	ELSE '线下付款'
+  	end as rechargeWay,
+	case 
+ 		 WHEN pm.STATE='0' THEN '审核中' 
+ 		 WHEN pm.STATE='3' THEN '审核成功' 
+ 		 WHEN pm.STATE='4' THEN '审核驳回' 
+  	end as state 
+  from T_PAY_LARGE_RECHARGE_RECORD pm   
+  left join T_PAY_BALANCE_RECORD br on br.TRAN_ID = pm.RESKEY
+   left join T_PAY_USER pu on pu.Id = pm.user_id
+  left join T_PAY_BANKCARD pb on pb.user_Id = pu.Id
+  left join t_pay_user_login_info i on i.USER_ID = pu.id
+  
+  WHERE pm.ID = #{id,jdbcType=VARCHAR}
+     
+  </select>
+  
+  <!-- 提交审核 -->
+  <update id="topuPauditUpdate" parameterType="com.syhbuy.spay.admin.entityVo.MemberRecordVo">
+    update T_PAY_LARGE_RECHARGE_RECORD 
+    set
+	STATE=#{state,jdbcType=VARCHAR},
+	STATE_DESC=#{stateDesc,jdbcType=VARCHAR},
+	AUDIT_DATE=#{auditDate,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+    
+  </update>
+  
+</mapper>
